@@ -26,3 +26,12 @@
 
 ### Estadísticas
 **RF-15**: El sistema mostrará estadísticas sobre la biblioteca del usuario (libros leídos, páginas leídas, géneros, reto de lectura, media de días de lectura por libro, etc.).
+
+# Requisitos no funcionales
+
+**RNF-01**: La aplicación deberá disponer de una interfaz intuitiva y fácil de usar.
+**RNF-02**: La información almacenada deberá persistir entre sesiones.
+**RNF-03**: La aplicación deberá acceder a una base de datos relacional.
+**RNF-04**: Las consultas habituales deberán responder en un tiempo razonable (menos de 2s con una biblioteca de tamaño normal).
+**RNF-05**: La aplicación deberá registrar correctamente los errores producidos durante el scraping.
+**RNF-06**: La aplicación deberá permitir añadir nuevas tiendas para el scraping sin modificar el resto de la aplicación (escalabilidad).

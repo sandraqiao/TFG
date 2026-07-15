@@ -1,6 +1,10 @@
 # Diario de Decisiones
 
+## Tecnologías
 - Usar streamlit porque requiere menos esfuerzo para tener un front decente, y así poder centrarme en el back.
 - Usar PostgreSQL porque es un SGBD más completo y utilizado en empresas que escala mejor en caso de necesitarlo en un futuro.
 - Usar una API que recoga los datos de los libros y scraping solo para los precios de estos: una API es más rápida y requiere menos código que si scrapeamos por esos datos.
 - Usar SQLAlchemy para poder trabajar con los libros más cómodamente (como si fueran objetos).
+
+## Diagrama del dominio
+- Se ha decidido modelar el historial de precios como una entidad independiente (HistorialPrecios) en vez de considerarlo como un simple atributo de la relación entre Libro y Tienda como se había planteado en un principio, porque como quiero guardar mucha información por cada scraping que se haga (precio, fecha, tienda...) el atributo deja de ser estático y pasa a ser una entidad con info propia.
