@@ -1,6 +1,6 @@
 # Diseño físico
 
-## Libro
+### Libro
 
 | Campo | Tipo | Restricciones | Descripción |
 |-------|------|---------------|-------------|
@@ -18,21 +18,21 @@
 | en_wishlist | BOOLEAN | NOT NULL, DEFAULT FALSE | Booleano que indica si está el libro o no dentro de la lista de deseos |
 | prioridad_wishlist | SMALLINT | NULL, CHECK (1-5) | Prioridad asignada al libro dentro de la lista de deseos |
 
-## Saga
+### Saga
 
 | Campo | Tipo | Restricciones | Descripción |
 |-------|------|---------------|-------------|
 | id_saga | INTEGER | PK, AUTOINCREMENT | Identificador único para una saga |
 | nom_saga | VARCHAR(255) | NOT NULL | Nombre de la saga |
 
-## Autor
+### Autor
 
 | Campo | Tipo | Restricciones | Descripción |
 |-------|------|---------------|-------------|
 | id_autor | INTEGER | PK, AUTOINCREMENT | Identificador único para un autor |
 | nom_autor | VARCHAR(255) | NOT NULL | Nombre del autor |
 
-## AutorLibro
+### AutorLibro
 Tabla intermedia que representa la relación N:M entre autores y libros.
 
 | Campo | Tipo | Restricciones | Descripción |
@@ -40,7 +40,7 @@ Tabla intermedia que representa la relación N:M entre autores y libros.
 | id_libro | INTEGER | PK, FK, NOT NULL | Identificador único para un libro |
 | id_autor | INTEGER | PK, FK, NOT NULL | Identificador único para un autor |
 
-## Lectura
+### Lectura
 
 | Campo | Tipo | Restricciones | Descripción |
 |-------|------|---------------|-------------|
@@ -53,7 +53,7 @@ Tabla intermedia que representa la relación N:M entre autores y libros.
 | fecha_fin | DATE | NULL | Fecha final de lectura, solo si esta se ha llegado a completar (estado leído) |
 | formato | VARCHAR(255) | NOT NULL, CHECK (físico, ereader) | Formato en el que se ha realizado la lectura |
 
-## Tienda
+### Tienda
 
 | Campo | Tipo | Restricciones | Descripción |
 |-------|------|---------------|-------------|
@@ -61,7 +61,7 @@ Tabla intermedia que representa la relación N:M entre autores y libros.
 | nom_tienda | VARCHAR(255) | NOT NULL | Nombre de la tienda |
 | url_tienda | VARCHAR(255) | NOT NULL | URL de la tienda |
 
-## HistoricoPrecio
+### HistoricoPrecio
 
 | Campo | Tipo | Restricciones | Descripción |
 |-------|------|---------------|-------------|
