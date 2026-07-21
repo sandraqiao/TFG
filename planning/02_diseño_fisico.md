@@ -18,6 +18,7 @@ Tabla que almacena la información bibliográfica de cada obra registrada por el
 | editorial | VARCHAR(255) | NULL | Nombre de la editorial coincidente con el ISBN |
 | en_wishlist | BOOLEAN | NOT NULL, DEFAULT FALSE | Booleano que indica si está el libro o no dentro de la lista de deseos |
 | prioridad_wishlist | SMALLINT | NULL, CHECK (1-5) | Prioridad asignada al libro dentro de la lista de deseos |
+
 **Restricciones adicionales**
 - prioridad_wishlist solo se aplica si en_wishlist = true
 
@@ -58,6 +59,7 @@ Tabla que almacena la información personal de cada lectura realizada por el usu
 | fecha_ini | DATE | NOT NULL | Fecha de inicio de lectura |
 | fecha_fin | DATE | NULL | Fecha de finalización de la lectura |
 | formato | VARCHAR(255) | NOT NULL, CHECK (IN ('Físico', 'eReader')) | Formato en el que se ha realizado la lectura |
+
 **Restricciones adicionales**
 - fecha_fin >= fecha_ini
 
@@ -83,5 +85,6 @@ Tabla que almacena la información con los precios de los libros sobre los que s
 | fecha_consulta | DATE | NOT NULL | Fecha de la consulta |
 | disponible | BOOLEAN | NOT NULL | Disponibilidad en el momento de la consulta |
 | url_libro | TEXT | NOT NULL | URL correspondiente con la tienda y libro para poder realizar la compra |
+
 **Restricciones adicionales**
 - precio > 0
