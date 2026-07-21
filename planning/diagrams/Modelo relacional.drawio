@@ -107,7 +107,7 @@
           <mxGeometry height="30" width="120" y="90" as="geometry" />
         </mxCell>
         <mxCell id="ughanFrk9LF8G0aV5Lb7-39" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="HistoricoPrecio" vertex="1">
-          <mxGeometry height="300" width="120" x="690" y="300" as="geometry" />
+          <mxGeometry height="270" width="120" x="690" y="300" as="geometry" />
         </mxCell>
         <mxCell id="ughanFrk9LF8G0aV5Lb7-40" parent="ughanFrk9LF8G0aV5Lb7-39" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="id_precio (PK)" vertex="1">
           <mxGeometry height="30" width="120" y="30" as="geometry" />
@@ -124,17 +124,14 @@
         <mxCell id="ughanFrk9LF8G0aV5Lb7-42" parent="ughanFrk9LF8G0aV5Lb7-39" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="pct_descuento" vertex="1">
           <mxGeometry height="30" width="120" y="150" as="geometry" />
         </mxCell>
-        <mxCell id="ughanFrk9LF8G0aV5Lb7-43" parent="ughanFrk9LF8G0aV5Lb7-39" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="comentario" vertex="1">
+        <mxCell id="ughanFrk9LF8G0aV5Lb7-44" parent="ughanFrk9LF8G0aV5Lb7-39" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="fecha_consulta" vertex="1">
           <mxGeometry height="30" width="120" y="180" as="geometry" />
         </mxCell>
-        <mxCell id="ughanFrk9LF8G0aV5Lb7-44" parent="ughanFrk9LF8G0aV5Lb7-39" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="fecha_consulta" vertex="1">
+        <mxCell id="ughanFrk9LF8G0aV5Lb7-45" parent="ughanFrk9LF8G0aV5Lb7-39" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="disponible" vertex="1">
           <mxGeometry height="30" width="120" y="210" as="geometry" />
         </mxCell>
-        <mxCell id="ughanFrk9LF8G0aV5Lb7-45" parent="ughanFrk9LF8G0aV5Lb7-39" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="disponible" vertex="1">
-          <mxGeometry height="30" width="120" y="240" as="geometry" />
-        </mxCell>
         <mxCell id="ughanFrk9LF8G0aV5Lb7-46" parent="ughanFrk9LF8G0aV5Lb7-39" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="url_libro" vertex="1">
-          <mxGeometry height="30" width="120" y="270" as="geometry" />
+          <mxGeometry height="30" width="120" y="240" as="geometry" />
         </mxCell>
         <mxCell id="ughanFrk9LF8G0aV5Lb7-58" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="AutorLibro" vertex="1">
           <mxGeometry height="90" width="120" x="20" y="110" as="geometry" />
@@ -164,9 +161,6 @@
         </mxCell>
         <mxCell id="ughanFrk9LF8G0aV5Lb7-68" edge="1" parent="1" source="ughanFrk9LF8G0aV5Lb7-67" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="ughanFrk9LF8G0aV5Lb7-36">
           <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="OIEvG7NVfLPwp1SH0FSh-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="&amp;nbsp;Autor:&lt;div&gt;&lt;ul&gt;&lt;li&gt;id_autor: PK&lt;/li&gt;&lt;li&gt;nom_autor: not null&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" vertex="1">
-          <mxGeometry height="480" width="760" x="40" y="640" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
