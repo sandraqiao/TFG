@@ -20,3 +20,19 @@
 ## Diagrama Entidad-Relacion
 - Se ha modelado el ISBN como un atributo del libro utilizándolo como identificador bibliográfico de referencia aunque un libro pueda tener varios ISBNs distintos. Se pretende gestionar obras y no ediciones en concreto.
 - Las cardinalidades mínimas se han puesto de manera flexible (0) para que la lógica del dominio no afecte de manera negativa a la inserción progresiva de datos y evitar así dependencias cirulares durante la implementación.
+
+
+## 26/07/2026
+### Objetivos
+- Configurar el entorno de desarrillo
+- Comprobar que Streamlit funciona
+### Trabajo hecho
+- Creación del entorno virtual (venv)
+- Instalación de dependencias
+- Generación del requirements.txt
+- Configuración del .gitignore
+- Inicio correcto de Streamlit
+### Próximos pasos
+- Configurar PostgreSQL
+- Integrar SQLAlchemy
+- Crear los primeros modelos de la base de datos
