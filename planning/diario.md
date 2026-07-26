@@ -1,5 +1,13 @@
 # Diario de Decisiones
 
+## Ciclio personal de sesiones
+1. Definir qué quiero hacer.
+2. Pensar en métodos y clases que se necesiten.
+3. Implementar.
+4. Probar que funciona.
+5. Hacer un commit.
+6. Anotar en el diario decisiones importantes si ha habido alguna.
+
 ## Tecnologías
 - Usar streamlit porque requiere menos esfuerzo para tener un front decente, y así poder centrarme en el back.
 - Usar PostgreSQL porque es un SGBD más completo y utilizado en empresas que escala mejor en caso de necesitarlo en un futuro.
