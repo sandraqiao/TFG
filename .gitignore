@@ -8,7 +8,7 @@ __pycache__/
 # Archivos de VS Code
 .vscode/
 
-# Variables de entorno (si las usamos más adelante)
+# Variables de entorno
 .env
 
 # Archivos del sistema

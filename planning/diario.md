@@ -36,3 +36,14 @@
 - Configurar PostgreSQL
 - Integrar SQLAlchemy
 - Crear los primeros modelos de la base de datos
+
+## 27/07/2026
+### Objetivos
+- Configurar PostgreSQL
+- Integrar SQLAlchemy
+- Crear los primeros modelos de la base de datos
+### Trabajo hecho
+- Instalación de PostgreSQL
+- Creación de una bbdd en PostgreSQL para el proyecto
+- Conectar SQLAlchemy con PostgreSQL (database.py)
+- Inicio de la creación de la primera tabla "Libro" desde libro.py
