@@ -47,3 +47,14 @@
 - Creación de una bbdd en PostgreSQL para el proyecto
 - Conectar SQLAlchemy con PostgreSQL (database.py)
 - Inicio de la creación de la primera tabla "Libro" desde libro.py
+### Próximos pasos
+- Terminar modelos
+- Crear "constants" para las variables que sean listados cerrados.
+
+## 28/07/2026
+### Objetivos
+- Terminar los modelos de la base de datos
+- Crear "constants"
+- Crear las tablas en PostgreSQL
+- Comprobar que funciona el guardado
+### Trabajo hecho

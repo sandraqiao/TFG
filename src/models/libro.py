@@ -1,10 +1,9 @@
-import datetime as dt
-
-from sqlalchemy import Integer, String, Boolean, Date, Text, SmallInteger
-from sqlalchemy.orm import Mapped, mapped_column
-
 from database.base import Base
 
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Integer, String, Boolean, Date, Text, SmallInteger
+
+import datetime as dt
 
 class Libro(Base):
     __tablename__ = "libro"
