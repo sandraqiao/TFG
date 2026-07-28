@@ -81,7 +81,7 @@ Tabla que almacena la información con los precios de los libros sobre los que s
 | id_libro | INTEGER | FK, NOT NULL | Identificador único para un libro |
 | id_tienda | INTEGER | FK, NOT NULL | Identificador único para una tienda |
 | precio | NUMERIC(10,2) | NOT NULL | Precio en el momento que se ha hecho la consulta |
-| pct_descuento | NUMERIC(3,2) | NULL, CHECK (0-100) | Descuentos aplicables en el momento en el que se ha hecho la consulta |
+| pct_descuento | NUMERIC(5,2) | NULL, CHECK (0-100) | Descuentos aplicables en el momento en el que se ha hecho la consulta |
 | fecha_consulta | DATE | NOT NULL | Fecha de la consulta |
 | disponible | BOOLEAN | NOT NULL | Disponibilidad en el momento de la consulta |
 | url_libro | TEXT | NOT NULL | URL correspondiente con la tienda y libro para poder realizar la compra |
