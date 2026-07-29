@@ -68,6 +68,6 @@
 - Terminar los modelos de la bbdd
 - Crear las tablas en PostgreSQL
 - Comprobar que funciona el guardado
-- Crear "constants"
 ### Trabajo hecho
 - Modelos de la bbdd terminados
+- Creación de las tablas con SQLAlchemy y comprobado en PostgreSQL

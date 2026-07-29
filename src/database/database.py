@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 
 load_dotenv()
 
-# variables para la conexión a la bbdd
+# variables para la conexión a la bbdd (storeadas en el .env)
 DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT")
 DB_NAME = os.getenv("DB_NAME")

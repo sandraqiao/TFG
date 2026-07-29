@@ -1,3 +1,5 @@
+# CONEXIÓN CON STREAMLIT
+
 # import streamlit as st
 
 # st.set_page_config(
@@ -10,12 +12,28 @@
 
 # st.write("This is a simple Streamlit application that demonstrates how to create a web app using Python.")
 
-from models.libro import Libro
-from models.saga import Saga
-from models.autor import Autor
-from models.lectura import Lectura
-from models.tienda import Tienda
-from models.historico_precio import HistoricoPrecio
-from models.autor_libro import AutorLibro
+# ==========================================================================================================
 
-print("Todo fofa")
+#  PRUEBAS DE LOS MODELOS
+
+# from models.libro import Libro
+# from models.saga import Saga
+# from models.autor import Autor
+# from models.lectura import Lectura
+# from models.tienda import Tienda
+# from models.historico_precio import HistoricoPrecio
+# from models.autor_libro import AutorLibro
+
+# print("Todo fofa")
+
+# ==========================================================================================================
+
+# COMPROBACIÓN QUE METADATA TIENE TODOS LOS MODELOS
+import models
+from database.base import Base
+from database.database import engine
+
+# Base.metadata.create_all(engine)
+
+# ==========================================================================================================
+
