@@ -1,6 +1,8 @@
 from database.base import Base
+from models.autor_libro import AutorLibro
 from models.lectura import Lectura
 from models.historico_precio import HistoricoPrecio
+from models.saga import Saga
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, Integer, String, Boolean, Date, Text, SmallInteger
@@ -24,5 +26,7 @@ class Libro(Base):
     en_wishlist: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     prioridad_wishlist: Mapped[int|None] = mapped_column(SmallInteger, nullable=True)
 
-    lecturas: Mapped[list[Lectura]] = relationship()
-    precios: Mapped[list[HistoricoPrecio]] = relationship()
+    autoreslibros: Mapped[list[AutorLibro]] = relationship(back_populates="libro")
+    precios: Mapped[list[HistoricoPrecio]] = relationship(back_populates="libro")
+    lecturas: Mapped[list[Lectura]] = relationship(back_populates="libro")
+    saga: Mapped[Saga] = relationship(back_populates="libros")

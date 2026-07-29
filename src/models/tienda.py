@@ -11,4 +11,4 @@ class Tienda(Base):
     nom_tienda: Mapped[str] = mapped_column(String(255), nullable=False)
     url_tienda: Mapped[str] = mapped_column(Text, nullable=False)
 
-    precios: Mapped[list[HistoricoPrecio]] = relationship()
+    precios: Mapped[list[HistoricoPrecio]] = relationship(back_populates="tienda")

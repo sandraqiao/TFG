@@ -10,4 +10,4 @@ class Saga(Base):
     id_saga: Mapped[int] = mapped_column(Integer, primary_key=True)
     nom_saga: Mapped[str] = mapped_column(String(255), nullable=False)
     
-    libros: Mapped[list["Libro"]] = relationship()
+    libros: Mapped[list["Libro"]] = relationship(back_populates="saga")

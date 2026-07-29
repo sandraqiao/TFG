@@ -1,6 +1,7 @@
 from database.base import Base
+from models.libro import Libro
 
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, Integer, String, Text, Date
 
 import datetime as dt
@@ -16,3 +17,5 @@ class Lectura(Base):
     fecha_ini: Mapped[dt.date] = mapped_column(Date, nullable=False)
     fecha_fin: Mapped[dt.date|None] = mapped_column(Date, nullable=True)
     formato: Mapped[str] = mapped_column(String(255), nullable=False)
+
+    libro: Mapped["Libro"] = relationship(back_populates="lecturas")

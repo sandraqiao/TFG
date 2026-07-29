@@ -54,7 +54,20 @@
 ## 28/07/2026
 ### Objetivos
 - Terminar los modelos de la base de datos
-- Crear "constants"
 - Crear las tablas en PostgreSQL
 - Comprobar que funciona el guardado
+- Crear "constants"
 ### Trabajo hecho
+- Creación de los modelos con sus atributos básicos
+- Inicio de las relaciones (no terminado)
+### Próximos pasos
+- Seguir con lo que estaba haciendo y avanzar con los puntos no vistos aún
+
+## 29/07/2026
+### Objetivos
+- Terminar los modelos de la bbdd
+- Crear las tablas en PostgreSQL
+- Comprobar que funciona el guardado
+- Crear "constants"
+### Trabajo hecho
+- Modelos de la bbdd terminados

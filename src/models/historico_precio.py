@@ -1,6 +1,8 @@
 from database.base import Base
+from models.libro import Libro
+from models.tienda import Tienda
 
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, Integer, Numeric, Date, Boolean, Text
 
 from decimal import Decimal
@@ -17,3 +19,6 @@ class HistoricoPrecio(Base):
     fecha_consulta: Mapped[dt.date] = mapped_column(Date, nullable=False)
     disponible: Mapped[bool] = mapped_column(Boolean, nullable=False)
     url_libro: Mapped[str] = mapped_column(Text, nullable=False)
+
+    libro: Mapped[Libro] = relationship(back_populates="precios")
+    tienda: Mapped[Tienda] = relationship(back_populates="precios")
