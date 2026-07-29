@@ -29,11 +29,27 @@
 # ==========================================================================================================
 
 # COMPROBACIÓN QUE METADATA TIENE TODOS LOS MODELOS
-import models
-from database.base import Base
-from database.database import engine
+# import models
+# from database.base import Base
+# from database.database import engine
 
 # Base.metadata.create_all(engine)
 
 # ==========================================================================================================
 
+# CREAR UN LIBRO DE PRUEBA
+from sqlalchemy.orm import Session
+from database.database import engine
+from models.libro import Libro
+
+prueba = Libro(titulo="prueba", genero="probando", idioma="esp", en_wishlist=False)
+
+with Session(engine) as session:
+    session.begin()
+    try:
+        session.add(prueba)
+    except:
+        session.rollback()
+        raise
+    else:
+        session.commit()

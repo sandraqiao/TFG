@@ -71,3 +71,7 @@
 ### Trabajo hecho
 - Modelos de la bbdd terminados
 - Creación de las tablas con SQLAlchemy y comprobado en PostgreSQL
+- Creación de un libro de prueba y comprobación de que aparece en PostgreSQL correctamente
+### Próximos pasos
+- Falta por crear "constants"
+- Empezar con la lógica de la aplicación
