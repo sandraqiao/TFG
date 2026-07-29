@@ -1,10 +1,13 @@
 from database.base import Base
-from models.libro import Libro
+from typing import TYPE_CHECKING
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, Integer, String, Text, Date
 
 import datetime as dt
+
+if TYPE_CHECKING:
+    from models.libro import Libro
 
 class Lectura(Base):
     __tablename__ = "lectura"

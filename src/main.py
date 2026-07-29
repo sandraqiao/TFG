@@ -16,5 +16,6 @@ from models.autor import Autor
 from models.lectura import Lectura
 from models.tienda import Tienda
 from models.historico_precio import HistoricoPrecio
+from models.autor_libro import AutorLibro
 
 print("Todo fofa")

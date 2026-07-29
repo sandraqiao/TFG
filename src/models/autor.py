@@ -1,8 +1,11 @@
 from database.base import Base
-from models.autor_libro import AutorLibro
+from typing import TYPE_CHECKING
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String
+
+if TYPE_CHECKING:
+    from models.autor_libro import AutorLibro
 
 class Autor(Base):
     __tablename__ = "autor"

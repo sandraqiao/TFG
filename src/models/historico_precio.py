@@ -1,12 +1,15 @@
 from database.base import Base
-from models.libro import Libro
-from models.tienda import Tienda
+from typing import TYPE_CHECKING
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, Integer, Numeric, Date, Boolean, Text
 
 from decimal import Decimal
 import datetime as dt
+
+if TYPE_CHECKING:
+    from models.libro import Libro
+    from models.tienda import Tienda
 
 class HistoricoPrecio(Base):
     __tablename__ = "historico_precio"

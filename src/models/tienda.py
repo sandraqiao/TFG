@@ -1,8 +1,11 @@
 from database.base import Base
-from models.historico_precio import HistoricoPrecio
+from typing import TYPE_CHECKING
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String, Text
+
+if TYPE_CHECKING:
+    from models.historico_precio import HistoricoPrecio
 
 class Tienda(Base):
     __tablename__ = "tienda"

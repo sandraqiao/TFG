@@ -1,13 +1,16 @@
 from database.base import Base
-from models.autor_libro import AutorLibro
-from models.lectura import Lectura
-from models.historico_precio import HistoricoPrecio
-from models.saga import Saga
+from typing import TYPE_CHECKING
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, Integer, String, Boolean, Date, Text, SmallInteger
 
 import datetime as dt
+
+if TYPE_CHECKING:
+    from models.autor_libro import AutorLibro
+    from models.lectura import Lectura
+    from models.historico_precio import HistoricoPrecio
+    from models.saga import Saga
 
 class Libro(Base):
     __tablename__ = "libro"
