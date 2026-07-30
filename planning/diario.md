@@ -21,10 +21,21 @@
 - Se ha modelado el ISBN como un atributo del libro utilizándolo como identificador bibliográfico de referencia aunque un libro pueda tener varios ISBNs distintos. Se pretende gestionar obras y no ediciones en concreto.
 - Las cardinalidades mínimas se han puesto de manera flexible (0) para que la lógica del dominio no afecte de manera negativa a la inserción progresiva de datos y evitar así dependencias cirulares durante la implementación.
 
+## Diseño de la estructura de src
+- database: contiene el padre de los modelos (base.py) y el engine para poder conectarnos con PostgreSQL (database.py)
+- models: contiene los modelos que se usan y un archivo con todos los imports de estos (__init__.py)
+- repositories: contiene las llamadas directas a la bbdd
+- scraper: 
+- services: contiene toda la lógica del sistema y realiza todos los checks necesarios
+- ui: 
+- utils:
+    - constants: contiene las variables constantes de los atributos de los modelos
+
 ## Ideas que no se van a aplicar en esta versión del proyecto
 - Añadir a lectura idioma porque hoy te lees libro x en español y mañana te lo leer en inglés.
 
 
+# Diario de objetivos y trabajo realizado a partir del inicio del desarrollo
 ## 26/07/2026
 ### Objetivos
 - Configurar el entorno de desarrillo
@@ -83,6 +94,7 @@
 ### Objetivos
 - Crear "constants"
 - Diseñar la estructura de la capa de acceso a datos
+- Implementar CRUD de Saga
 - Implementar CRUD de Libro
-- Implementar CRUD de Lectura
 ### Trabajo hecho
+- Constanst creadas
