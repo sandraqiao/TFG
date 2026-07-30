@@ -21,6 +21,9 @@
 - Se ha modelado el ISBN como un atributo del libro utilizándolo como identificador bibliográfico de referencia aunque un libro pueda tener varios ISBNs distintos. Se pretende gestionar obras y no ediciones en concreto.
 - Las cardinalidades mínimas se han puesto de manera flexible (0) para que la lógica del dominio no afecte de manera negativa a la inserción progresiva de datos y evitar así dependencias cirulares durante la implementación.
 
+## Ideas que no se van a aplicar en esta versión del proyecto
+- Añadir a lectura idioma porque hoy te lees libro x en español y mañana te lo leer en inglés.
+
 
 ## 26/07/2026
 ### Objetivos
@@ -75,3 +78,11 @@
 ### Próximos pasos
 - Falta por crear "constants"
 - Empezar con la lógica de la aplicación
+
+## 30/07/2026
+### Objetivos
+- Crear "constants"
+- Diseñar la estructura de la capa de acceso a datos
+- Implementar CRUD de Libro
+- Implementar CRUD de Lectura
+### Trabajo hecho
