@@ -98,3 +98,5 @@
 - Implementar CRUD de Libro
 ### Trabajo hecho
 - Constanst creadas
+- Planeada la estructura de la capa de acceso a datos
+- Creado repository de saga
