@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from models.autor_libro import AutorLibro
     from models.lectura import Lectura
     from models.historico_precio import HistoricoPrecio
-    from models.saga import Saga
+    from models.saga import Libro
 
 class Libro(Base):
     __tablename__ = "libro"
@@ -32,4 +32,4 @@ class Libro(Base):
     autoreslibros: Mapped[list[AutorLibro]] = relationship(back_populates="libro")
     precios: Mapped[list[HistoricoPrecio]] = relationship(back_populates="libro")
     lecturas: Mapped[list[Lectura]] = relationship(back_populates="libro")
-    saga: Mapped[Saga] = relationship(back_populates="libros")
+    saga: Mapped[Libro] = relationship(back_populates="libros")

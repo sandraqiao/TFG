@@ -1,46 +1,47 @@
 from sqlalchemy.orm import Session
 from database.database import engine
-from models.saga import Saga
+from models.tienda import Tienda
 
-def create(saga: Saga):
+def create(tienda: Tienda):
     with Session(engine) as session:
         try:
-            session.add(saga)
+            session.add(tienda)
             session.commit()
-            return saga
+            return tienda
         except Exception:
             session.rollback()
             raise
 
-def get_by_id(id_saga: int):
+def get_by_id(id_tienda: int):
     with Session(engine) as session:
-        result = session.get(Saga, id_saga)
+        result = session.get(Tienda, id_tienda)
         return result
 
-def get_by_name(nom_saga: str):
+def get_by_name(nom_tienda: str):
     with Session(engine) as session:
-        result = session.query(Saga).filter(Saga.nom_saga.contains(nom_saga)).all()
+        result = session.query(Tienda).filter(Tienda.nom_tienda.contains(nom_tienda)).all()
         return result
 
 def get_all():
     with Session(engine) as session:
-        result = session.query(Saga).all()
+        result = session.query(Tienda).all()
         return result
 
-def delete(id_saga: int):
+def delete(id_tienda: int):
     with Session(engine) as session:
         try:
-            session.query(Saga).filter_by(id_saga=id_saga).delete()
+            session.query(Tienda).filter_by(id_tienda=id_tienda).delete()
             session.commit()
         except Exception:
             session.rollback()
             raise
 
-def update(saga: Saga):
+def update(tienda: Tienda):
     with Session(engine) as session:
         try:
-            saga_antigua = session.get(Saga, saga.id_saga)
-            saga_antigua.nom_saga = saga.nom_saga
+            tienda_antigua = session.get(Tienda, tienda.id_tienda)
+            tienda_antigua.nom_tienda = tienda.nom_tienda
+            tienda_antigua.url_tienda = tienda.url_tienda
             session.commit()
         except Exception:
             session.rollback()

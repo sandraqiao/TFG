@@ -100,3 +100,16 @@
 - Constanst creadas
 - Planeada la estructura de la capa de acceso a datos
 - Creado repository de saga
+### Siguientes pasos
+- Terminar todos los CRUD que quedan
+
+## 03/08/2026
+### Objetivos
+- Implementar los CRUD que faltan
+### Trabajo hecho
+- Implementar CRUD de Libro
+- Implementar CRUD de Autor
+- Implementar CRUD de Lectura
+- Implementar CRUD de Tienda
+- Implementar CRUD de HistoricoPrecio
+- Implementar CRUD de AutorLibro

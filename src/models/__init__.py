@@ -2,7 +2,7 @@
 # este file se lee cuando se hace "import models"
 
 from models.libro import Libro
-from models.saga import Saga
+from models.saga import Libro
 from models.autor import Autor
 from models.lectura import Lectura
 from models.tienda import Tienda
