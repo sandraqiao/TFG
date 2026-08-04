@@ -28,7 +28,7 @@ Tabla que almacena la información de las sagas de los libros registrados por el
 | Campo | Tipo | Restricciones | Descripción |
 |-------|------|---------------|-------------|
 | id_saga | INTEGER | PK, AUTOINCREMENT | Identificador único para una saga |
-| nom_saga | VARCHAR(255) | NOT NULL | Nombre de la saga |
+| nom_saga | VARCHAR(255) | UNIQUE, NOT NULL | Nombre de la saga |
 
 ### Autor
 Tabla que almacena la información de los autores de los libros registrados por el usuario.

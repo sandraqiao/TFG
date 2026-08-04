@@ -22,6 +22,11 @@ def get_by_name(nom_saga: str):
         result = session.query(Saga).filter(Saga.nom_saga.contains(nom_saga)).all()
         return result
 
+def get_by_exact_name(nom_saga: str):
+    with Session(engine) as session:
+        result = session.query(Saga).filter(Saga.nom_saga==nom_saga).one_or_none()
+        return result
+
 def get_all():
     with Session(engine) as session:
         result = session.query(Saga).all()

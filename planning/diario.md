@@ -113,3 +113,18 @@
 - Implementar CRUD de Tienda
 - Implementar CRUD de HistoricoPrecio
 - Implementar CRUD de AutorLibro
+### Siguientes pasos
+- Empezar con services
+
+## 04/08/2026
+### Objetivos
+- Implementar saga_service completo
+- Empezar con libro_service
+### Trabajo hecho
+- Añadida función get_by_exact_name() en saga_repository
+- Creado el _build_saga(), create(), update y delete en saga_service
+- Añadida función get_by_exact_name() y get_by_isbn en libro_repository
+- Creado el _build_saga(), create(), update y delete en libro_service
+### Siguientes pasos
+- Mirar dependencias de borrado entre saga y libro
+- Continuar con los services
