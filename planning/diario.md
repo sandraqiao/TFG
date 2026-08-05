@@ -138,3 +138,5 @@
 - Añadidas las constraints en los modelos
 - Cambios menores en constants.py 
 - Finiquitado (por ahora) libro/saga_repository y libro/saga_service
+- Hechos autor y lectura service
+- Refactorización de autor, libro y saga _service para crear _general_checks como he hecho en lectura_service

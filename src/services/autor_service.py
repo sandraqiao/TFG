@@ -14,9 +14,8 @@ def update(id_autor: int, nom_autor: str):
         raise ValueError("Autor inexistente.")
 
     autor_existe = autor_repository.get_by_exact_name(nom_autor)
-    if autor_existe is not None:
-        if autor.id_autor != autor_existe.id_autor:
-            raise ValueError("Ya existe un autor con ese nombre.")
+    if autor_existe is not None and autor.id_autor != autor_existe.id_autor:
+        raise ValueError("Ya existe un autor con ese nombre.")
 
     return autor_repository.update(_build_autor(id_autor=id_autor, nom_autor=nom_autor))
 
@@ -25,6 +24,8 @@ def delete(id_autor: int):
         raise ValueError("Autor inexistente.")
 
     autor_repository.delete(id_autor)
+
+# ===============================================================================================================
 
 def _build_autor(nom_autor: str, id_autor: int | None = None) -> Autor:
     return Autor(id_autor=id_autor, nom_autor=nom_autor)

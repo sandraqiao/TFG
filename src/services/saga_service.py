@@ -14,9 +14,8 @@ def update(id_saga: int, nom_saga: str):
         raise ValueError("Saga inexistente.")
 
     saga_existe = saga_repository.get_by_exact_name(nom_saga)
-    if saga_existe is not None:
-        if saga.id_saga != saga_existe.id_saga:
-            raise ValueError("Ya existe una saga con ese nombre.")
+    if saga_existe is not None and saga.id_saga != saga_existe.id_saga:
+        raise ValueError("Ya existe una saga con ese nombre.")
 
     return saga_repository.update(_build_saga(id_saga=id_saga, nom_saga=nom_saga))
 
@@ -25,6 +24,8 @@ def delete(id_saga: int):
         raise ValueError("Saga inexistente.")
     
     saga_repository.delete(id_saga)
+
+# ===============================================================================================================
 
 def _build_saga(nom_saga: str, id_saga: int | None = None) -> Saga:
     return Saga(id_saga=id_saga, nom_saga=nom_saga)
