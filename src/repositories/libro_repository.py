@@ -22,12 +22,7 @@ def get_by_name(titulo: str):
         result = session.query(Libro).filter(Libro.titulo.contains(titulo)).all()
         return result
 
-def get_by_exact_name(titulo: str):
-    with Session(engine) as session:
-        result = session.query(Libro).filter(Libro.titulo==titulo).all()
-        return result
-
-def get_by_isbn(isbn: int):
+def get_by_isbn(isbn: str):
     with Session(engine) as session:
         result = session.query(Libro).filter(Libro.isbn == isbn).one_or_none()
         return result

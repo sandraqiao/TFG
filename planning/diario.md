@@ -128,3 +128,13 @@
 ### Siguientes pasos
 - Mirar dependencias de borrado entre saga y libro
 - Continuar con los services
+
+## 05/08/2026
+### Objetivos
+- Realizar dependencias de borrado
+- Continuar con los services
+### Trabajo hecho
+- Realizadas y finiquitadas todas las dependencias de borrado
+- Añadidas las constraints en los modelos
+- Cambios menores en constants.py 
+- Finiquitado (por ahora) libro/saga_repository y libro/saga_service

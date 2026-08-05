@@ -17,10 +17,12 @@ Tabla que almacena la información bibliográfica de cada obra registrada por el
 | url_portada | TEXT | NULL | URL de la imagen de la portada |
 | editorial | VARCHAR(255) | NULL | Nombre de la editorial coincidente con el ISBN |
 | en_wishlist | BOOLEAN | NOT NULL, DEFAULT FALSE | Booleano que indica si está el libro o no dentro de la lista de deseos |
-| prioridad_wishlist | SMALLINT | NULL, CHECK (1-5) | Prioridad asignada al libro dentro de la lista de deseos |
+| prioridad_wishlist | SMALLINT | NULL, CHECK (0-5) | Prioridad asignada al libro dentro de la lista de deseos |
 
 **Restricciones adicionales**
+- num_pag tiene que ser min 1
 - prioridad_wishlist solo se aplica si en_wishlist = true
+- si en_wishlist es true la prioridad se setea a 0 por defecto si no se especifica
 
 ### Saga
 Tabla que almacena la información de las sagas de los libros registrados por el usuario.
@@ -36,7 +38,7 @@ Tabla que almacena la información de los autores de los libros registrados por 
 | Campo | Tipo | Restricciones | Descripción |
 |-------|------|---------------|-------------|
 | id_autor | INTEGER | PK, AUTOINCREMENT | Identificador único para un autor |
-| nom_autor | VARCHAR(255) | NOT NULL | Nombre del autor |
+| nom_autor | VARCHAR(255) | UNIQUE, NOT NULL | Nombre del autor |
 
 ### AutorLibro
 Tabla intermedia que representa la relación N:M entre autores y libros.
@@ -69,7 +71,7 @@ Tabla que almacena la información objetiva de las tiendas sobre las que se har�
 | Campo | Tipo | Restricciones | Descripción |
 |-------|------|---------------|-------------|
 | id_tienda | INTEGER | PK, AUTOINCREMENT | Identificador único para una tienda |
-| nom_tienda | VARCHAR(255) | NOT NULL | Nombre de la tienda |
+| nom_tienda | VARCHAR(255) | UNIQUE, NOT NULL | Nombre de la tienda |
 | url_tienda | TEXT | NOT NULL | URL de la tienda |
 
 ### HistoricoPrecio
@@ -88,3 +90,15 @@ Tabla que almacena la información con los precios de los libros sobre los que s
 
 **Restricciones adicionales**
 - precio > 0
+
+## Efecto de delete en relaciones
+Tabla que resume el comportamiento de borrado en las relaciones.
+
+| Relación | Acción|
+|----------|-------|
+| Saga -> Libro | SET NULL |
+| Libro -> Lectura | CASCADE |
+| Libro -> HistoricoPrecio | CASCADE |
+| Tienda -> HistoricoPrecio | CASCADE |
+| Autor -> AutorLibro | CASCADE |
+| Libro -> AutorLibro | CASCADE |

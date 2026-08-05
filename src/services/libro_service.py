@@ -10,10 +10,18 @@ def create(id_saga: int | None, titulo: str, isbn: str | None, num_pag: int | No
         if libro_repository.get_by_isbn(isbn):
             raise ValueError("ISBN ya existente.")
 
+    if num_pag is not None and num_pag <= 0:
+        raise ValueError("El libro tiene que tener un mínimo de 1 páginas.")
+
     if id_saga is not None:
         if saga_repository.get_by_id(id_saga) is None:
             raise ValueError("Saga inexistente.")
 
+    if en_wishlist is False and prioridad_wishlist is not None:
+        raise ValueError("Un libro que no esté en Wishlist no se puede priorizar.")
+    if en_wishlist is True and prioridad_wishlist is None:
+        prioridad_wishlist = 0
+    
     libro = _build_libro(
                 id_saga=id_saga,
                 titulo=titulo,
@@ -39,15 +47,23 @@ def update(id_libro: int, id_saga: int | None, titulo: str, isbn: str | None, nu
     if libro is None:
         raise ValueError("Libro inexistente.")
 
+    if id_saga is not None:
+            if saga_repository.get_by_id(id_saga) is None:
+                raise ValueError("Saga inexistente.")
+
     if isbn is not None:
         libro_isbn = libro_repository.get_by_isbn(isbn)
         if libro_isbn is not None:
             if libro.id_libro != libro_isbn.id_libro:
                 raise ValueError("Ya existe un libro con ese ISBN.")
 
-    if id_saga is not None:
-        if saga_repository.get_by_id(id_saga) is None:
-            raise ValueError("Saga inexistente.")
+    if num_pag is not None and num_pag <= 0:
+        raise ValueError("El libro tiene que tener un mínimo de 1 páginas.")
+
+    if en_wishlist is False and prioridad_wishlist is not None:
+        raise ValueError("Un libro que no esté en Wishlist no se puede priorizar.")
+    if en_wishlist is True and prioridad_wishlist is None:
+        prioridad_wishlist = 0
 
     libro = _build_libro(
         id_libro=id_libro,

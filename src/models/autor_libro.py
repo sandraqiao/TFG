@@ -11,8 +11,8 @@ if TYPE_CHECKING:
 class AutorLibro(Base):
     __tablename__ = "autor_libro"
 
-    id_libro: Mapped[int] = mapped_column(ForeignKey("libro.id_libro"), primary_key=True)
-    id_autor: Mapped[int] = mapped_column(ForeignKey("autor.id_autor"), primary_key=True)
+    id_libro: Mapped[int] = mapped_column(ForeignKey("libro.id_libro", ondelete="CASCADE"), primary_key=True)
+    id_autor: Mapped[int] = mapped_column(ForeignKey("autor.id_autor", ondelete="CASCADE"), primary_key=True)
 
     libro: Mapped[Libro] = relationship(back_populates="autoreslibros")
     autor: Mapped[Autor] = relationship(back_populates="autoreslibros")

@@ -38,7 +38,9 @@ IDIOMA: list[str] = [
     "ENG"
 ]
 
-PRIORIDAD_WISHLIST = list(range(1,6)) # 1-5
+PRIORIDAD_WISHLIST_MIN = 1
+PRIORIDAD_WISHLIST_MAX = 5
+PRIORIDAD_WISHLIST = list(range(PRIORIDAD_WISHLIST_MIN, PRIORIDAD_WISHLIST_MAX+1))
 
 
 # Atributos Lectura
@@ -49,7 +51,9 @@ ESTADO: list[str] = [
     "Abandonado"
 ]
 
-VALORACION = list(range(11)) # 0-10
+VALORACION_MIN = 0
+VALORACION_MAX = 10
+VALORACION = list(range(VALORACION_MIN, VALORACION_MAX+1))
 
 FORMATO: list[str] = [
     "Físico",
