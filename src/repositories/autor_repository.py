@@ -22,6 +22,11 @@ def get_by_name(nom_autor: str):
         result = session.query(Autor).filter(Autor.nom_autor.contains(nom_autor)).all()
         return result
 
+def get_by_exact_name(nom_autor: str):
+    with Session(engine) as session:
+        result = session.query(Autor).filter(Autor.nom_autor == nom_autor).one_or_none()
+        return result
+
 def get_all():
     with Session(engine) as session:
         result = session.query(Autor).all()
