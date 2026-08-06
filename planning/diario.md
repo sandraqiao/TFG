@@ -139,4 +139,13 @@
 - Cambios menores en constants.py 
 - Finiquitado (por ahora) libro/saga_repository y libro/saga_service
 - Hechos autor y lectura service
-- Refactorización de autor, libro y saga _service para crear _general_checks como he hecho en lectura_service
+- Refactorización de libro_service para crear _general_checks como he hecho en lectura_service
+### Siguientes pasos
+- Hacer historico_precio y tienda _service
+- Mirar qué hacer con autor_libro_service. Hace falta hacerlo?
+
+## 06/08/2026
+### Objetivos
+- Hacer el historico_precio y tienda _service
+### Trabajo hecho
+### Siguientes pasos

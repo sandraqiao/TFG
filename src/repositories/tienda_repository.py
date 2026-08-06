@@ -22,6 +22,11 @@ def get_by_name(nom_tienda: str):
         result = session.query(Tienda).filter(Tienda.nom_tienda.contains(nom_tienda)).all()
         return result
 
+def get_by_exact_name(nom_tienda: str):
+    with Session(engine) as session:
+        result = session.query(Tienda).filter(Tienda.nom_tienda==nom_tienda).one_or_none()
+        return result
+
 def get_all():
     with Session(engine) as session:
         result = session.query(Tienda).all()
