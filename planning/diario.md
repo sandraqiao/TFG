@@ -148,9 +148,9 @@
 ### Objetivos
 - Hacer el historico_precio y tienda _service
 - Hacer el autor_libro_service
-- Diseño de pruebas que se van a hacer (del main hacia services comprobando en postgre)
 ### Trabajo hecho
 - Hecho tienda_service
 - Hecho historico_precio_service
 - Hecho el autor_libro_service
 ### Siguientes pasos
+- Diseño de pruebas que se van a hacer (del main hacia services comprobando en postgre)
