@@ -63,16 +63,16 @@
 | 59 | Create histórico precio | Libro existente + Tienda existente. Precio: 15.99. Descuento: 10 | Se crea correctamente |
 | 60 | Create histórico precio | Libro inexistente | ValueError por libro inexistente |
 | 61 | Create histórico precio | Tienda inexistente | ValueError por tienda inexistente |
-| 62 | Create histórico precio | Precio: 0 | ValueError por precio fuera de rango |
-| 63 | Create histórico precio | Precio: -5 | ValueError por precio fuera de rango |
-| 64 | Create histórico precio | Descuento: -1 | ValueError por porcentaje fuera de rango |
-| 65 | Create histórico precio | Descuento: 101 | ValueError por porcentaje fuera de rango |
-| 66 | Create histórico precio | Descuento: None | Se crea correctamente |
+| 62 | Create histórico precio | Precio: -5 | ValueError por precio fuera de rango |
+| 63 | Create histórico precio | Descuento: -1 | ValueError por porcentaje fuera de rango |
+| 64 | Create histórico precio | Descuento: 101 | ValueError por porcentaje fuera de rango |
+| 65 | Create histórico precio | Descuento: None | Se crea correctamente |
+| 66 | Create histórico precio | Precio: 0 | Se crea correctamente |
 | 67 | Update histórico precio | Cambiar precio a 12.99 | Se modifica correctamente |
 | 68 | Update histórico precio | ID de histórico inexistente | ValueError por histórico inexistente |
 | 69 | Update histórico precio | Libro inexistente | ValueError por libro inexistente |
 | 70 | Update histórico precio | Tienda inexistente | ValueError por tienda inexistente |
-| 71 | Update histórico precio | Precio: 0 | ValueError por precio fuera de rango |
+| 71 | Update histórico precio | Precio: -1 | ValueError por precio fuera de rango |
 | 72 | Update histórico precio | Descuento: 101 | ValueError por porcentaje fuera de rango |
 | 73 | Delete histórico precio | ID de un histórico existente | Se elimina correctamente |
 | 74 | Delete histórico precio | ID de un histórico inexistente | ValueError por histórico inexistente |
@@ -81,7 +81,7 @@
 
 | Orden | Acción | Datos | Esperado |
 | ----- | ------ | ----- | -------- |
-| 75 | Delete saga | Borrar una saga que tenga libros asociados | Los libros mantienen su `id_saga` con valor NULL |
+| 75 | Delete saga | Borrar una saga que tenga libros asociados | Los libros mantienen su `id_saga` con valor `NULL` |
 | 76 | Delete libro | Borrar un libro que tenga lecturas asociadas | Se eliminan sus lecturas |
 | 77 | Delete libro | Borrar un libro que tenga históricos de precio asociados | Se eliminan sus históricos de precio |
 | 78 | Delete libro | Borrar un libro que tenga relaciones autor-libro | Se eliminan sus relaciones autor-libro |
