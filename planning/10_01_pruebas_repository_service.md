@@ -18,23 +18,28 @@
 | 14 | Update autor | ID de un autor inexistente. Nombre: Autor inexistente | ValueError por autor inexistente |
 | 15 | Delete autor | ID de George R.R. Martin | Se elimina correctamente |
 | 16 | Delete autor | ID de un autor inexistente | ValueError por autor inexistente |
-| 17 | Create libro | Título: El Hobbit. ISBN: 9780261102217. Páginas: 310. Género: Fantasía. Idioma: Español. Saga: Crónicas de Narnia. Wishlist: false. Prioridad: None | Se crea correctamente |
+| 17 | Create libro | Título: El Hobbit. ISBN: 9780261102217. Páginas: 310. Género: Fantasía. Idioma: Español. Saga: Crónicas de Narnia. Wishlist: false | Se crea correctamente |
 | 18 | Create libro | ISBN: 9780261102217. Resto de datos válidos | ValueError por ISBN repetido |
 | 19 | Create libro | Saga inexistente. Resto de datos válidos | ValueError por saga inexistente |
 | 20 | Create libro | Páginas: 0. Resto de datos válidos | ValueError por número de páginas inválido |
 | 21 | Create libro | Páginas: -10. Resto de datos válidos | ValueError por número de páginas inválido |
 | 22 | Create libro | Wishlist: false. Prioridad: 3. Resto de datos válidos | ValueError por prioridad sin Wishlist |
-| 23 | Create libro | Wishlist: true. Prioridad: None. Resto de datos válidos | Se crea correctamente con prioridad 0 |
+| 23 | Create libro | Wishlist: true. Prioridad: None. Resto de datos válidos | Se crea correctamente sin prioridad |
 | 24 | Create libro | Wishlist: true. Prioridad: 5. Resto de datos válidos | Se crea correctamente |
-| 25 | Update libro | Cambiar título del libro creado. Resto de datos válidos | Se modifica correctamente |
-| 26 | Update libro | Cambiar ISBN por uno perteneciente a otro libro. Resto de datos válidos | ValueError por ISBN repetido |
-| 27 | Update libro | ID de libro inexistente. Resto de datos válidos | ValueError por libro inexistente |
-| 28 | Update libro | Saga inexistente. Resto de datos válidos | ValueError por saga inexistente |
-| 29 | Update libro | Páginas: 0. Resto de datos válidos | ValueError por número de páginas inválido |
-| 30 | Update libro | Wishlist: false. Prioridad: 3. Resto de datos válidos | ValueError por prioridad sin Wishlist |
-| 31 | Update libro | Wishlist: true. Prioridad: None. Resto de datos válidos | Se modifica correctamente con prioridad 0 |
-| 32 | Delete libro | ID de un libro existente | Se elimina correctamente |
-| 33 | Delete libro | ID de un libro inexistente | ValueError por libro inexistente |
+| 25 | Create libro | Wishlist: true. Prioridad: 0. Resto de datos válidos | ValueError por prioridad fuera de rango |
+| 26 | Create libro | Wishlist: true. Prioridad: 6. Resto de datos válidos | ValueError por prioridad fuera de rango |
+| 27 | Update libro | Cambiar título del libro creado. Resto de datos válidos | Se modifica correctamente |
+| 28 | Update libro | Cambiar ISBN por uno perteneciente a otro libro. Resto de datos válidos | ValueError por ISBN repetido |
+| 29 | Update libro | ID de libro inexistente. Resto de datos válidos | ValueError por libro inexistente |
+| 30 | Update libro | Saga inexistente. Resto de datos válidos | ValueError por saga inexistente |
+| 31 | Update libro | Páginas: 0. Resto de datos válidos | ValueError por número de páginas inválido |
+| 32 | Update libro | Wishlist: false. Prioridad: 3. Resto de datos válidos | ValueError por prioridad sin Wishlist |
+| 33 | Update libro | Wishlist: true. Prioridad: None. Resto de datos válidos | Se modifica correctamente sin prioridad |
+| 34 | Delete libro | ID de un libro existente | Se elimina correctamente |
+| 35 | Delete libro | ID de un libro inexistente | ValueError por libro inexistente |
+
+
+
 | 34 | Create tienda | Nombre: Amazon. URL: https://www.amazon.es | Se crea correctamente |
 | 35 | Create tienda | Nombre: Amazon. URL: None | ValueError por nombre repetido |
 | 36 | Create tienda | Nombre: Fnac. URL: https://www.fnac.es | Se crea correctamente |
