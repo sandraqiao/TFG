@@ -162,4 +162,19 @@
 ### Trabajo hecho
 - Pruebas planeadas
 - Arreglado problemo con python y versiones y cosas ;-;
+- Inicio de las pruebas
+- Algunos arreglos de lógica en service y modelos
 ### Siguientes pasos
+- Terminar las pruebas
+
+## 08/08/2026
+### Objetivos
+- Terminar las pruebas
+### Trabajo hecho
+- Terminado de pruebas de todos los _service y _repository
+- Algunos arreglos de lógica en service y modelos
+- Re-creado de la bbdd porque los ondelete no estaban actualizados
+- Terminadas pruebas de ondelete
+### Siguientes pasos
+- Terminar lo que falte de la lógica de services
+- Empezar la integración de services con Streamlit

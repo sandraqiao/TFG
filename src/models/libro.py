@@ -17,9 +17,10 @@ class Libro(Base):
 
     __table_args__ = (
         CheckConstraint("num_pag IS NULL OR num_pag > 0", name="check_num_pag"),
-        CheckConstraint("en_wishlist IS FALSE AND prioridad_wishlist IS NULL"
-                        "OR en_wishlist IS TRUE AND prioridad_wishlist IS NULL", name="check_prioridad_wishlist_null"),
-        CheckConstraint("en_wishlist IS TRUE AND prioridad_wishlist BETWEEN 1 AND 5", name="check_prioridad_wishlist")
+        CheckConstraint("(en_wishlist IS FALSE AND prioridad_wishlist IS NULL)"
+                        " OR "
+                        "(en_wishlist IS TRUE AND (prioridad_wishlist IS NULL OR prioridad_wishlist BETWEEN 1 AND 5))",
+                        name="check_prioridad_wishlist")
     )
 
     id_libro: Mapped[int] = mapped_column(Integer, primary_key=True)
