@@ -37,28 +37,31 @@
 | 33 | Update libro | Wishlist: true. Prioridad: None. Resto de datos válidos | Se modifica correctamente sin prioridad |
 | 34 | Delete libro | ID de un libro existente | Se elimina correctamente |
 | 35 | Delete libro | ID de un libro inexistente | ValueError por libro inexistente |
+| 36 | Create tienda | Nombre: Amazon. URL: https://www.amazon.es | Se crea correctamente |
+| 37 | Create tienda | Nombre: Amazon. URL: None | ValueError por nombre repetido |
+| 38 | Create tienda | Nombre: Fnac. URL: https://www.fnac.es | Se crea correctamente |
+| 39 | Create tienda | Nombre: Casa del Libro. URL: None | Error por URL obligatoria |
+| 40 | Update tienda | Cambiar nombre de Fnac a Casa del Libro. URL: https://www.fnac.es | Se modifica correctamente |
+| 41 | Update tienda | Cambiar nombre a Amazon. URL: https://www.fnac.es | ValueError por nombre repetido |
+| 42 | Update tienda | ID de una tienda inexistente. Resto de datos válidos | ValueError por tienda inexistente |
+| 43 | Delete tienda | ID de Casa del Libro | Se elimina correctamente |
+| 44 | Delete tienda | ID de una tienda inexistente | ValueError por tienda inexistente |
+| 45 | Create lectura | Libro existente. Estado: Leyendo. Valoración: 8. Fecha inicio: 2026-08-01. Fecha fin: None. Formato: Físico | Se crea correctamente |
+| 46 | Create lectura | Libro inexistente. Resto de datos válidos | ValueError por libro inexistente |
+| 47 | Create lectura | Estado: Inventado. Resto de datos válidos | ValueError por estado inválido |
+| 48 | Create lectura | Valoración: -1. Resto de datos válidos | ValueError por valoración fuera de rango |
+| 49 | Create lectura | Valoración: 11. Resto de datos válidos | ValueError por valoración fuera de rango |
+| 50 | Create lectura | Valoración: None. Resto de datos válidos | Se crea correctamente sin valoración |
+| 51 | Create lectura | Formato: Papel. Resto de datos válidos | ValueError por formato inválido |
+| 52 | Create lectura | Fecha inicio: 2026-08-10. Fecha fin: 2026-08-01. Resto de datos válidos | ValueError por fechas inválidas |
+| 53 | Create lectura | Fecha inicio: 2026-08-10. Fecha fin: 2026-08-10. Resto de datos válidos | Se crea correctamente |
+| 54 | Update lectura | Cambiar estado a Leído y añadir fecha fin: 2026-08-10. Resto de datos válidos | Se modifica correctamente |
+| 55 | Update lectura | ID de lectura inexistente. Resto de datos válidos | ValueError por lectura inexistente |
+| 56 | Delete lectura | ID de una lectura existente | Se elimina correctamente |
+| 57 | Delete lectura | ID de una lectura inexistente | ValueError por lectura inexistente |
 
 
 
-| 34 | Create tienda | Nombre: Amazon. URL: https://www.amazon.es | Se crea correctamente |
-| 35 | Create tienda | Nombre: Amazon. URL: None | ValueError por nombre repetido |
-| 36 | Create tienda | Nombre: Fnac. URL: https://www.fnac.es | Se crea correctamente |
-| 37 | Update tienda | Cambiar nombre de Fnac a Casa del Libro | Se modifica correctamente |
-| 38 | Update tienda | Cambiar nombre a Amazon | ValueError por nombre repetido |
-| 39 | Update tienda | ID de una tienda inexistente | ValueError por tienda inexistente |
-| 40 | Delete tienda | ID de Casa del Libro | Se elimina correctamente |
-| 41 | Delete tienda | ID de una tienda inexistente | ValueError por tienda inexistente |
-| 42 | Create lectura | Libro existente. Estado: Leyendo. Valoración: 8. Fecha inicio: 2026-08-01. Fecha fin: None. Formato: Físico | Se crea correctamente |
-| 43 | Create lectura | Libro inexistente. Resto de datos válidos | ValueError por libro inexistente |
-| 44 | Create lectura | Estado: Inventado. Resto de datos válidos | ValueError por estado inválido |
-| 45 | Create lectura | Valoración: -1. Resto de datos válidos | ValueError por valoración fuera de rango |
-| 46 | Create lectura | Valoración: 11. Resto de datos válidos | ValueError por valoración fuera de rango |
-| 47 | Create lectura | Formato: Papel. Resto de datos válidos | ValueError por formato inválido |
-| 48 | Create lectura | Fecha inicio: 2026-08-10. Fecha fin: 2026-08-01. Resto de datos válidos | ValueError por fechas inválidas |
-| 49 | Update lectura | Cambiar estado a Leído y añadir fecha fin: 2026-08-10 | Se modifica correctamente |
-| 50 | Update lectura | ID de lectura inexistente. Resto de datos válidos | ValueError por lectura inexistente |
-| 51 | Delete lectura | ID de una lectura existente | Se elimina correctamente |
-| 52 | Delete lectura | ID de una lectura inexistente | ValueError por lectura inexistente |
 | 53 | Create autor-libro | Libro existente + Autor existente | Se crea correctamente |
 | 54 | Create autor-libro | Misma combinación de libro + autor | ValueError por relación existente |
 | 55 | Create autor-libro | Libro inexistente + Autor existente | ValueError por libro inexistente |
