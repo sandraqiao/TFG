@@ -154,3 +154,12 @@
 - Hecho el autor_libro_service
 ### Siguientes pasos
 - Diseño de pruebas que se van a hacer (del main hacia services comprobando en postgre)
+
+## 07/08/2026
+### Objetivos
+- Planear las pruebas para comprobar lo hecho hasta ahora
+- Realizar las comprobaciones desde el main
+### Trabajo hecho
+- Pruebas planeadas
+- Arreglado problemo con python y versiones y cosas ;-;
+### Siguientes pasos

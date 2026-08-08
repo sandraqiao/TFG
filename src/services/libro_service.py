@@ -1,10 +1,21 @@
 from models.libro import Libro
 from repositories import libro_repository, saga_repository
+from utils.constants import PRIORIDAD_WISHLIST
+
 import datetime as dt
 
-def create(id_saga: int | None, titulo: str, isbn: str | None, num_pag: int | None, genero: str, 
-                 idioma: str, sinopsis: str | None, fecha_public: dt.date | None, url_portada: str | None, 
-                 editorial: str | None, en_wishlist: bool, prioridad_wishlist: int | None):
+def create(titulo: str, 
+           genero: str, 
+           idioma: str,
+           en_wishlist: bool, 
+           id_saga: int | None = None,  
+           isbn: str | None = None, 
+           num_pag: int | None = None,  
+           sinopsis: str | None = None, 
+           fecha_public: dt.date | None = None, 
+           url_portada: str | None = None, 
+           editorial: str | None = None,
+           prioridad_wishlist: int | None = None):
 
     if isbn is not None and libro_repository.get_by_isbn(isbn):
         raise ValueError("ISBN ya existente.")
@@ -27,9 +38,19 @@ def create(id_saga: int | None, titulo: str, isbn: str | None, num_pag: int | No
     )
     return libro_repository.create(libro)
 
-def update(id_libro: int, id_saga: int | None, titulo: str, isbn: str | None, num_pag: int | None, genero: str, 
-            idioma: str, sinopsis: str | None, fecha_public: dt.date | None, url_portada: str | None, 
-            editorial: str | None, en_wishlist: bool, prioridad_wishlist: int | None):
+def update(id_libro: int,
+           titulo: str, 
+           genero: str, 
+           idioma: str,
+           en_wishlist: bool, 
+           id_saga: int | None = None,  
+           isbn: str | None = None, 
+           num_pag: int | None = None,  
+           sinopsis: str | None = None, 
+           fecha_public: dt.date | None = None, 
+           url_portada: str | None = None, 
+           editorial: str | None = None,
+           prioridad_wishlist: int | None = None):
 
     libro = libro_repository.get_by_id(id_libro)
 
@@ -97,5 +118,6 @@ def _general_checks(id_saga: int | None, num_pag: int | None, en_wishlist: bool,
 
     if en_wishlist is False and prioridad_wishlist is not None:
         raise ValueError("Un libro que no esté en Wishlist no se puede priorizar.")
-    if en_wishlist is True and prioridad_wishlist is None:
-        prioridad_wishlist = 0
+    if en_wishlist is True and prioridad_wishlist is not None:
+        if prioridad_wishlist not in PRIORIDAD_WISHLIST:
+            raise ValueError("Prioridad fuera de rango")

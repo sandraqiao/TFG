@@ -10,14 +10,16 @@ if TYPE_CHECKING:
     from models.autor_libro import AutorLibro
     from models.lectura import Lectura
     from models.historico_precio import HistoricoPrecio
-    from models.saga import Libro
+    from models.saga import Saga
 
 class Libro(Base):
     __tablename__ = "libro"
 
     __table_args__ = (
         CheckConstraint("num_pag IS NULL OR num_pag > 0", name="check_num_pag"),
-        CheckConstraint("prioridad_wishlist IS NULL OR prioridad_wishlist BETWEEN 0 AND 5", name="check_prioridad_wishlist")
+        CheckConstraint("en_wishlist IS FALSE AND prioridad_wishlist IS NULL"
+                        "OR en_wishlist IS TRUE AND prioridad_wishlist IS NULL", name="check_prioridad_wishlist_null"),
+        CheckConstraint("en_wishlist IS TRUE AND prioridad_wishlist BETWEEN 1 AND 5", name="check_prioridad_wishlist")
     )
 
     id_libro: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -37,4 +39,4 @@ class Libro(Base):
     autoreslibros: Mapped[list["AutorLibro"]] = relationship(back_populates="libro")
     precios: Mapped[list["HistoricoPrecio"]] = relationship(back_populates="libro")
     lecturas: Mapped[list["Lectura"]] = relationship(back_populates="libro")
-    saga: Mapped["Libro"] = relationship(back_populates="libros")
+    saga: Mapped["Saga"] = relationship(back_populates="libros")

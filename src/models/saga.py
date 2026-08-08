@@ -7,7 +7,7 @@ from sqlalchemy import Integer, String
 if TYPE_CHECKING:
     from models.libro import Libro
 
-class Libro(Base):
+class Saga(Base):
     __tablename__ = "saga"
 
     id_saga: Mapped[int] = mapped_column(Integer, primary_key=True)

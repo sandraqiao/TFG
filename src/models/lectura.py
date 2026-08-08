@@ -21,7 +21,7 @@ class Lectura(Base):
         CheckConstraint("fecha_fin >= fecha_ini", name="check_fechas_ini_fin"),
         CheckConstraint(f"estado IN ({ESTADOS})", name="check_estados"),
         CheckConstraint(f"formato IN ({FORMATOS})", name="check_formatos"),
-        CheckConstraint(f"valoracion IS NULL OR valoracion BETWEEN {constants.VALORACION_MIN} AND {constants.VALORACION_MAX}", name="check_valoracion")
+        CheckConstraint(f"valoracion IS NULL OR (estado IN('{constants.ESTADO[1]}', '{constants.ESTADO[2]}') AND valoracion BETWEEN {constants.VALORACION_MIN} AND {constants.VALORACION_MAX})", name="check_valoracion")
     )
 
     id_lectura: Mapped[int] = mapped_column(Integer, primary_key=True)

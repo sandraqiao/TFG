@@ -38,18 +38,25 @@
 # ==========================================================================================================
 
 # CREAR UN LIBRO DE PRUEBA
-from sqlalchemy.orm import Session
-from database.database import engine
-from models.libro import Libro
+# from sqlalchemy.orm import Session
+# from database.database import engine
+# from models.libro import Libro
 
-prueba = Libro(titulo="prueba", genero="probando", idioma="esp", en_wishlist=False)
+# prueba = Libro(titulo="prueba", genero="probando", idioma="esp", en_wishlist=False)
 
-with Session(engine) as session:
-    session.begin()
-    try:
-        session.add(prueba)
-    except:
-        session.rollback()
-        raise
-    else:
-        session.commit()
+# with Session(engine) as session:
+#     session.begin()
+#     try:
+#         session.add(prueba)
+#     except:
+#         session.rollback()
+#         raise
+#     else:
+#         session.commit()
+
+# ==========================================================================================================
+
+# PROBAR LOS REPOSITORY Y SERVICE
+import services
+
+services.saga_service.delete(3)

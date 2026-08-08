@@ -17,7 +17,7 @@ Tabla que almacena la información bibliográfica de cada obra registrada por el
 | url_portada | TEXT | NULL | URL de la imagen de la portada |
 | editorial | VARCHAR(255) | NULL | Nombre de la editorial coincidente con el ISBN |
 | en_wishlist | BOOLEAN | NOT NULL, DEFAULT FALSE | Booleano que indica si está el libro o no dentro de la lista de deseos |
-| prioridad_wishlist | SMALLINT | NULL, CHECK (0-5) | Prioridad asignada al libro dentro de la lista de deseos |
+| prioridad_wishlist | SMALLINT | NULL, CHECK (1-5) | Prioridad asignada al libro dentro de la lista de deseos |
 
 **Restricciones adicionales**
 - num_pag tiene que ser min 1

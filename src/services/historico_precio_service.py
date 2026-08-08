@@ -4,8 +4,13 @@ from repositories import historico_precio_repository, libro_repository, tienda_r
 from decimal import Decimal
 import datetime as dt
 
-def create(id_libro: int, id_tienda: int, precio: Decimal, pct_descuento: Decimal | None, fecha_consulta: dt.date, 
-           disponible: bool, url_libro: str):
+def create(id_libro: int, 
+           id_tienda: int, 
+           precio: Decimal, 
+           fecha_consulta: dt.date, 
+           disponible: bool, 
+           url_libro: str,
+           pct_descuento: Decimal | None = None):
 
     _general_checks(id_libro=id_libro, id_tienda=id_tienda, precio=precio, pct_descuento=pct_descuento)
 
@@ -20,8 +25,14 @@ def create(id_libro: int, id_tienda: int, precio: Decimal, pct_descuento: Decima
     )
     return historico_precio_repository.create(historico_precio)
 
-def update(id_precio: int, id_libro: int, id_tienda: int, precio: Decimal, pct_descuento: Decimal | None, 
-           fecha_consulta: dt.date, disponible: bool, url_libro: str):
+def update(id_precio: int,
+           id_libro: int, 
+           id_tienda: int, 
+           precio: Decimal, 
+           fecha_consulta: dt.date, 
+           disponible: bool, 
+           url_libro: str,
+           pct_descuento: Decimal | None = None):
 
     if historico_precio_repository.get_by_id(id_precio) is None:
         raise ValueError("Histórico inexistente.")
@@ -71,10 +82,8 @@ def _general_checks(id_libro: int, id_tienda: int, precio: Decimal, pct_descuent
     if tienda_repository.get_by_id(id_tienda) is None:
         raise ValueError("Tienda inexistente.")
 
-    if precio is None or precio < 0:
+    if precio is None or precio <= 0:
         raise ValueError("Precio fuera de rango.")
 
-    if pct_descuento is not None and (pct_descuento <= 0 or pct_descuento > 100):
+    if pct_descuento is not None and (pct_descuento < 0 or pct_descuento > 100):
         raise ValueError("Porcentaje de descuento fuera de rango.")
-
-    

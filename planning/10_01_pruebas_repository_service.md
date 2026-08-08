@@ -45,50 +45,55 @@
 | 41 | Update tienda | ID de una tienda inexistente | ValueError por tienda inexistente |
 | 42 | Delete tienda | ID de Casa del Libro | Se elimina correctamente |
 | 43 | Delete tienda | ID de una tienda inexistente | ValueError por tienda inexistente |
-| 44 | Create lectura | Libro existente. Estado: Leyendo. Valoración: 8. Fecha inicio: 2026-08-01. Fecha fin: None. Formato: Físico | Se crea correctamente |
-| 45 | Create lectura | Libro inexistente. Resto de datos válidos | ValueError por libro inexistente |
-| 46 | Create lectura | Estado: Inventado. Resto de datos válidos | ValueError por estado inválido |
-| 47 | Create lectura | Valoración: -1. Resto de datos válidos | ValueError por valoración fuera de rango |
-| 48 | Create lectura | Valoración: 11. Resto de datos válidos | ValueError por valoración fuera de rango |
-| 49 | Create lectura | Formato: Papel. Resto de datos válidos | ValueError por formato inválido |
-| 50 | Create lectura | Fecha inicio: 2026-08-10. Fecha fin: 2026-08-01. Resto de datos válidos | ValueError por fechas inválidas |
-| 51 | Update lectura | Cambiar estado a Leído y añadir fecha fin: 2026-08-10 | Se modifica correctamente |
-| 52 | Update lectura | ID de lectura inexistente. Resto de datos válidos | ValueError por lectura inexistente |
-| 53 | Delete lectura | ID de una lectura existente | Se elimina correctamente |
-| 54 | Delete lectura | ID de una lectura inexistente | ValueError por lectura inexistente |
-
-
-
-| 53 | Create autor-libro | Libro existente + Autor existente | Se crea correctamente |
-| 54 | Create autor-libro | Misma combinación de libro + autor | ValueError por relación existente |
-| 55 | Create autor-libro | Libro inexistente + Autor existente | ValueError por libro inexistente |
-| 56 | Create autor-libro | Libro existente + Autor inexistente | ValueError por autor inexistente |
-| 57 | Delete autor-libro | Relación existente | Se elimina correctamente |
-| 58 | Delete autor-libro | Relación inexistente | ValueError por relación inexistente |
-| 59 | Create histórico precio | Libro existente + Tienda existente. Precio: 15.99. Descuento: 10. Fecha: 2026-08-07. Disponible: true. URL: https://ejemplo.com/libro | Se crea correctamente |
-| 60 | Create histórico precio | Libro inexistente. Resto de datos válidos | ValueError por libro inexistente |
-| 61 | Create histórico precio | Tienda inexistente. Resto de datos válidos | ValueError por tienda inexistente |
-| 62 | Create histórico precio | Precio: -5. Resto de datos válidos | ValueError por precio fuera de rango |
-| 63 | Create histórico precio | Descuento: -1. Resto de datos válidos | ValueError por porcentaje fuera de rango |
-| 64 | Create histórico precio | Descuento: 101. Resto de datos válidos | ValueError por porcentaje fuera de rango |
-| 65 | Create histórico precio | Descuento: None. Resto de datos válidos | Se crea correctamente |
-| 66 | Create histórico precio | Precio: 0. Resto de datos válidos | Se crea correctamente |
-| 67 | Update histórico precio | Cambiar precio a 12.99. Resto de datos válidos | Se modifica correctamente |
-| 68 | Update histórico precio | ID de histórico inexistente. Resto de datos válidos | ValueError por histórico inexistente |
-| 69 | Update histórico precio | Libro inexistente. Resto de datos válidos | ValueError por libro inexistente |
-| 70 | Update histórico precio | Tienda inexistente. Resto de datos válidos | ValueError por tienda inexistente |
-| 71 | Update histórico precio | Precio: -1. Resto de datos válidos | ValueError por precio fuera de rango |
-| 72 | Update histórico precio | Descuento: 101. Resto de datos válidos | ValueError por porcentaje fuera de rango |
-| 73 | Delete histórico precio | ID de un histórico existente | Se elimina correctamente |
-| 74 | Delete histórico precio | ID de un histórico inexistente | ValueError por histórico inexistente |
+| 44 | Create lectura | Libro existente. Estado: Leyendo. Fecha inicio: 2026-08-01. Formato: Físico | Se crea correctamente |
+| 45 | Create lectura | Libro existente. Estado: Leyendo. Valoración: 8. Resto de datos válidos | ValueError por valoración en lectura no finalizada |
+| 46 | Create lectura | Libro inexistente. Resto de datos válidos | ValueError por libro inexistente |
+| 47 | Create lectura | Estado: Inventado. Resto de datos válidos | ValueError por estado inválido |
+| 48 | Create lectura | Estado: Leído. Valoración: -1. Resto de datos válidos | ValueError por valoración fuera de rango |
+| 49 | Create lectura | Estado: Leído. Valoración: 11. Resto de datos válidos | ValueError por valoración fuera de rango |
+| 50 | Create lectura | Estado: Leído. Valoración: 8. Resto de datos válidos | Se crea correctamente |
+| 51 | Create lectura | Estado: Abandonado. Valoración: 5. Resto de datos válidos | Se crea correctamente |
+| 52 | Create lectura | Formato: Papel. Resto de datos válidos | ValueError por formato inválido |
+| 53 | Create lectura | Fecha inicio: 2026-08-10. Fecha fin: 2026-08-01. Resto de datos válidos | ValueError por fechas inválidas |
+| 54 | Update lectura | Cambiar estado a Leído y añadir fecha fin: 2026-08-10. Valoración: 8. Resto de datos válidos | Se modifica correctamente |
+| 55 | Update lectura | Cambiar estado a Leyendo manteniendo valoración: 8. Resto de datos válidos | ValueError por valoración en lectura no finalizada |
+| 56 | Update lectura | ID de lectura inexistente. Resto de datos válidos | ValueError por lectura inexistente |
+| 57 | Delete lectura | ID de una lectura existente | Se elimina correctamente |
+| 58 | Delete lectura | ID de una lectura inexistente | ValueError por lectura inexistente |
+| 59 | Create autor-libro | Libro existente + Autor existente | Se crea correctamente |
+| 60 | Create autor-libro | Misma combinación de libro + autor | ValueError por relación existente |
+| 61 | Create autor-libro | Libro inexistente + Autor existente | ValueError por libro inexistente |
+| 62 | Create autor-libro | Libro existente + Autor inexistente | ValueError por autor inexistente |
+| 63 | Delete autor-libro | Relación existente | Se elimina correctamente |
+| 64 | Delete autor-libro | Relación inexistente, con libro y autor existentes | ValueError por relación inexistente |
+| 65 | Create histórico precio | Libro existente + Tienda existente. Precio: 15.99. Descuento: 10. Fecha: 2026-08-07. Disponible: true. URL: https://ejemplo.com/libro | Se crea correctamente |
+| 66 | Create histórico precio | Libro inexistente. Resto de datos válidos | ValueError por libro inexistente |
+| 67 | Create histórico precio | Tienda inexistente. Resto de datos válidos | ValueError por tienda inexistente |
+| 68 | Create histórico precio | Precio: -5. Resto de datos válidos | ValueError por precio fuera de rango |
+| 69 | Create histórico precio | Precio: 0. Resto de datos válidos | ValueError por precio fuera de rango |
+| 70 | Create histórico precio | Descuento: -1. Resto de datos válidos | ValueError por porcentaje fuera de rango |
+| 71 | Create histórico precio | Descuento: 101. Resto de datos válidos | ValueError por porcentaje fuera de rango |
+| 72 | Create histórico precio | Descuento: 0. Resto de datos válidos | Se crea correctamente |
+| 73 | Create histórico precio | Descuento: None. Resto de datos válidos | Se crea correctamente |
+| 74 | Update histórico precio | Cambiar precio a 12.99. Resto de datos válidos | Se modifica correctamente |
+| 75 | Update histórico precio | ID de histórico inexistente. Resto de datos válidos | ValueError por histórico inexistente |
+| 76 | Update histórico precio | Libro inexistente. Resto de datos válidos | ValueError por libro inexistente |
+| 77 | Update histórico precio | Tienda inexistente. Resto de datos válidos | ValueError por tienda inexistente |
+| 78 | Update histórico precio | Precio: -1. Resto de datos válidos | ValueError por precio fuera de rango |
+| 79 | Update histórico precio | Precio: 0. Resto de datos válidos | ValueError por precio fuera de rango |
+| 80 | Update histórico precio | Descuento: -1. Resto de datos válidos | ValueError por porcentaje fuera de rango |
+| 81 | Update histórico precio | Descuento: 101. Resto de datos válidos | ValueError por porcentaje fuera de rango |
+| 82 | Update histórico precio | Descuento: 0. Resto de datos válidos | Se modifica correctamente |
+| 83 | Delete histórico precio | ID de un histórico existente | Se elimina correctamente |
+| 84 | Delete histórico precio | ID de un histórico inexistente | ValueError por histórico inexistente |
 
 ## Pruebas de borrado en cascada
 
 | Orden | Acción | Datos | Esperado |
 | ----- | ------ | ----- | -------- |
-| 75 | Delete saga | Borrar una saga que tenga libros asociados | Los libros mantienen su id_saga con valor NULL |
-| 76 | Delete libro | Borrar un libro que tenga lecturas asociadas | Se eliminan sus lecturas |
-| 77 | Delete libro | Borrar un libro que tenga históricos de precio asociados | Se eliminan sus históricos de precio |
-| 78 | Delete libro | Borrar un libro que tenga relaciones autor-libro | Se eliminan sus relaciones autor-libro |
-| 79 | Delete tienda | Borrar una tienda con históricos de precio asociados | Se eliminan sus históricos de precio |
-| 80 | Delete autor | Borrar un autor con relaciones autor-libro | Se eliminan sus relaciones autor-libro |
+| 85 | Delete saga | Borrar una saga que tenga libros asociados | Los libros mantienen su id_saga con valor NULL |
+| 86 | Delete libro | Borrar un libro que tenga lecturas asociadas | Se eliminan sus lecturas |
+| 87 | Delete libro | Borrar un libro que tenga históricos de precio asociados | Se eliminan sus históricos de precio |
+| 88 | Delete libro | Borrar un libro que tenga relaciones autor-libro | Se eliminan sus relaciones autor-libro |
+| 89 | Delete tienda | Borrar una tienda con históricos de precio asociados | Se eliminan sus históricos de precio |
+| 90 | Delete autor | Borrar un autor con relaciones autor-libro | Se eliminan sus relaciones autor-libro |

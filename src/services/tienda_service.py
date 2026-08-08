@@ -1,13 +1,13 @@
 from models.tienda import Tienda
 from repositories import tienda_repository
 
-def create(nom_tienda: str, url_tienda: str | None):
+def create(nom_tienda: str, url_tienda: str):
     if tienda_repository.get_by_exact_name(nom_tienda):
         raise ValueError("Ya existe una tienda con ese nombre.")
 
     return tienda_repository.create(_build_tienda(nom_tienda=nom_tienda, url_tienda=url_tienda))
 
-def update(id_tienda: int, nom_tienda: str, url_tienda: str | None):
+def update(id_tienda: int, nom_tienda: str, url_tienda: str):
     tienda = tienda_repository.get_by_id(id_tienda)
 
     if tienda is None:
