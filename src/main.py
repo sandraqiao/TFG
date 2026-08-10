@@ -17,11 +17,11 @@
 # ==========================================================================================================
 # CREACIÓN DE TABLAS QUE NO EXISTAN
 # ==========================================================================================================
-# import models
-# from database.base import Base
-# from database.database import engine
+import models
+from database.base import Base
+from database.database import engine
 
-# Base.metadata.create_all(engine)
+Base.metadata.create_all(engine)
 
 # QUERY PARA BORRADO: DROP SCHEMA public CASCADE; CREATE SCHEMA public;
 

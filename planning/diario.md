@@ -178,3 +178,11 @@
 ### Siguientes pasos
 - Terminar lo que falte de la lógica de services
 - Empezar la integración de services con Streamlit
+
+## 10/08/2026
+### Objetivo
+- Preparar el portátil para poder trabajar de vacaciones
+### Trabajo hecho
+- Descarga de vs code
+- Descarga de postgresql
+- Configuraciones e instalaciones hechas
