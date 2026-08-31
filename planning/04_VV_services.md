@@ -91,9 +91,9 @@
 
 | Orden | Acción | Datos | Resultado esperado |
 | ----- | ------ | ----- | ------------------ |
-| 85 | Delete saga | ID de una saga existente con libros asociados: Crónicas de Narnia. Libro asociado: Libro de Wishlist | Los libros asociados mantienen su id_saga con valor NULL |
-| 86 | Delete libro | ID de un libro existente con lecturas asociadas: Libro de Wishlist | Se elimina el libro y sus lecturas asociadas |
-| 87 | Delete libro | ID de un libro existente con históricos de precio asociados: Libro de Wishlist | Se elimina el libro y sus históricos de precio asociados |
-| 88 | Delete libro | ID de un libro existente con relaciones autor-libro: Libro de Wishlist + J.R.R. Tolkien | Se elimina el libro y sus relaciones autor-libro asociadas |
-| 89 | Delete tienda | ID de una tienda existente con históricos de precio asociados: Amazon | Se elimina la tienda y sus históricos de precio asociados |
-| 90 | Delete autor | ID de un autor existente con relaciones autor-libro: J.R.R. Tolkien + Libro de Wishlist | Se elimina el autor y sus relaciones autor-libro asociadas |
+| 85 | Delete saga | Borrar una saga que tenga libros asociados | Los libros mantienen su id_saga con valor NULL | 
+| 86 | Delete libro | Borrar un libro que tenga lecturas asociadas | Se eliminan sus lecturas | 
+| 87 | Delete libro | Borrar un libro que tenga históricos de precio asociados | Se eliminan sus históricos de precio | 
+| 88 | Delete libro | Borrar un libro que tenga relaciones autor-libro | Se eliminan sus relaciones autor-libro | 
+| 89 | Delete tienda | Borrar una tienda con históricos de precio asociados | Se eliminan sus históricos de precio | 
+| 90 | Delete autor | Borrar un autor con relaciones autor-libro | Se eliminan sus relaciones autor-libro |

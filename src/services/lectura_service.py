@@ -59,6 +59,16 @@ def delete(id_lectura: int):
 
     lectura_repository.delete(id_lectura)
 
+def get_all_lecturas():
+    return lectura_repository.get_all()
+
+def search_by_libro(id_libro: int):
+    if libro_repository.get_by_id(id_libro) is None:
+        raise ValueError("Libro inexistente.")
+    if lectura_repository.get_by_libro(id_libro) is None:
+        raise ValueError("Este libro no tiene lecturas.")
+    return lectura_repository.get_by_libro(id_libro)
+
 # ===============================================================================================================
 
 def _build_lectura(id_libro: int, estado: str, valoracion: int | None, comentario: str | None,

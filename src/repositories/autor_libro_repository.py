@@ -17,6 +17,11 @@ def get_by_autor_libro(id_libro: int, id_autor: int):
         result = session.query(AutorLibro).filter_by(id_autor=id_autor, id_libro=id_libro).one_or_none()
         return result
 
+def get_all_from_autor(id_autor: int):
+    with Session(engine) as session:
+        result = session.query(AutorLibro).filter_by(id_autor=id_autor).all()
+    return result
+
 def get_all():
     with Session(engine) as session:
         result = session.query(AutorLibro).all()

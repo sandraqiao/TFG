@@ -87,6 +87,20 @@ def delete(id_libro: int):
 
     libro_repository.delete(id_libro)
 
+def get_all_libros():
+    return libro_repository.get_all()
+
+def search_by_saga(id_saga: int):
+    if saga_repository.get_by_id(id_saga) is None:
+        raise ValueError("Saga inexistente.")
+    return libro_repository.get_by_saga(id_saga)
+
+def search_by_title(titulo: str):
+    return libro_repository.get_by_name(titulo)
+
+def search_by_isbn(isbn: str):
+    return libro_repository.get_by_isbn(isbn)
+
 # ===============================================================================================================
 
 def _build_libro(id_saga: int | None, titulo: str, isbn: str | None, num_pag: int | None, genero: str, 
@@ -110,6 +124,7 @@ def _build_libro(id_saga: int | None, titulo: str, isbn: str | None, num_pag: in
         )
 
 def _general_checks(id_saga: int | None, num_pag: int | None, en_wishlist: bool, prioridad_wishlist: int | None):
+
     if id_saga is not None and saga_repository.get_by_id(id_saga) is None:
             raise ValueError("Saga inexistente.")
 

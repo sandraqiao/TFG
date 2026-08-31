@@ -25,6 +25,12 @@ def delete(id_tienda: int):
 
     tienda_repository.delete(id_tienda)
 
+def get_all_tiendas():
+    return tienda_repository.get_all()
+
+def search_by_name(nom_tienda: str):
+    return tienda_repository.get_by_name(nom_tienda)
+
 # ===============================================================================================================
 
 def _build_tienda(nom_tienda: str, url_tienda: str | None, id_tienda: int | None = None) -> Tienda:

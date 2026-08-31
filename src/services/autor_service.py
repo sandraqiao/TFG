@@ -25,6 +25,9 @@ def delete(id_autor: int):
 
     autor_repository.delete(id_autor)
 
+def get_all_autores():
+    return autor_repository.get_all()
+
 # ===============================================================================================================
 
 def _build_autor(nom_autor: str, id_autor: int | None = None) -> Autor:

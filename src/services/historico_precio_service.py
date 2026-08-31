@@ -58,6 +58,9 @@ def delete(id_precio:int):
 
     historico_precio_repository.delete(id_precio)
 
+def get_all_historico_precio():
+    return historico_precio_repository.get_all()
+
 # ===============================================================================================================
 
 def _build_historico_precio(id_libro: int, id_tienda: int, precio: Decimal, pct_descuento: Decimal | None, 

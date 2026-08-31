@@ -25,6 +25,12 @@ def delete(id_saga: int):
     
     saga_repository.delete(id_saga)
 
+def get_all_sagas():
+    return saga_repository.get_all()
+
+def search_by_name(nom_saga: str):
+    return saga_repository.get_by_name(nom_saga)
+
 # ===============================================================================================================
 
 def _build_saga(nom_saga: str, id_saga: int | None = None) -> Saga:

@@ -19,6 +19,11 @@ def delete(id_libro: int, id_autor: int):
 
     autor_libro_repository.delete(id_libro=id_libro, id_autor=id_autor)
 
+def search_by_autor(id_autor: int):
+    if autor_repository.get_by_id(id_autor) is None:
+        raise ValueError("Autor inexistente.")
+    return autor_libro_repository.get_all_from_autor(id_autor)
+
 # ===============================================================================================================
 
 def _build_autor_libro(id_libro: int, id_autor: int) -> AutorLibro:
