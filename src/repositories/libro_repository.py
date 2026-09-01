@@ -24,12 +24,12 @@ def get_by_name(titulo: str):
 
 def get_by_isbn(isbn: str):
     with Session(engine) as session:
-        result = session.query(Libro).filter(Libro.isbn == isbn).one_or_none()
+        result = session.query(Libro).filter(Libro.isbn == isbn).all()
     return result
 
 def get_by_saga(id_saga: int):
     with Session(engine) as session:
-        result = session.query(Libro).filter(Libro.id_saga == id_saga).one_or_none()
+        result = session.query(Libro).filter(Libro.id_saga == id_saga).all()
     return result
 
 def get_all():

@@ -31,9 +31,17 @@
 # QUERY PARA BORRADO: DROP SCHEMA public CASCADE; CREATE SCHEMA public;
 
 # ==========================================================================================================
-# 
+# FILTROS
 # ==========================================================================================================
 
-import models
-import services
+# import models
+# import services
 
+# resultados = services.historico_precio_service.filter_historico(
+#     libros=[1, 4],
+#     # tiendas=[1]
+#     # fecha_min='2019-12-01',
+#     # fecha_max='2019-12-04',
+#     precio_min=10,
+#     precio_max=20
+# )

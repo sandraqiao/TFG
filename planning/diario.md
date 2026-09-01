@@ -35,6 +35,7 @@
 - Añadir a lectura idioma porque hoy te lees libro x en español y mañana te lo leer en inglés.
 
 
+
 # Diario de objetivos y trabajo realizado a partir del inicio del desarrollo
 ## 26/07/2026
 ### Objetivos
@@ -186,3 +187,20 @@
 - Descarga de vs code
 - Descarga de postgresql
 - Configuraciones e instalaciones hechas
+
+## 31/08/2026
+### Objetivos
+- Continuar con la lógica de services
+- Implementar la idea del filtro compuesto
+### Trabajo hecho 
+- Añadido la lógica para poder hacer todos los get_all()
+- Añadido la lógica para poder hacer distintos search_by_x()
+- Añadido la lógica para poder hacer filtros de varios componentes en libro, lectura e historico
+
+## 01/09/2026
+### Objetivos
+- Probar los filtros
+### Trabajo hecho 
+- Preparado de tablas con información para poder hacer las pruebas
+- Planteamiento de las pruebas con sus resultados en el archivo VV_services
+- Realizado de todas las pruebas

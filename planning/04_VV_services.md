@@ -182,10 +182,10 @@
 | 24 | Get all histórico precio | Sin filtros | Devuelve los 5 históricos de precio existentes |
 | 25 | Filter histórico precio | Libros: [`1`] | Devuelve los 2 históricos asociados a La comunidad del anillo |
 | 26 | Filter histórico precio | Tiendas: [`1`] | Devuelve los 3 históricos asociados a Amazon |
-| 27 | Filter histórico precio | Fecha inicio: `2019-12-01`. Fecha fin: `2019-12-31` | Devuelve los históricos consultados durante diciembre de 2019 |
+| 27 | Filter histórico precio | Fecha min: `2019-12-01`. Fecha max: `2019-12-31` | Devuelve los históricos consultados durante diciembre de 2019 |
 | 28 | Filter histórico precio | Precio mínimo: `10`. Precio máximo: `20` | Devuelve los históricos con precios 15.99, 18.59 y 12.99 |
 | 29 | Filter histórico precio | Libros: [`1`]. Tiendas: [`1`] | Devuelve únicamente el histórico de La comunidad del anillo en Amazon |
-| 30 | Filter histórico precio | Fecha inicio: `2019-12-01`. Fecha fin: `2019-12-31`. Precio mínimo: `10`. Precio máximo: `20` | Devuelve los históricos que cumplen simultáneamente ambos rangos |
+| 30 | Filter histórico precio | Fecha min: `2019-12-01`. Fecha max: `2019-12-04`. Precio mínimo: `10`. Precio máximo: `20` | Devuelve los históricos que cumplen simultáneamente ambos rangos |
 | 31 | Filter histórico precio | Libros: [`4`]. Precio mínimo: `10`. Precio máximo: `20` | Devuelve una lista vacía |
 | 32 | Get all tienda | Sin filtros | Devuelve las 3 tiendas existentes: Amazon, Casa del libro y Fnac |
 | 33 | Search tienda | Nombre: `Casa` | Devuelve la tienda Casa del libro |
