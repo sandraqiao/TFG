@@ -1,5 +1,6 @@
 # Verificación y validación de services
 
+## Pruebas sobre las funcionalidades generales de services
 | Orden | Acción | Datos | Resultado esperado |
 | ----- | ------ | ----- | ------------------ |
 | 1 | Create saga | Nombre: Crónicas de Narnia | Se crea correctamente |
@@ -97,3 +98,122 @@
 | 88 | Delete libro | Borrar un libro que tenga relaciones autor-libro | Se eliminan sus relaciones autor-libro | 
 | 89 | Delete tienda | Borrar una tienda con históricos de precio asociados | Se eliminan sus históricos de precio | 
 | 90 | Delete autor | Borrar un autor con relaciones autor-libro | Se eliminan sus relaciones autor-libro |
+
+
+## Pruebas sobre las funcionalidades get_all, search y filter de services
+
+### Datos previos
+
+### Sagas
+| ID | Nombre |
+| -- | ------ |
+| 1 | El señor de los anillos |
+| 2 | Harry Potter |
+| 3 | Nacidos de la Bruma |
+
+### Autores
+| ID | Nombre |
+| -- | ------ |
+| 1 | J.R.R. Tolkien |
+| 2 | J.K. Rowling |
+| 3 | Brandon Sanderson |
+
+### Libros
+| ID | Título | ID Saga | ISBN | Género | Idioma | Editorial | Wishlist |
+| -- | ------ | ------- | ---- | ------ | ------ | --------- | -------- |
+| 1 | La comunidad del anillo | 1 | 111 | Fantasía | ESP | Minotauro | True |
+| 2 | Las dos torres | 1 | 222 | Fantasía | ESP | Minotauro | False |
+| 3 | La piedra filosofal | 2 | 333 | Fantasía | ESP | Salamandra | True |
+| 4 | The way of the king | None | 444 | Fantasía | ENG | Tor | False |
+| 5 | Libro de prueba | None | 555 | Misterio | ESP | Planeta | True |
+
+### Lecturas
+| ID | ID Libro | Estado | Valoración | Formato | Fecha inicio | Fecha fin |
+| -- | -------- | ------ | ---------- | ------- | ------------ | --------- |
+| 1 | 1 | Leído | 5 | Físico | 2019-12-04 | 2019-12-04 |
+| 2 | 1 | Leyendo | None | Ebook | 2019-12-04 | None |
+| 3 | 3 | Abandonado | 2 | Físico | 2019-12-04 | 2019-12-04 |
+| 4 | 4 | Leído | 8 | Ebook | 2019-12-04 | 2019-12-04 |
+| 5 | 5 | Leyendo | None | AudioLibro | 2019-12-04 | None |
+
+### Tiendas
+| ID | Nombre | URL |
+| -- | ------ | --- |
+| 1 | Amazon | amazon.com |
+| 2 | Casa del libro | casadellibro.com |
+| 3 | Fnac | fnac.com |
+
+### Históricos de precio
+ ID | ID Libro | ID Tienda | Fecha | Precio | Disponible |
+| -- | -------- | --------- | ----- | ------ | ---------- |
+| 1 | 1 | 1 | 2019-12-01 | 15.99 | True |
+| 2 | 1 | 2 | 2019-12-04 | 18.59 | True |
+| 3 | 3 | 1 | 2019-12-10 | 12.99 | True |
+| 4 | 4 | 3 | 2019-12-15 | 25.00 | True |
+| 5 | 5 | 1 | 2019-12-20 | 9.99 | True |
+
+## Pruebas
+
+| Orden | Acción | Datos | Esperado |
+| ----- | ------ | ----- | -------- |
+| 1 | Get all sagas | Sin filtros | Devuelve las 3 sagas: El señor de los anillos, Harry Potter y Nacidos de la Bruma |
+| 2 | Search saga | Nombre: `Harry` | Devuelve la saga Harry Potter |
+| 3 | Search saga | Nombre: `Nacidos` | Devuelve la saga Nacidos de la Bruma |
+| 4 | Search saga | Nombre inexistente | Devuelve una lista vacía |
+| 5 | Get all autores | Sin filtros | Devuelve los 3 autores: J.R.R. Tolkien, J.K. Rowling y Brandon Sanderson |
+| 6 | Search by autor | Autor: J.R.R. Tolkien | Devuelve las relaciones autor-libro asociadas a Tolkien |
+| 7 | Search by autor | Autor: J.K. Rowling | Devuelve las relaciones autor-libro asociadas a Rowling |
+| 8 | Search by autor | ID de autor inexistente | ValueError por autor inexistente |
+| 9 | Get all libros | Sin filtros | Devuelve los 5 libros |
+| 10 | Search by saga | Saga: El señor de los anillos | Devuelve La comunidad del anillo y Las dos torres |
+| 11 | Search by saga | Saga: Harry Potter | Devuelve La piedra filosofal |
+| 12 | Search by título | Texto: `anillo` | Devuelve La comunidad del anillo |
+| 13 | Search by título | Texto: `torres` | Devuelve Las dos torres |
+| 14 | Search by ISBN | ISBN: `333` | Devuelve La piedra filosofal |
+| 15 | Search by ISBN | ISBN inexistente | Devuelve una lista vacía o `None`, según la implementación del repository/service |
+| 16 | Search by autor | Autor: J.R.R. Tolkien | Devuelve La comunidad del anillo y Las dos torres |
+| 17 | Search by autor | Autor: Brandon Sanderson | Devuelve The way of the king |
+| 18 | Filter libros | Géneros: Fantasía | Devuelve los libros 1, 2, 3 y 4 |
+| 19 | Filter libros | Géneros: Misterio | Devuelve Libro de prueba |
+| 20 | Filter libros | Idiomas: ESP | Devuelve los libros 1, 2, 3 y 5 |
+| 21 | Filter libros | Idiomas: ENG | Devuelve The way of the king |
+| 22 | Filter libros | Editoriales: Minotauro | Devuelve La comunidad del anillo y Las dos torres |
+| 23 | Filter libros | Wishlist: True | Devuelve los libros 1, 3 y 5 |
+| 24 | Filter libros | Wishlist: False | Devuelve los libros 2 y 4 |
+| 25 | Filter libros | Género: Fantasía + Idioma: ESP | Devuelve los libros 1, 2 y 3 |
+| 26 | Filter libros | Género: Fantasía + Wishlist: True | Devuelve los libros 1 y 3 |
+| 27 | Filter libros | Género: Misterio + Idioma: ENG | Devuelve una lista vacía |
+| 28 | Filter libros | Sin filtros | Devuelve los 5 libros |
+| 29 | Get all lecturas | Sin filtros | Devuelve las 5 lecturas |
+| 30 | Search by libro | Libro: La comunidad del anillo | Devuelve las lecturas 1 y 2 |
+| 31 | Search by libro | Libro: The way of the king | Devuelve la lectura 4 |
+| 32 | Search by libro | ID de libro inexistente | ValueError por libro inexistente |
+| 33 | Filter lecturas | Estados: Leído | Devuelve las lecturas 1 y 4 |
+| 34 | Filter lecturas | Estados: Leyendo | Devuelve las lecturas 2 y 5 |
+| 35 | Filter lecturas | Estados: Abandonado | Devuelve la lectura 3 |
+| 36 | Filter lecturas | Valoraciones: 5 | Devuelve la lectura 1 |
+| 37 | Filter lecturas | Valoraciones: 5 y 8 | Devuelve las lecturas 1 y 4 |
+| 38 | Filter lecturas | Formatos: Físico | Devuelve las lecturas 1 y 3 |
+| 39 | Filter lecturas | Formatos: Ebook | Devuelve las lecturas 2 y 4 |
+| 40 | Filter lecturas | Estado: Leído + Formato: Ebook | Devuelve la lectura 4 |
+| 41 | Filter lecturas | Estado: Abandonado + Formato: Ebook | Devuelve una lista vacía |
+| 42 | Filter lecturas | Sin filtros | Devuelve las 5 lecturas |
+| 43 | Get all históricos | Sin filtros | Devuelve los 5 históricos |
+| 44 | Filter históricos | Libros: ID 1 | Devuelve los históricos 1 y 2 |
+| 45 | Filter históricos | Libros: ID 3 | Devuelve el histórico 3 |
+| 46 | Filter históricos | Tiendas: ID 1 | Devuelve los históricos 1, 3 y 5 |
+| 47 | Filter históricos | Tiendas: ID 3 | Devuelve el histórico 4 |
+| 48 | Filter históricos | Fecha inicio: 2019-12-01. Fecha fin: 2019-12-04 | Devuelve los históricos 1 y 2 |
+| 49 | Filter históricos | Fecha inicio: 2019-12-05. Fecha fin: 2019-12-14 | Devuelve el histórico 3 |
+| 50 | Filter históricos | Fecha inicio: 2019-12-04. Fecha fin: 2019-12-15 | Devuelve los históricos 2, 3 y 4 |
+| 51 | Filter históricos | Fecha inicio: 2019-12-21. Fecha fin: 2019-12-31 | Devuelve una lista vacía |
+| 52 | Filter históricos | Precio mínimo: 10.00. Precio máximo: 20.00 | Devuelve los históricos 1, 2 y 3 |
+| 53 | Filter históricos | Precio mínimo: 9.00. Precio máximo: 10.00 | Devuelve el histórico 5 |
+| 54 | Filter históricos | Precio mínimo: 30.00. Precio máximo: 40.00 | Devuelve una lista vacía |
+| 55 | Filter históricos | Libro: ID 1 + Tienda: ID 1 | Devuelve el histórico 1 |
+| 56 | Filter históricos | Libro: ID 1 + Precio mínimo: 10.00 + Precio máximo: 17.00 | Devuelve el histórico 1 |
+| 57 | Filter históricos | Tienda: ID 1 + Precio mínimo: 10.00 + Precio máximo: 16.00 | Devuelve los históricos 1 y 3 |
+| 58 | Filter históricos | Libro: ID 1 + Fecha inicio: 2019-12-01 + Fecha fin: 2019-12-03 | Devuelve el histórico 1 |
+| 59 | Filter históricos | Tienda: ID 1 + Fecha inicio: 2019-12-05 + Fecha fin: 2019-12-15 | Devuelve el histórico 3 |
+| 60 | Filter históricos | Libro: ID 1 + Tienda: ID 1 + Fecha inicio: 2019-12-01 + Fecha fin: 2019-12-10 + Precio mínimo: 10.00 + Precio máximo: 20.00 | Devuelve el histórico 1 |
+| 61 | Filter históricos | Sin filtros | Devuelve los 5 históricos |
