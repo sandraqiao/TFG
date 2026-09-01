@@ -156,64 +156,37 @@
 
 | Orden | Acción | Datos | Esperado |
 | ----- | ------ | ----- | -------- |
-| 1 | Get all sagas | Sin filtros | Devuelve las 3 sagas: El señor de los anillos, Harry Potter y Nacidos de la Bruma |
+| 1 | Get all saga | Sin filtros | Devuelve las 3 sagas existentes: El señor de los anillos, Harry Potter y Nacidos de la Bruma |
 | 2 | Search saga | Nombre: `Harry` | Devuelve la saga Harry Potter |
-| 3 | Search saga | Nombre: `Nacidos` | Devuelve la saga Nacidos de la Bruma |
-| 4 | Search saga | Nombre inexistente | Devuelve una lista vacía |
-| 5 | Get all autores | Sin filtros | Devuelve los 3 autores: J.R.R. Tolkien, J.K. Rowling y Brandon Sanderson |
-| 6 | Search by autor | Autor: J.R.R. Tolkien | Devuelve las relaciones autor-libro asociadas a Tolkien |
-| 7 | Search by autor | Autor: J.K. Rowling | Devuelve las relaciones autor-libro asociadas a Rowling |
-| 8 | Search by autor | ID de autor inexistente | ValueError por autor inexistente |
-| 9 | Get all libros | Sin filtros | Devuelve los 5 libros |
-| 10 | Search by saga | Saga: El señor de los anillos | Devuelve La comunidad del anillo y Las dos torres |
-| 11 | Search by saga | Saga: Harry Potter | Devuelve La piedra filosofal |
-| 12 | Search by título | Texto: `anillo` | Devuelve La comunidad del anillo |
-| 13 | Search by título | Texto: `torres` | Devuelve Las dos torres |
-| 14 | Search by ISBN | ISBN: `333` | Devuelve La piedra filosofal |
-| 15 | Search by ISBN | ISBN inexistente | Devuelve una lista vacía o `None`, según la implementación del repository/service |
-| 16 | Search by autor | Autor: J.R.R. Tolkien | Devuelve La comunidad del anillo y Las dos torres |
-| 17 | Search by autor | Autor: Brandon Sanderson | Devuelve The way of the king |
-| 18 | Filter libros | Géneros: Fantasía | Devuelve los libros 1, 2, 3 y 4 |
-| 19 | Filter libros | Géneros: Misterio | Devuelve Libro de prueba |
-| 20 | Filter libros | Idiomas: ESP | Devuelve los libros 1, 2, 3 y 5 |
-| 21 | Filter libros | Idiomas: ENG | Devuelve The way of the king |
-| 22 | Filter libros | Editoriales: Minotauro | Devuelve La comunidad del anillo y Las dos torres |
-| 23 | Filter libros | Wishlist: True | Devuelve los libros 1, 3 y 5 |
-| 24 | Filter libros | Wishlist: False | Devuelve los libros 2 y 4 |
-| 25 | Filter libros | Género: Fantasía + Idioma: ESP | Devuelve los libros 1, 2 y 3 |
-| 26 | Filter libros | Género: Fantasía + Wishlist: True | Devuelve los libros 1 y 3 |
-| 27 | Filter libros | Género: Misterio + Idioma: ENG | Devuelve una lista vacía |
-| 28 | Filter libros | Sin filtros | Devuelve los 5 libros |
-| 29 | Get all lecturas | Sin filtros | Devuelve las 5 lecturas |
-| 30 | Search by libro | Libro: La comunidad del anillo | Devuelve las lecturas 1 y 2 |
-| 31 | Search by libro | Libro: The way of the king | Devuelve la lectura 4 |
-| 32 | Search by libro | ID de libro inexistente | ValueError por libro inexistente |
-| 33 | Filter lecturas | Estados: Leído | Devuelve las lecturas 1 y 4 |
-| 34 | Filter lecturas | Estados: Leyendo | Devuelve las lecturas 2 y 5 |
-| 35 | Filter lecturas | Estados: Abandonado | Devuelve la lectura 3 |
-| 36 | Filter lecturas | Valoraciones: 5 | Devuelve la lectura 1 |
-| 37 | Filter lecturas | Valoraciones: 5 y 8 | Devuelve las lecturas 1 y 4 |
-| 38 | Filter lecturas | Formatos: Físico | Devuelve las lecturas 1 y 3 |
-| 39 | Filter lecturas | Formatos: Ebook | Devuelve las lecturas 2 y 4 |
-| 40 | Filter lecturas | Estado: Leído + Formato: Ebook | Devuelve la lectura 4 |
-| 41 | Filter lecturas | Estado: Abandonado + Formato: Ebook | Devuelve una lista vacía |
-| 42 | Filter lecturas | Sin filtros | Devuelve las 5 lecturas |
-| 43 | Get all históricos | Sin filtros | Devuelve los 5 históricos |
-| 44 | Filter históricos | Libros: ID 1 | Devuelve los históricos 1 y 2 |
-| 45 | Filter históricos | Libros: ID 3 | Devuelve el histórico 3 |
-| 46 | Filter históricos | Tiendas: ID 1 | Devuelve los históricos 1, 3 y 5 |
-| 47 | Filter históricos | Tiendas: ID 3 | Devuelve el histórico 4 |
-| 48 | Filter históricos | Fecha inicio: 2019-12-01. Fecha fin: 2019-12-04 | Devuelve los históricos 1 y 2 |
-| 49 | Filter históricos | Fecha inicio: 2019-12-05. Fecha fin: 2019-12-14 | Devuelve el histórico 3 |
-| 50 | Filter históricos | Fecha inicio: 2019-12-04. Fecha fin: 2019-12-15 | Devuelve los históricos 2, 3 y 4 |
-| 51 | Filter históricos | Fecha inicio: 2019-12-21. Fecha fin: 2019-12-31 | Devuelve una lista vacía |
-| 52 | Filter históricos | Precio mínimo: 10.00. Precio máximo: 20.00 | Devuelve los históricos 1, 2 y 3 |
-| 53 | Filter históricos | Precio mínimo: 9.00. Precio máximo: 10.00 | Devuelve el histórico 5 |
-| 54 | Filter históricos | Precio mínimo: 30.00. Precio máximo: 40.00 | Devuelve una lista vacía |
-| 55 | Filter históricos | Libro: ID 1 + Tienda: ID 1 | Devuelve el histórico 1 |
-| 56 | Filter históricos | Libro: ID 1 + Precio mínimo: 10.00 + Precio máximo: 17.00 | Devuelve el histórico 1 |
-| 57 | Filter históricos | Tienda: ID 1 + Precio mínimo: 10.00 + Precio máximo: 16.00 | Devuelve los históricos 1 y 3 |
-| 58 | Filter históricos | Libro: ID 1 + Fecha inicio: 2019-12-01 + Fecha fin: 2019-12-03 | Devuelve el histórico 1 |
-| 59 | Filter históricos | Tienda: ID 1 + Fecha inicio: 2019-12-05 + Fecha fin: 2019-12-15 | Devuelve el histórico 3 |
-| 60 | Filter históricos | Libro: ID 1 + Tienda: ID 1 + Fecha inicio: 2019-12-01 + Fecha fin: 2019-12-10 + Precio mínimo: 10.00 + Precio máximo: 20.00 | Devuelve el histórico 1 |
-| 61 | Filter históricos | Sin filtros | Devuelve los 5 históricos |
+| 3 | Get all autor | Sin filtros | Devuelve los 3 autores existentes: J.R.R. Tolkien, J.K. Rowling y Brandon Sanderson |
+| 4 | Get all libro | Sin filtros | Devuelve los 5 libros existentes |
+| 5 | Search libro por saga | ID saga: `1` | Devuelve La comunidad del anillo y Las dos torres |
+| 6 | Search libro por título | Título: `anillo` | Devuelve La comunidad del anillo |
+| 7 | Search libro por ISBN | ISBN: `333` | Devuelve La piedra filosofal |
+| 8 | Filter libro | Géneros: [`Fantasía`] | Devuelve los 4 libros de género Fantasía |
+| 9 | Filter libro | Idiomas: [`ENG`] | Devuelve The way of the king |
+| 10 | Filter libro | Editoriales: [`Minotauro`] | Devuelve La comunidad del anillo y Las dos torres |
+| 11 | Filter libro | Wishlist: `true` | Devuelve La comunidad del anillo, La piedra filosofal y Libro de prueba |
+| 12 | Filter libro | Géneros: [`Fantasía`, `Misterio`] | Devuelve los 5 libros existentes |
+| 13 | Filter libro | Idiomas: [`ESP`]. Wishlist: `true` | Devuelve La comunidad del anillo, La piedra filosofal y Libro de prueba |
+| 14 | Filter libro | Géneros: [`Fantasía`]. Idiomas: [`ESP`]. Editoriales: [`Minotauro`]. Wishlist: `true` | Devuelve únicamente La comunidad del anillo |
+| 15 | Filter libro | Géneros: [`Misterio`]. Idiomas: [`ENG`] | Devuelve una lista vacía |
+| 16 | Get all lectura | Sin filtros | Devuelve las 5 lecturas existentes |
+| 17 | Search lectura por libro | ID libro: `1` | Devuelve las 2 lecturas asociadas a La comunidad del anillo |
+| 18 | Filter lectura | Estados: [`Leyendo`] | Devuelve las 2 lecturas con estado Leyendo |
+| 19 | Filter lectura | Valoraciones: [`5`, `8`] | Devuelve las 2 lecturas valoradas con 5 y 8 |
+| 20 | Filter lectura | Formatos: [`Físico`] | Devuelve las 2 lecturas realizadas en formato Físico |
+| 21 | Filter lectura | Estados: [`Leído`, `Abandonado`] | Devuelve las 3 lecturas finalizadas o abandonadas |
+| 22 | Filter lectura | Estados: [`Leído`]. Formatos: [`Ebook`] | Devuelve la lectura de The way of the king |
+| 23 | Filter lectura | Estados: [`Leyendo`]. Formatos: [`Físico`] | Devuelve una lista vacía |
+| 24 | Get all histórico precio | Sin filtros | Devuelve los 5 históricos de precio existentes |
+| 25 | Filter histórico precio | Libros: [`1`] | Devuelve los 2 históricos asociados a La comunidad del anillo |
+| 26 | Filter histórico precio | Tiendas: [`1`] | Devuelve los 3 históricos asociados a Amazon |
+| 27 | Filter histórico precio | Fecha inicio: `2019-12-01`. Fecha fin: `2019-12-31` | Devuelve los históricos consultados durante diciembre de 2019 |
+| 28 | Filter histórico precio | Precio mínimo: `10`. Precio máximo: `20` | Devuelve los históricos con precios 15.99, 18.59 y 12.99 |
+| 29 | Filter histórico precio | Libros: [`1`]. Tiendas: [`1`] | Devuelve únicamente el histórico de La comunidad del anillo en Amazon |
+| 30 | Filter histórico precio | Fecha inicio: `2019-12-01`. Fecha fin: `2019-12-31`. Precio mínimo: `10`. Precio máximo: `20` | Devuelve los históricos que cumplen simultáneamente ambos rangos |
+| 31 | Filter histórico precio | Libros: [`4`]. Precio mínimo: `10`. Precio máximo: `20` | Devuelve una lista vacía |
+| 32 | Get all tienda | Sin filtros | Devuelve las 3 tiendas existentes: Amazon, Casa del libro y Fnac |
+| 33 | Search tienda | Nombre: `Casa` | Devuelve la tienda Casa del libro |
+| 34 | Search autor-libro por autor | ID autor correspondiente a J.R.R. Tolkien | Devuelve las relaciones autor-libro asociadas a J.R.R. Tolkien |
