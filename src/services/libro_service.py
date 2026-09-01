@@ -101,6 +101,21 @@ def search_by_title(titulo: str):
 def search_by_isbn(isbn: str):
     return libro_repository.get_by_isbn(isbn)
 
+def filter_libro(generos: list[str] | None = None, idiomas: list[str] | None = None, editoriales: list[str] | None = None, en_wishlist: bool | None = None):
+
+    filtros = []
+
+    if generos: 
+        filtros.append(Libro.genero.in_(generos))
+    if idiomas: 
+        filtros.append(Libro.idioma.in_(idiomas))
+    if editoriales: 
+        filtros.append(Libro.editorial.in_(editoriales))
+    if en_wishlist is not None: 
+        filtros.append(Libro.en_wishlist==en_wishlist)
+
+    return libro_repository.filter_libro(filtros)
+
 # ===============================================================================================================
 
 def _build_libro(id_saga: int | None, titulo: str, isbn: str | None, num_pag: int | None, genero: str, 

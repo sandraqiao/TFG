@@ -37,6 +37,11 @@ def get_all():
         result = session.query(Libro).all()
     return result
 
+def filter_libro(filtros):
+    with Session(engine) as session:
+        result = session.query(Libro).filter(*filtros).all()
+    return result
+
 def delete(id_libro: int):
     with Session(engine) as session:
         try:

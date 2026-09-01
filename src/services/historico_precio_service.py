@@ -61,6 +61,23 @@ def delete(id_precio:int):
 def get_all_historico_precio():
     return historico_precio_repository.get_all()
 
+def filter_historico(libros: list[int] | None = None, tiendas: list[int] | None = None, 
+                     fecha_ini: dt.date | None = None, fecha_fin: dt.date | None = None,
+                       precio_min: Decimal | None = None, precio_max: Decimal | None = None):
+
+    filtros = []
+
+    if libros: 
+        filtros.append(HistoricoPrecio.id_libro.in_(libros))
+    if tiendas: 
+        filtros.append(HistoricoPrecio.id_tienda.in_(tiendas))
+    if fecha_ini is not None and fecha_fin is not None: 
+        filtros.append(HistoricoPrecio.fecha_consulta.between(fecha_ini, fecha_fin))
+    if precio_min is not None and precio_max is not None: 
+        filtros.append(HistoricoPrecio.precio.between(precio_min, precio_max))
+
+    return historico_precio_repository.filter_historico_precio(filtros)
+
 # ===============================================================================================================
 
 def _build_historico_precio(id_libro: int, id_tienda: int, precio: Decimal, pct_descuento: Decimal | None, 

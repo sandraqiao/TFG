@@ -32,6 +32,11 @@ def get_all():
         result = session.query(Lectura).all()
         return result
 
+def filter_lectura(filtros):
+    with Session(engine) as session:
+        result = session.query(Lectura).filter(*filtros).all()
+    return result
+
 def delete(id_lectura: int):
     with Session(engine) as session:
         try:

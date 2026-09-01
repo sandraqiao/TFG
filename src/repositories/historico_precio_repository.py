@@ -32,6 +32,11 @@ def get_all():
         result = session.query(HistoricoPrecio).all()
         return result
 
+def filter_historico_precio(filtros):
+    with Session(engine) as session:
+        result = session.query(HistoricoPrecio).filter(*filtros).all()
+    return result
+
 def delete(id_precio: int):
     with Session(engine) as session:
         try:

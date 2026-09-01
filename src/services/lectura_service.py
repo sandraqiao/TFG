@@ -69,6 +69,19 @@ def search_by_libro(id_libro: int):
         raise ValueError("Este libro no tiene lecturas.")
     return lectura_repository.get_by_libro(id_libro)
 
+def filter_lectura(estados: list[str] | None = None, valoraciones: list[int] | None = None, formatos: list[str] | None = None):
+
+    filtros = []
+
+    if estados: 
+        filtros.append(Lectura.estado.in_(estados))
+    if valoraciones: 
+        filtros.append(Lectura.valoracion.in_(valoraciones))
+    if formatos: 
+        filtros.append(Lectura.formato.in_(formatos))
+
+    return lectura_repository.filter_lectura(filtros)
+
 # ===============================================================================================================
 
 def _build_lectura(id_libro: int, estado: str, valoracion: int | None, comentario: str | None,
