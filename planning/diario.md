@@ -13,6 +13,7 @@
 - Usar PostgreSQL porque es un SGBD más completo y utilizado en empresas que escala mejor en caso de necesitarlo en un futuro.
 - Usar una API que recoga los datos de los libros y scraping solo para los precios de estos: una API es más rápida y requiere menos código que si scrapeamos por esos datos.
 - Usar SQLAlchemy para poder trabajar con los libros más cómodamente (como si fueran objetos).
+- Usar Playwright y BeautifulSoup para el scraping de los datos de precios.
 
 ## Diagrama del dominio
 - Se ha decidido modelar el historial de precios como una entidad independiente (HistorialPrecios) en vez de considerarlo como un simple atributo de la relación entre Libro y Tienda como se había planteado en un principio, porque como quiero guardar mucha información por cada scraping que se haga (precio, fecha, tienda...) el atributo deja de ser estático y pasa a ser una entidad con info propia.
@@ -33,6 +34,11 @@
 
 ## Ideas que no se van a aplicar en esta versión del proyecto
 - Añadir a lectura idioma porque hoy te lees libro x en español y mañana te lo leer en inglés.
+
+## Ideas pausadas para estudiar más adelante
+- La idea de autorellenado de datos de libros se va a pausar. En un principio había pensado que, cuando el usuario cree un nuevo libro, que le sugiera la mayoría de los campos de dicho libro a partir del título o isbn de la obra. Para que el usuario solo tuviese que revisar que quería eso y poco más. 
+- Se había planteado usar una API de libros para esto. Las dos opciones principales siendo Google Books y OpenLibrary. La primera requiere de una sesión y proyecto declarado además de tokens por uso. Y la segunda, tras haber estudiado los datos que potencialmente podríamos obtener, apenas conseguíamos sacar el título, autor. No merecía la pena.
+- Por ahora se pausa esta idea para considerar más adelante si merece tanto la pena.
 
 
 
@@ -204,3 +210,13 @@
 - Preparado de tablas con información para poder hacer las pruebas
 - Planteamiento de las pruebas con sus resultados en el archivo VV_services
 - Realizado de todas las pruebas
+
+## 02/09/2026
+### Objetivos
+- Estudiar APIs para poder hacer el autorellenado
+- Empezar a implementarlo
+### Trabajo hecho 
+- Estudio de datos y viabilidad de esta funcionalidad. Puesta en pausa (ver `Ideas pausadas para estudiar más adelante`)
+- Inicio del estudio del html de La Casa del Libro para poder empezar con el scraper
+- Tiramos request a la basura porque la casa del libro devuelve un precioso 403: Access Denied
+- Tiramos tmb Playwrite porque Smart App Control de windows no me deja ser feliz... mañana intentamos on Selenium

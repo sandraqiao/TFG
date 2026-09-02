@@ -8,6 +8,7 @@
 # ==========================================================================================================
 
 # import streamlit as st
+# st.title("Mi biblioteca")
 
 # st.set_page_config(
 #     page_title="My Streamlit App",
@@ -45,3 +46,10 @@
 #     precio_min=10,
 #     precio_max=20
 # )
+
+# ==========================================================================================================
+# 
+# ==========================================================================================================
+from scraper.casa_del_libro import get_url
+
+get_url("https://www.casadellibro.com/libro-nacidos-de-la-bruma-trilogia-original-mistborn-1/9788413149813/16532594")
