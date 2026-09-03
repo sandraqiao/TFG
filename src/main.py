@@ -50,6 +50,9 @@
 # ==========================================================================================================
 # 
 # ==========================================================================================================
-from scraper.casa_del_libro import get_url
+from scraper.casa_del_libro import extract_data
 
-get_url("https://www.casadellibro.com/libro-nacidos-de-la-bruma-trilogia-original-mistborn-1/9788413149813/16532594")
+# sí tiene descuento:
+extract_data("https://www.casadellibro.com/libro-butcher--blackbird/9788419822048/15864426")
+# no tiene descuento:
+extract_data("https://www.casadellibro.com/libro-el-imperio-final-saga-nacidos-de-la-bruma-1/9788417347291/6433955")

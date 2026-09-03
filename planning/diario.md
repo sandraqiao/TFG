@@ -215,8 +215,16 @@
 ### Objetivos
 - Estudiar APIs para poder hacer el autorellenado
 - Empezar a implementarlo
+- Scraper
 ### Trabajo hecho 
 - Estudio de datos y viabilidad de esta funcionalidad. Puesta en pausa (ver `Ideas pausadas para estudiar más adelante`)
 - Inicio del estudio del html de La Casa del Libro para poder empezar con el scraper
 - Tiramos request a la basura porque la casa del libro devuelve un precioso 403: Access Denied
 - Tiramos tmb Playwrite porque Smart App Control de windows no me deja ser feliz... mañana intentamos on Selenium
+
+## 03/09/2026
+### Objetivos
+- Seguir con el scraper
+### Trabajo hecho 
+- Instalación de selenium
+- Instalación de un driver de chrome para que selenuim lo utilice porque windows no me deja ser feliz otra vez...
