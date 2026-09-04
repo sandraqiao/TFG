@@ -50,9 +50,15 @@
 # ==========================================================================================================
 # 
 # ==========================================================================================================
-from scraper.casa_del_libro import extract_data
+from scraper.casa_del_libro import extract_precio_data, extract_url_libro
 
 # sí tiene descuento:
-extract_data("https://www.casadellibro.com/libro-butcher--blackbird/9788419822048/15864426")
-# no tiene descuento:
-extract_data("https://www.casadellibro.com/libro-el-imperio-final-saga-nacidos-de-la-bruma-1/9788417347291/6433955")
+# bb = extract_precio_data("https://www.casadellibro.com/libro-butcher--blackbird/9788419822048/15864426")
+# print("butcher and blackbird")
+# print(bb)
+# # no tiene descuento:
+# mb = extract_precio_data("https://www.casadellibro.com/libro-el-imperio-final-saga-nacidos-de-la-bruma-1/9788417347291/6433955")
+# print("mistborn")
+# print(mb)
+
+extract_url_libro("9780349446547")

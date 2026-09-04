@@ -5,7 +5,37 @@ import json
 import datetime as dt
 from decimal import Decimal
 
-def extract_data(url: str):
+def extract_url_libro(busca: str):
+
+    service = Service("drivers/chromedriver-win64/chromedriver.exe")
+    driver = webdriver.Chrome(service=service)
+
+    driver.get(f"https://www.casadellibro.com/?query={busca}")
+    input("Enter para continuar")
+    html = driver.page_source
+    driver.quit()
+
+    # # full_soup = BeautifulSoup(html, 'html.parser')
+
+    # with open("debug.html", "w", encoding="utf-8") as f:
+    #     f.write(html)
+
+    # text = full_soup.find_all(string=lambda texto: texto and busca in texto)
+    # print(text)
+
+    # resultados = full_soup.find_all(
+    #     "a",
+    #     attrs={"data-test": "result-link"}
+    # )
+
+    # print("Resultados encontrados:", len(resultados))
+
+    # for resultado in resultados:
+    #     print(resultado.get("href"))
+
+# ===============================================================================================================
+
+def extract_precio_data(url: str):
 
     service = Service("drivers/chromedriver-win64/chromedriver.exe")
     driver = webdriver.Chrome(service=service)
@@ -32,8 +62,9 @@ def get_pct_descuento(soup):
 
     if text is not None:
         descuento = text[(text.find("-")+1):(text.find("%"))]
+        return Decimal(descuento)
 
-    return descuento
+    return None
 
 def get_precio(libro_json):
     precio = libro_json[1]["workExample"][0]["offers"][0]["Price"]

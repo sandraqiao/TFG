@@ -219,7 +219,7 @@
 ### Trabajo hecho 
 - Estudio de datos y viabilidad de esta funcionalidad. Puesta en pausa (ver `Ideas pausadas para estudiar más adelante`)
 - Inicio del estudio del html de La Casa del Libro para poder empezar con el scraper
-- Tiramos request a la basura porque la casa del libro devuelve un precioso 403: Access Denied
+- Tiramos requests a la basura porque la casa del libro devuelve un precioso 403: Access Denied
 - Tiramos tmb Playwrite porque Smart App Control de windows no me deja ser feliz... mañana intentamos on Selenium
 
 ## 03/09/2026
@@ -228,3 +228,8 @@
 ### Trabajo hecho 
 - Instalación de selenium
 - Instalación de un driver de chrome para que selenuim lo utilice porque windows no me deja ser feliz otra vez...
+- Empezado el scraper: buscar info en la casa del libro a partir de la url del libro
+
+## 04/09/2026
+### Objetivos
+- Terminar scraper parte de buscar la info a partir de la url
