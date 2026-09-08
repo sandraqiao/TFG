@@ -231,5 +231,11 @@
 - Empezado el scraper: buscar info en la casa del libro a partir de la url del libro
 
 ## 04/09/2026
-### Objetivos
+### Trabajo hecho
 - Terminar scraper parte de buscar la info a partir de la url
+- Empezar scraper a partir de una string
+
+## 08/09/2026
+### Trabajo hecho
+- Continuar scraper a partir de una string
+- Cuando buscamos por título, nos sale tmb una sección de "interesado en x? entonces conoce y" y el scraper saca mazo más resultados... nos interesa mucho que no aparezcan las recomendaciones?

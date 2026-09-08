@@ -4,34 +4,26 @@ from bs4 import BeautifulSoup
 import json
 import datetime as dt
 from decimal import Decimal
+from selenium.webdriver.common.by import By
 
 def extract_url_libro(busca: str):
 
     service = Service("drivers/chromedriver-win64/chromedriver.exe")
     driver = webdriver.Chrome(service=service)
 
-    driver.get(f"https://www.casadellibro.com/?query={busca}")
+    driver.get(f"https://www.casadellibro.com/?query={busca.replace(" ", "%20")}")
     input("Enter para continuar")
-    html = driver.page_source
-    driver.quit()
 
-    # # full_soup = BeautifulSoup(html, 'html.parser')
+    root = driver.find_element(By.CSS_SELECTOR, ".x-root-container")
+    html = driver.execute_script("return arguments[0].shadowRoot.innerHTML", root)
+    full_soup = BeautifulSoup(html, 'html.parser')
 
-    # with open("debug.html", "w", encoding="utf-8") as f:
-    #     f.write(html)
+    resultados = full_soup.find_all("a", attrs={"data-test": "result-link"})
+    urls = set()
+    for resultado in resultados:
+        urls.add(resultado.get("href"))
 
-    # text = full_soup.find_all(string=lambda texto: texto and busca in texto)
-    # print(text)
-
-    # resultados = full_soup.find_all(
-    #     "a",
-    #     attrs={"data-test": "result-link"}
-    # )
-
-    # print("Resultados encontrados:", len(resultados))
-
-    # for resultado in resultados:
-    #     print(resultado.get("href"))
+    return urls
 
 # ===============================================================================================================
 
