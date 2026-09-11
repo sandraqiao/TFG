@@ -4,23 +4,6 @@
 # .\.venv\Scripts\Activate.ps1
 
 # ==========================================================================================================
-# CONEXIÓN CON STREAMLIT
-# ==========================================================================================================
-
-# import streamlit as st
-# st.title("Mi biblioteca")
-
-# st.set_page_config(
-#     page_title="My Streamlit App",
-#     page_icon=":rocket:",
-#     layout="wide"
-# )
-
-# st.title("Welcome to My Streamlit App")
-
-# st.write("This is a simple Streamlit application that demonstrates how to create a web app using Python.")
-
-# ==========================================================================================================
 # CREACIÓN DE TABLAS QUE NO EXISTAN
 # ==========================================================================================================
 # import models
@@ -48,17 +31,6 @@
 # )
 
 # ==========================================================================================================
-# 
+# STREAMLIT
 # ==========================================================================================================
-from scraper.casa_del_libro import extract_precio_data, extract_url_libro
-
-# sí tiene descuento:
-# bb = extract_precio_data("https://www.casadellibro.com/libro-butcher--blackbird/9788419822048/15864426")
-# print("butcher and blackbird")
-# print(bb)
-# # no tiene descuento:
-# mb = extract_precio_data("https://www.casadellibro.com/libro-el-imperio-final-saga-nacidos-de-la-bruma-1/9788417347291/6433955")
-# print("mistborn")
-# print(mb)
-
-extract_url_libro("el imperio final")
+# streamlit run .\src\ui\Home.py

@@ -239,3 +239,12 @@
 ### Trabajo hecho
 - Continuar scraper a partir de una string
 - Cuando buscamos por título, nos sale tmb una sección de "interesado en x? entonces conoce y" y el scraper saca mazo más resultados... nos interesa mucho que no aparezcan las recomendaciones?
+
+## 09/09/2026
+### Trabajo hecho
+- Diseño de la UI (en imágenes)
+- Inicio de la navegación entre páginas
+
+## 10/09/2026
+### Trabajo hecho
+- Inicio de la págica de libros (Lecturas)
