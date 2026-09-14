@@ -34,3 +34,49 @@
 # STREAMLIT
 # ==========================================================================================================
 # streamlit run .\src\ui\Home.py
+
+# $env:PYTHONPATH = ".\src"
+
+# ==========================================================================================================
+
+from services import autor_service, autor_libro_service, libro_service, lectura_service
+from datetime import date
+
+lecturas = lectura_service.get_all_lecturas()
+
+for lectura in lecturas:
+    libro = libro_service.get_libro(lectura.id_libro)
+    autoreslibro = autor_libro_service.search_by_libro(libro.id_libro)
+    titulo = libro.titulo 
+    if autoreslibro is None:
+        titulo =+ "[Sin datos]"
+    for autorlibro in autoreslibro:
+        titulo += " - "
+        titulo += autor_service.get_by_id(autorlibro.id_autor).nom_autor
+    print(titulo)
+
+
+# from services import lectura_service
+# from datetime import date
+
+# saga_service.create("The Shepherd King")
+# saga_service.create("This Woven Kingdom")
+
+# autor_service.create("Rachel Gillig")
+# autor_service.create("Tahereh Mafi")
+
+# libro_service.create("One Dark Window", "Aventura, Fantasía, Juvenil, Romance", "ENG", False, 1, "9780356519494", 432, fecha_public=date(2022, 3, 27), editorial="Macdonald Orbis")
+# libro_service.create("Two twisted crowns", "Aventura, Fantasía, Juvenil, Romance", "ENG", False, 1, "9780356519500", 464, fecha_public=date(2023, 10, 19), editorial="Macdonald Orbis")
+
+# libro_service.create("This Woven Kingdom", "Aventura, Fantasía, Juvenil, Romance", "ENG", False, 2, "9780755500093", 496, fecha_public=date(2022, 8, 4), editorial="Electric Monkey")
+# libro_service.create("These Infinite Threads", "Aventura, Fantasía, Juvenil, Romance", "ENG", False, 2, "9780008529529", 404, fecha_public=date(2023, 8, 3), editorial="Electric Monkey")
+# libro_service.create("All This Twisted Glory", "Aventura, Fantasía, Juvenil, Romance", "ENG", False, 2, "9780008625757", 416, fecha_public=date(2024, 8, 1), editorial="Electric Monkey")
+# libro_service.create("Every Spiral of Fate", "Aventura, Fantasía, Juvenil, Romance", "ENG", True, 2, "9780008629243", fecha_public=date(2026, 8, 13), editorial="Electric Monkey", prioridad_wishlist=5)
+
+# lectura_service.create(1, "Leído",  "Físico", date(2024, 10, 30), date(2024, 11, 5), 7)
+# lectura_service.create(1, "Leído",  "Físico", date(2025, 11, 25), date(2025, 12, 1), 8)
+# lectura_service.create(2, "Leído",  "Físico", date(2024, 11, 6), date(2024, 11, 19), 6)
+# lectura_service.create(3, "Leído",  "Físico", date(2024, 8, 5), date(2024, 8, 11), 8)
+# lectura_service.create(4, "Leído",  "Físico", date(2024, 8, 12), date(2024, 8, 17), 7)
+# lectura_service.create(5, "Leído",  "Físico", date(2024, 8, 24), date(2024, 9, 2), 7)
+

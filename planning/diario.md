@@ -248,3 +248,8 @@
 ## 10/09/2026
 ### Trabajo hecho
 - Inicio de la págica de libros (Lecturas)
+
+## 14/09/2026
+### Trabajo hecho
+- Introducción de datos reales para poder ver bien los datos de streamlit
+- Adición de más cosas en service y repository porque NUNCA se planea lo suficientemente bien

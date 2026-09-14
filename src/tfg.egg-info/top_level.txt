@@ -1,0 +1,7 @@
+database
+models
+repositories
+scraper
+services
+ui
+utils

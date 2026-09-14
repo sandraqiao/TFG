@@ -25,6 +25,10 @@ def delete(id_autor: int):
 
     autor_repository.delete(id_autor)
 
+def get_by_id(id_autor: int):
+    if id_autor:
+        return autor_repository.get_by_id(id_autor)
+
 def get_all_autores():
     return autor_repository.get_all()
 
