@@ -253,3 +253,4 @@
 ### Trabajo hecho
 - Introducción de datos reales para poder ver bien los datos de streamlit
 - Adición de más cosas en service y repository porque NUNCA se planea lo suficientemente bien
+- Weno, Lecturas tiene wena pinta. Lo dejamos antes de empezar con los botones
