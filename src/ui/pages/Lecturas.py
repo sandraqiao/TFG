@@ -1,66 +1,25 @@
 import streamlit as st
 from datetime import date
 from services import lectura_service, libro_service, autor_service, autor_libro_service
-
-# ==========================================================================================================
-
-def titulo_y_autor(id_libro: int) -> str:
-
-    libro = libro_service.get_libro(id_libro)
-    autoreslibro = autor_libro_service.search_by_libro(libro.id_libro)
-
-    titulo_y_autor = libro.titulo
-    
-    for autorlibro in autoreslibro:
-        titulo_y_autor += " - "
-        titulo_y_autor += autor_service.get_by_id(autorlibro.id_autor).nom_autor
-
-    return titulo_y_autor
-
-def codigo_estado(estado: str) -> str:
-
-    if estado == "Leído":
-        return "🟢"
-    elif estado == "Leyendo":
-        return "🟡"
-    else:
-        return "🔴"
-
-def estrellas(valoracion: int) -> str:
-    estrellas = ""
-
-    if valoracion:
-        for i in range(10):
-            if i < valoracion:
-                estrellas += "★"
-            else:
-                estrellas += "☆"
-            estrellas += " "
-    else:
-        estrellas = "☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆"
-        valoracion = 0
-
-    estrellas += f"({valoracion}/10)"
-    return estrellas
-
-def fechas(ini: date, fin: date | None) -> str:
-
-    fechas = ""
-
-    if fin:
-        fechas += f"{ini.strftime('%d/%m/%Y')} - {fin.strftime('%d/%m/%Y')}"
-    else:
-        fechas += f"{ini.strftime('%d/%m/%Y')} - [sin especificar]"
-
-    return fechas
-
-# ==========================================================================================================
+from utils.prints import *
 
 st.set_page_config(
     page_title="Lecturas"
 )
 
 st.write("# 🔖 Lecturas")
+
+col01, col02, col03 = st.columns([0.8, 0.1, 0.1])
+with col01:
+    st.write(" ")
+with col02:
+    st.write(" ")
+    # if st.button("", icon=":material/filter_alt:")
+with col03:
+    if st.button("", icon=":material/add:"):
+        st.switch_page("./pages/Add_lectura.py")
+
+
 
 lecturas = lectura_service.get_all_lecturas()
 
@@ -71,9 +30,15 @@ else:
 
     for lectura in lecturas:
 
+        # VARIABLES IMPORTANTES DE CADA LECTURA
         libro = libro_service.get_libro(lectura.id_libro)
+        id_autores = autor_libro_service.search_by_libro(libro.id_libro)
+        autores = []
+        for id in id_autores:
+            autores.append(autor_service.get_by_id(id.id_autor))
 
-        with st.expander(f"{codigo_estado(lectura.estado)} {titulo_y_autor(libro.id_libro)}"):
+        # IMPRESIONES
+        with st.expander(f"{codigo_color_estado(lectura.estado)} {titulo_autor(libro.titulo, autores)}"):
 
             col11, col12 = st.columns(2)
             with col11:
@@ -89,5 +54,3 @@ else:
 
             if lectura.comentario:
                 st.write(f"{lectura.comentario}")
-
-# ==========================================================================================================

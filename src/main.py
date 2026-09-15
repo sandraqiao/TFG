@@ -74,8 +74,11 @@
 
 # ==========================================================================================================
 
-# from services import lectura_service, saga_service, autor_service, libro_service, autor_libro_service
-# from datetime import date
+from services import lectura_service, saga_service, autor_service, libro_service, autor_libro_service
+from datetime import date
+
+lecturas = lectura_service.get_all_lecturas()
+print()
 
 # saga_service.create("The Shepherd King")
 # saga_service.create("This Woven Kingdom")
