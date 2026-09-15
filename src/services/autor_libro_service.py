@@ -24,10 +24,14 @@ def search_by_autor(id_autor: int):
         raise ValueError("Autor inexistente.")
     return autor_libro_repository.get_all_from_autor(id_autor)
 
-def search_by_libro(id_libro: int):
+def get_autores_by_libro(id_libro: int):
     if libro_repository.get_by_id(id_libro) is None:
-        raise ValueError("Libro inexistente.")
-    return autor_libro_repository.get_autor_from_libro(id_libro)
+            raise ValueError("Libro inexistente.")
+    autoreslibro = autor_libro_repository.get_autor_from_libro(id_libro)
+    autores = []
+    for autor in autoreslibro:
+        autores.append(autor_repository.get_by_id(autor.id_autor))
+    return autores
 
 # ===============================================================================================================
 

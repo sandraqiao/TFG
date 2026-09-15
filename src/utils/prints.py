@@ -1,4 +1,3 @@
-from services import libro_service, autor_libro_service, autor_service
 from datetime import date
 
 def titulo_autor(titulo: str,  autores: list) -> str:
@@ -11,19 +10,6 @@ def titulo_autor(titulo: str,  autores: list) -> str:
         titulo_autor += autor.nom_autor
 
     return titulo_autor
-
-# def titulo_y_autor(id_libro: int) -> str:
-
-#     libro = libro_service.get_libro(id_libro)
-#     autoreslibro = autor_libro_service.search_by_libro(libro.id_libro)
-
-#     titulo_y_autor = libro.titulo
-    
-#     for autorlibro in autoreslibro:
-#         titulo_y_autor += " - "
-#         titulo_y_autor += autor_service.get_by_id(autorlibro.id_autor).nom_autor
-
-    return titulo_y_autor
 
 def codigo_color_estado(estado: str) -> str:
 

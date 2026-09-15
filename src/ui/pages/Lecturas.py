@@ -20,7 +20,6 @@ with col03:
         st.switch_page("./pages/Add_lectura.py")
 
 
-
 lecturas = lectura_service.get_all_lecturas()
 
 if lecturas is None:
@@ -32,10 +31,7 @@ else:
 
         # VARIABLES IMPORTANTES DE CADA LECTURA
         libro = libro_service.get_libro(lectura.id_libro)
-        id_autores = autor_libro_service.search_by_libro(libro.id_libro)
-        autores = []
-        for id in id_autores:
-            autores.append(autor_service.get_by_id(id.id_autor))
+        autores = autor_libro_service.get_autores_by_libro(libro.id_libro)
 
         # IMPRESIONES
         with st.expander(f"{codigo_color_estado(lectura.estado)} {titulo_autor(libro.titulo, autores)}"):
