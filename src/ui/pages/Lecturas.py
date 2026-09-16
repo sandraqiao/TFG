@@ -1,6 +1,5 @@
 import streamlit as st
-from datetime import date
-from services import lectura_service, libro_service, autor_service, autor_libro_service
+from services import lectura_service, libro_service, autor_libro_service
 from utils.prints import *
 
 st.set_page_config(
@@ -9,15 +8,19 @@ st.set_page_config(
 
 st.write("# 📓 Lecturas")
 
+if st.session_state.get("lectura_creada", False):
+    st.toast("✔️ Lectura creada correctamente")
+    del st.session_state["lectura_creada"]
+
 col01, col02, col03 = st.columns([0.8, 0.1, 0.1])
 with col01:
     st.write(" ")
 with col02:
-    st.write(" ")
-    # if st.button("", icon=":material/filter_alt:")
+    if st.button("", icon=":material/filter_alt:"):
+        st.write("filter")
 with col03:
     if st.button("", icon=":material/add:"):
-        st.switch_page("./pages/Add_lectura.py")
+        st.switch_page("./pages/add_lectura.py")
 
 
 lecturas = lectura_service.get_all_lecturas()
@@ -50,3 +53,15 @@ else:
 
             if lectura.comentario:
                 st.write(f"{lectura.comentario}")
+
+            col31, col32, col33 = st.columns([0.8, 0.1, 0.1])
+            with col31:
+                st.write("")
+            with col32:
+                if st.button("", icon=":material/edit:", key=f"edit_{lectura.id_lectura}"):
+                    st.write("edit")
+            with col33:
+                if st.button("", icon=":material/delete:", key=f"delete_{lectura.id_lectura}"):
+                    st.write("delete")
+
+

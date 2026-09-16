@@ -35,3 +35,5 @@ if st.button("Guardar", icon="💾"):
         fecha_fin=fecha_fin,
         valoracion=valoracion,
         comentario=comentario)
+    st.session_state["lectura_creada"] = True
+    st.switch_page("./pages/lecturas.py")
