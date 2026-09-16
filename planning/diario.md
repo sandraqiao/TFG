@@ -260,3 +260,8 @@
 - Más cosas nuevas en service y repository
 - Añadido en utils prints.py
 - Inicio de la página Add_lectura
+
+## 16/09/2026
+### Trabajo hecho
+- Add_lectura tiene to wena pinta
+- Vamos a cambiar la valoración para que sea de 0-5 porque streamlit es así de guay

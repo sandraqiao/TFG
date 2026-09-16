@@ -1,4 +1,5 @@
 from datetime import date
+from utils import constants
 
 def titulo_autor(titulo: str,  autores: list) -> str:
 
@@ -24,17 +25,17 @@ def estrellas(valoracion: int) -> str:
     estrellas = ""
 
     if valoracion:
-        for i in range(10):
+        for i in range(constants.VALORACION_MAX):
             if i < valoracion:
                 estrellas += "★"
             else:
                 estrellas += "☆"
             estrellas += " "
     else:
-        estrellas = "☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆"
+        estrellas = "☆ ☆ ☆ ☆ ☆"
         valoracion = 0
 
-    estrellas += f"({valoracion}/10)"
+    estrellas += f"({valoracion}/{constants.VALORACION_MAX})"
     return estrellas
 
 def fechas(ini: date, fin: date | None) -> str:

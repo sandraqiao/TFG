@@ -35,6 +35,8 @@
 # ==========================================================================================================
 # streamlit run .\src\ui\Home.py
 
+# python -m streamlit run .\src\ui\Home.py
+
 # $env:PYTHONPATH = ".\src"
 
 # ==========================================================================================================
@@ -77,8 +79,7 @@
 from services import lectura_service, saga_service, autor_service, libro_service, autor_libro_service
 from datetime import date
 
-lecturas = lectura_service.get_all_lecturas()
-print()
+libros = libro_service.get_all_libros()
 
 # saga_service.create("The Shepherd King")
 # saga_service.create("This Woven Kingdom")
@@ -98,13 +99,13 @@ print()
 
 # libro_service.create("Mindf*ck", "Acción, Novela negra, Policíaca, Romance, Thriller", "ENG", True, 3, "")
 
-# lectura_service.create(1, "Leído",  "Físico", date(2024, 10, 30), date(2024, 11, 5), 7)
-# lectura_service.create(1, "Leído",  "Físico", date(2025, 11, 25), date(2025, 12, 1), 8)
-# lectura_service.create(2, "Leído",  "Físico", date(2024, 11, 6), date(2024, 11, 19), 6)
-# lectura_service.create(3, "Leído",  "Físico", date(2024, 8, 5), date(2024, 8, 11), 8)
-# lectura_service.create(4, "Leído",  "Físico", date(2024, 8, 12), date(2024, 8, 17), 7)
-# lectura_service.create(5, "Leído",  "Físico", date(2024, 8, 24), date(2024, 9, 2), 7)
-# lectura_service.create(7, "Leído",  "Ebook", date(2024, 10, 2), date(2024, 10, 11), 8)
-# lectura_service.create(7, "Leyendo",  "Ebook", date(2026, 8, 30))
+# lectura_service.update(1, "Leído",  "Físico", date(2024, 10, 30), date(2024, 11, 5), 3)
+# lectura_service.update(1, "Leído",  "Físico", date(2025, 11, 25), date(2025, 12, 1), 4)
+# lectura_service.update(2, "Leído",  "Físico", date(2024, 11, 6), date(2024, 11, 19), 3)
+# lectura_service.update(3, "Leído",  "Físico", date(2024, 8, 5), date(2024, 8, 11), 4)
+# lectura_service.update(4, "Leído",  "Físico", date(2024, 8, 12), date(2024, 8, 17), 3)
+# lectura_service.update(5, "Leído",  "Físico", date(2024, 8, 24), date(2024, 9, 2), 3)
+# lectura_service.update(7, "Leído",  "Ebook", date(2024, 10, 2), date(2024, 10, 11), 4)
+# lectura_service.update(7, "Leyendo",  "Ebook", date(2026, 8, 30))
 
 # lectura_service.update(1, 1, "Leído",  "Físico", date(2024, 10, 30), date(2024, 11, 5), 7, "Buffff. Que fuerte. Wenísimo final y mu heavy. Pos ma gustau. No es el mejor libro de la historia pero lo he disfrutado.")

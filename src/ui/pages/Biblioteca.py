@@ -5,7 +5,7 @@ st.set_page_config(
     page_title="Biblioteca"
 )
 
-st.write("# Biblioteca")
+st.write("# 📚 Biblioteca")
 
 # ==========================================================================================================
 

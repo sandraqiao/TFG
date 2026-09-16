@@ -1,41 +1,6 @@
 import streamlit as st
-from services import lectura_service, libro_service, autor_libro_service
-from utils.prints import *
-from utils import constants
-
-def select_libro() -> int:
-    libros = sorted(libro_service.get_all_libros(), key=lambda libro: libro.titulo)
-    selection = st.selectbox(
-        "Título leído",
-        libros,
-        format_func=lambda libro: titulo_autor(libro.titulo, autor_libro_service.get_autores_by_libro(libro.id_libro))
-    )
-    return selection
-
-def select_estado() -> str:
-    estado = st.radio(
-        "Estado actual de la lectura",
-        constants.ESTADO
-    )
-    return estado
-
-def select_valoracion() -> int:
-    valoracion = st.slider(
-        "Valoración", 
-        constants.VALORACION_MIN, 
-        constants.VALORACION_MAX)
-    return valoracion
-
-def add_comentario() -> str:
-    comentario = st.text_area(
-        "Comentario"
-    )
-    st.write(f"{len(comentario)} caracteres")
-    return comentario
-
-
-
-# ==========================================================================================================
+from ui.ui_selections import select_libro, select_estado, select_formato, select_valoracion, select_date, add_comentario
+from services import lectura_service
 
 st.set_page_config(
     page_title="Add_lectura"
@@ -43,14 +8,30 @@ st.set_page_config(
 
 st.write("# ➕ Nueva Lectura")
 
-libro = select_libro()
-st.write(f"{libro.id_libro}: {libro.titulo}")
+id_libro = select_libro()
 
-estado = select_estado()
-st.write(f"estado: {estado}")
+col11, col12 = st.columns(2)
+with col11:
+    estado = select_estado()
+with col12:
+    formato = select_formato()
 
 valoracion = select_valoracion()
-st.write(f"valoracion: {valoracion}")
+
+col21, col22 = st.columns(2)
+with col21:
+    fecha_ini = select_date("Inicio")
+with col22:
+    fecha_fin = select_date("Finalización")
 
 comentario = add_comentario()
-st.write(f"comentario: {comentario}")
+
+if st.button("Guardar", icon="💾"):
+    lectura = lectura_service.create(
+        id_libro=id_libro,
+        estado=estado,
+        formato=formato,
+        fecha_ini=fecha_ini,
+        fecha_fin=fecha_fin,
+        valoracion=valoracion,
+        comentario=comentario)

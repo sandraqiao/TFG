@@ -7,7 +7,7 @@ st.set_page_config(
     page_title="Lecturas"
 )
 
-st.write("# 🔖 Lecturas")
+st.write("# 📓 Lecturas")
 
 col01, col02, col03 = st.columns([0.8, 0.1, 0.1])
 with col01:
