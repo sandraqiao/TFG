@@ -265,3 +265,8 @@
 ### Trabajo hecho
 - Add_lectura tiene to wena pinta
 - Vamos a cambiar la valoración para que sea de 0-5 porque streamlit es así de guay
+
+## 17/09/2026
+### Trabajo hecho
+- Creo que add_lectura guci
+- Edit_lectura en proceso y terminado

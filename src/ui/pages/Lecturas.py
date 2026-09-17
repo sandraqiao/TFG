@@ -2,8 +2,6 @@ import streamlit as st
 from services import lectura_service, libro_service, autor_libro_service
 from utils.prints import *
 
-
-
 @st.dialog("Confirma si quieres borrar la lectura", dismissible=False, icon="⚠️")
 def confirm_delete(id_lectura: int) -> bool:
     st.write("Esta acción no se puede deshacer")
@@ -12,14 +10,13 @@ def confirm_delete(id_lectura: int) -> bool:
     with col1:
         if st.button("Si, borra"):
             lectura_service.delete(id_lectura)
+            st.session_state["lectura_eliminada"] = True
             st.rerun()
     with col2:
         if st.button("No, me arrepiento"):
             st.rerun()
 
-
-
-
+# ==========================================================================================================
 
 st.set_page_config(
     page_title="Lecturas"
@@ -27,9 +24,20 @@ st.set_page_config(
 
 st.write("# 📓 Lecturas")
 
+
+# STATES
 if st.session_state.get("lectura_creada", False):
     st.toast("✔️ Lectura creada correctamente")
     del st.session_state["lectura_creada"]
+
+if st.session_state.get("lectura_editada", False):
+    st.toast("✔️ Lectura editada correctamente")
+    del st.session_state["lectura_editada"]
+
+if st.session_state.get("lectura_eliminada", False):
+    st.toast("❌ Lectura eliminada correctamente")
+    del st.session_state["lectura_eliminada"]
+
 
 col01, col02, col03 = st.columns([0.8, 0.1, 0.1])
 with col01:
@@ -40,7 +48,6 @@ with col02:
 with col03:
     if st.button("", icon=":material/add:"):
         st.switch_page("./pages/add_lectura.py")
-
 
 lecturas = lectura_service.get_all_lecturas()
 
@@ -78,7 +85,8 @@ else:
                 st.write("")
             with col32:
                 if st.button("", icon=":material/edit:", key=f"edit_{lectura.id_lectura}"):
-                    st.write("edit")
+                    st.session_state["edit_lectura_id"] = lectura.id_lectura
+                    st.switch_page("./pages/edit_lectura.py")
             with col33:
                 if st.button("", icon=":material/delete:", key=f"delete_{lectura.id_lectura}"):
                     confirm_delete(lectura.id_lectura)

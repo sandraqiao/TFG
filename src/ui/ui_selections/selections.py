@@ -43,10 +43,11 @@ def select_formato(edit_formato: str | None = None) -> str:
 #     return generos
 
 def select_valoracion(edit_valoracion: int | None = None) -> int:
-    return st.feedback(
+    valoracion = st.feedback(
         "stars",
-        default=edit_valoracion or None
+        default=edit_valoracion - 1 if edit_valoracion is not None else None
     )
+    return valoracion + 1 if valoracion is not None else None
 
 def select_date(tipo: str, edit_fecha: date | None = None) -> date:
     return st.date_input(

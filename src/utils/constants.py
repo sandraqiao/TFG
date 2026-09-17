@@ -51,7 +51,7 @@ ESTADO: list[str] = [
     "Abandonado"
 ]
 
-VALORACION_MIN = 0
+VALORACION_MIN = 1
 VALORACION_MAX = 5
 VALORACION = list(range(VALORACION_MIN, VALORACION_MAX+1))
 

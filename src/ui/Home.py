@@ -6,10 +6,11 @@ st.set_page_config(
 
 biblioteca = st.Page("./pages/biblioteca.py", title="Biblioteca", icon="📖")
 lecturas = st.Page("./pages/lecturas.py", title="Lecturas", icon="🔖")
-add_lectura = st.Page("./pages/add_lectura.py", title="Nueva Lectura", icon="➕", visibility="hidden")
+add_lectura = st.Page("./pages/add_lectura.py", title="Nueva lectura", visibility="hidden")
+edit_lectura = st.Page("./pages/edit_lectura.py", title="Editar lectura", visibility="hidden")
 
 pg = st.navigation(
-    [biblioteca, lecturas, add_lectura]
+    [biblioteca, lecturas, add_lectura, edit_lectura]
 )
 
 pg.run()

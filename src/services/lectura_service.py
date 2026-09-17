@@ -62,6 +62,11 @@ def delete(id_lectura: int):
 def get_all_lecturas():
     return lectura_repository.get_all()
 
+def get_by_id(id_lectura: int):
+    if lectura_repository.get_by_id(id_lectura) is None:
+        raise ValueError("Lectura inexistente.")
+    return lectura_repository.get_by_id(id_lectura)
+
 def search_by_libro(id_libro: int):
     if libro_repository.get_by_id(id_libro) is None:
         raise ValueError("Libro inexistente.")
@@ -108,10 +113,11 @@ def _general_checks(id_libro: int, estado: str, valoracion: int | None, fecha_in
         raise ValueError("Estado inválido.")
     
     if valoracion is not None:
-        if estado not in (constants.ESTADO[1], constants.ESTADO[2]):
+        if estado == constants.ESTADO[0]:
             raise ValueError("Una lectura solo puede tener valoración si está finalizada o abandonada.")
-        if (valoracion < constants.VALORACION_MIN or constants.VALORACION_MAX < valoracion):
-            raise ValueError("Valoración fuera de rango.")
+        else:
+            if (valoracion < constants.VALORACION_MIN or constants.VALORACION_MAX < valoracion):
+                raise ValueError("Valoración fuera de rango.")
 
     if fecha_fin is not None and fecha_fin < fecha_ini:
         raise ValueError("Fechas inválidas.")
