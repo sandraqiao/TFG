@@ -2,6 +2,25 @@ import streamlit as st
 from services import lectura_service, libro_service, autor_libro_service
 from utils.prints import *
 
+
+
+@st.dialog("Confirma si quieres borrar la lectura", dismissible=False, icon="⚠️")
+def confirm_delete(id_lectura: int) -> bool:
+    st.write("Esta acción no se puede deshacer")
+
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("Si, borra"):
+            lectura_service.delete(id_lectura)
+            st.rerun()
+    with col2:
+        if st.button("No, me arrepiento"):
+            st.rerun()
+
+
+
+
+
 st.set_page_config(
     page_title="Lecturas"
 )
@@ -62,6 +81,6 @@ else:
                     st.write("edit")
             with col33:
                 if st.button("", icon=":material/delete:", key=f"delete_{lectura.id_lectura}"):
-                    st.write("delete")
+                    confirm_delete(lectura.id_lectura)
 
 

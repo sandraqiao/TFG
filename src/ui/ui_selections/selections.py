@@ -4,28 +4,35 @@ from utils.prints import *
 from datetime import date
 from services import libro_service, autor_libro_service
 
-def select_libro() -> int:
+def retrieve_libro_index(libros: list, edit_libro_id: int):
+    for i, libro in enumerate(libros):
+        if libro.id_libro == edit_libro_id:
+            return i
+
+def select_libro(edit_libro_id: int | None = None) -> int:
     libros = sorted(libro_service.get_all_libros(), key=lambda libro: libro.titulo)
     selection = st.selectbox(
         "Título leído",
         libros,
-        format_func=lambda libro: titulo_autor(libro.titulo, autor_libro_service.get_autores_by_libro(libro.id_libro))
+        format_func=lambda libro: titulo_autor(libro.titulo, autor_libro_service.get_autores_by_libro(libro.id_libro)),
+        index=retrieve_libro_index(libros, edit_libro_id) if edit_libro_id else 0
     )
     return selection.id_libro
 
-def select_estado() -> str:
+def select_estado(edit_estado: str | None = None) -> str:
     estado = st.radio(
         "Estado actual de la lectura",
-        constants.ESTADO
+        constants.ESTADO,
+        index=constants.ESTADO.index(edit_estado) if edit_estado else 0
     )
     return estado
 
-def select_formato() -> str:
-    formato = st.radio(
+def select_formato(edit_formato: str | None = None) -> str:
+    return st.radio(
         "Formato",
-        constants.FORMATO
+        constants.FORMATO,
+        index=constants.FORMATO.index(edit_formato) if edit_formato else 0
     )
-    return formato
 
 # def select_genero() -> list:
 #     generos = st.pills(
@@ -35,23 +42,21 @@ def select_formato() -> str:
 #     )
 #     return generos
 
-def select_valoracion() -> int:
-    valoracion = st.feedback(
+def select_valoracion(edit_valoracion: int | None = None) -> int:
+    return st.feedback(
         "stars",
-        default=None
+        default=edit_valoracion or None
     )
-    return valoracion
 
-def select_date(tipo: str) -> date:
-    d = st.date_input(
+def select_date(tipo: str, edit_fecha: date | None = None) -> date:
+    return st.date_input(
         tipo,
-        value = None, 
+        value = edit_fecha or None, 
         format="DD/MM/YYYY"
     )
-    return d
 
-def add_comentario() -> str:
-    comentario = st.text_area(
-        "Comentario"
+def add_comentario(edit_comentario: str | None = None) -> str:
+    return st.text_area(
+        "Comentario",
+        placeholder=edit_comentario or None
     )
-    return comentario

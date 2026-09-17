@@ -3,10 +3,12 @@ from ui.ui_selections import select_libro, select_estado, select_formato, select
 from services import lectura_service
 
 st.set_page_config(
-    page_title="Nueva lectura"
+    page_title="Editar lectura"
 )
 
-st.write("# ➕ Nueva lectura")
+st.write("# ✏️ Editar lectura")
+
+# hay que añadir un estado que contenga lectura
 
 id_libro = select_libro()
 

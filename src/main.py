@@ -79,8 +79,6 @@
 from services import lectura_service, saga_service, autor_service, libro_service, autor_libro_service
 from datetime import date
 
-libros = libro_service.get_all_libros()
-
 # saga_service.create("The Shepherd King")
 # saga_service.create("This Woven Kingdom")
 # saga_service.create("Mindf*ck")
