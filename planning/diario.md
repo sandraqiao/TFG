@@ -270,3 +270,7 @@
 ### Trabajo hecho
 - Creo que add_lectura guci
 - Edit_lectura en proceso y terminado
+
+## 18/09/2026
+### Trabajo hecho
+- Filtros lectura en proceso y terminado

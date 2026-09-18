@@ -53,10 +53,18 @@ ESTADO: list[str] = [
 
 VALORACION_MIN = 1
 VALORACION_MAX = 5
-VALORACION = list(range(VALORACION_MIN, VALORACION_MAX+1))
 
 FORMATO: list[str] = [
     "Físico",
     "Ebook",
     "AudioLibro"
+]
+
+
+# Atributos filtrables
+
+FILTROS_LECTURAS: list[str] = [
+    "Estados",
+    "Valoraciones", 
+    "Formatos"
 ]

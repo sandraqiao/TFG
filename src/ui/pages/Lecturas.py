@@ -16,6 +16,40 @@ def confirm_delete(id_lectura: int) -> bool:
         if st.button("No, me arrepiento"):
             st.rerun()
 
+def filtro_popover():
+    estados = filtrado(constants.FILTROS_LECTURAS[0])
+    st.divider()
+    valoraciones = filtrado(constants.FILTROS_LECTURAS[1])
+    st.divider()
+    formatos = filtrado(constants.FILTROS_LECTURAS[2])
+
+    with st.container(horizontal=True, horizontal_alignment="right"):
+        if st.button("Aplicar"):
+            st.session_state["filtros_lecturas"] = {
+                "estados": estados,
+                "valoraciones": valoraciones,
+                "formatos": formatos
+            }
+            st.rerun()
+
+def filtrado(to_filter: str):
+    if to_filter == constants.FILTROS_LECTURAS[0]:
+        options = constants.ESTADO
+    elif to_filter == constants.FILTROS_LECTURAS[1]:
+        options = list(range(constants.VALORACION_MIN, constants.VALORACION_MAX+1))
+    elif to_filter== constants.FILTROS_LECTURAS[2]:
+        options = constants.FORMATO
+
+    st.write(to_filter)
+
+    result = []
+    for i, option in enumerate(options):
+        actual = st.checkbox(f"{option}")
+        if actual:
+            result.append(f"{options[i]}")
+    return result
+
+
 # ==========================================================================================================
 
 st.set_page_config(
@@ -24,8 +58,7 @@ st.set_page_config(
 
 st.write("# 📓 Lecturas")
 
-
-# STATES
+# STATES EDICIONES
 if st.session_state.get("lectura_creada", False):
     st.toast("✔️ Lectura creada correctamente")
     del st.session_state["lectura_creada"]
@@ -39,26 +72,29 @@ if st.session_state.get("lectura_eliminada", False):
     del st.session_state["lectura_eliminada"]
 
 
-col01, col02, col03 = st.columns([0.8, 0.1, 0.1])
-with col01:
-    st.write(" ")
-with col02:
-    if st.button("", icon=":material/filter_alt:"):
-        st.write("filter")
-with col03:
+# FILTER Y ADD LECTURAS
+with st.container(horizontal=True, horizontal_alignment="right"):
+    with st.popover("", icon=":material/filter_alt:"):
+        filtro_popover()
     if st.button("", icon=":material/add:"):
         st.switch_page("./pages/add_lectura.py")
 
-lecturas = lectura_service.get_all_lecturas()
+# GET LECTURAS A MOSTRAR
+filtros = st.session_state.get("filtros_lecturas", None)
+if filtros:
+    lecturas = lectura_service.filter_lectura(estados=filtros["estados"], valoraciones=filtros["valoraciones"], formatos=filtros["formatos"])
+else:
+    lecturas = lectura_service.get_all_lecturas()
 
+
+# LISTADO DE LECTURAS
 if lecturas is None:
     st.write("## 🕸️ No hay lecturas registradas 🕸️")
-
 else:
 
     for lectura in lecturas:
 
-        # VARIABLES IMPORTANTES DE CADA LECTURA
+        # VARIABLES
         libro = libro_service.get_libro(lectura.id_libro)
         autores = autor_libro_service.get_autores_by_libro(libro.id_libro)
 
@@ -66,12 +102,12 @@ else:
         with st.expander(f"{codigo_color_estado(lectura.estado)} {titulo_autor(libro.titulo, autores)}"):
 
             col11, col12 = st.columns(2)
+            col21, col22 = st.columns(2)
+
             with col11:
                 st.write(f"Estado: {lectura.estado}")
             with col12:
                 st.write(f"Formato: {lectura.formato}")
-
-            col21, col22 = st.columns(2)
             with col21:
                 st.write(f"Valoración: {estrellas(lectura.valoracion)}")
             with col22:
@@ -80,15 +116,11 @@ else:
             if lectura.comentario:
                 st.write(f"{lectura.comentario}")
 
-            col31, col32, col33 = st.columns([0.8, 0.1, 0.1])
-            with col31:
-                st.write("")
-            with col32:
+            with st.container(horizontal=True, horizontal_alignment="right"):
+
                 if st.button("", icon=":material/edit:", key=f"edit_{lectura.id_lectura}"):
                     st.session_state["edit_lectura_id"] = lectura.id_lectura
                     st.switch_page("./pages/edit_lectura.py")
-            with col33:
+
                 if st.button("", icon=":material/delete:", key=f"delete_{lectura.id_lectura}"):
                     confirm_delete(lectura.id_lectura)
-
-
