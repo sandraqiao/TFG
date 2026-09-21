@@ -274,3 +274,10 @@
 ## 18/09/2026
 ### Trabajo hecho
 - Filtros lectura en proceso y terminado
+### Próximos pasos
+- No olvidarse de organizar las lecturas por leyendo primero, y luego por fechas
+
+## 21/09/2026
+### Trabajo hecho
+- Organizado de las lecturas
+- Inicio de la página Biblioteca

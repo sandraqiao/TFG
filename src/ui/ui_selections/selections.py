@@ -34,14 +34,6 @@ def select_formato(edit_formato: str | None = None) -> str:
         index=constants.FORMATO.index(edit_formato) if edit_formato else 0
     )
 
-# def select_genero() -> list:
-#     generos = st.pills(
-#         "Géneros:",
-#         constants.GENERO,
-#         selection_mode="multi"
-#     )
-#     return generos
-
 def select_valoracion(edit_valoracion: int | None = None) -> int:
     valoracion = st.feedback(
         "stars",
@@ -55,6 +47,14 @@ def select_date(tipo: str, edit_fecha: date | None = None) -> date:
         value = edit_fecha or None, 
         format="DD/MM/YYYY"
     )
+
+# def select_genero() -> list:
+#     generos = st.pills(
+#         "Géneros:",
+#         constants.GENERO,
+#         selection_mode="multi"
+#     )
+#     return generos
 
 def add_comentario(edit_comentario: str | None = None) -> str:
     return st.text_area(

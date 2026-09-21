@@ -68,3 +68,10 @@ FILTROS_LECTURAS: list[str] = [
     "Valoraciones", 
     "Formatos"
 ]
+
+FILTROS_LIBROS: list[str] = [
+    "Generos",
+    "Idiomas",
+    "Editoriales",
+    "Wishlisteado"
+]

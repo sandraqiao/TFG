@@ -2,13 +2,13 @@ import streamlit as st
 from services import lectura_service, libro_service, autor_libro_service
 from utils.prints import *
 
-@st.dialog("Confirma si quieres borrar la lectura", dismissible=False, icon="⚠️")
+@st.dialog("Seguro que quieres borrar la lectura?", dismissible=False, icon="⚠️")
 def confirm_delete(id_lectura: int) -> bool:
     st.write("Esta acción no se puede deshacer")
 
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("Si, borra"):
+        if st.button("Si, bórralo"):
             lectura_service.delete(id_lectura)
             st.session_state["lectura_eliminada"] = True
             st.rerun()
@@ -37,7 +37,7 @@ def filtrado(to_filter: str):
         options = constants.ESTADO
     elif to_filter == constants.FILTROS_LECTURAS[1]:
         options = list(range(constants.VALORACION_MIN, constants.VALORACION_MAX+1))
-    elif to_filter== constants.FILTROS_LECTURAS[2]:
+    elif to_filter == constants.FILTROS_LECTURAS[2]:
         options = constants.FORMATO
 
     st.write(to_filter)
@@ -49,6 +49,24 @@ def filtrado(to_filter: str):
             result.append(f"{options[i]}")
     return result
 
+def sort_lecturas(lecturas):
+    leyendo = []
+    leido = []
+    abandonado = []
+
+    for lectura in lecturas:
+        if lectura.estado == constants.ESTADO[0]:
+            leyendo.append(lectura)
+        elif lectura.estado == constants.ESTADO[1]:
+            leido.append(lectura)
+        else:
+            abandonado.append(lectura)
+
+    leyendo.sort(key=lambda lectura: lectura.fecha_ini, reverse=True)
+    leido.sort(key=lambda lectura: lectura.fecha_fin or date.min, reverse=True)
+    abandonado.sort(key=lambda lectura: lectura.fecha_fin or date.min, reverse=True)
+
+    return leyendo + leido + abandonado
 
 # ==========================================================================================================
 
@@ -82,9 +100,9 @@ with st.container(horizontal=True, horizontal_alignment="right"):
 # GET LECTURAS A MOSTRAR
 filtros = st.session_state.get("filtros_lecturas", None)
 if filtros:
-    lecturas = lectura_service.filter_lectura(estados=filtros["estados"], valoraciones=filtros["valoraciones"], formatos=filtros["formatos"])
+    lecturas = sort_lecturas(lectura_service.filter_lectura(estados=filtros["estados"], valoraciones=filtros["valoraciones"], formatos=filtros["formatos"]))
 else:
-    lecturas = lectura_service.get_all_lecturas()
+    lecturas = sort_lecturas(lectura_service.get_all_lecturas())
 
 
 # LISTADO DE LECTURAS
