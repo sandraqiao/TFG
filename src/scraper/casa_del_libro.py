@@ -25,6 +25,20 @@ def extract_url_libro(busca: str):
 
     return urls
 
+def extract_url_por_isbn(isbn: str):
+
+    service = Service("drivers/chromedriver-win64/chromedriver.exe")
+    driver = webdriver.Chrome(service=service)
+
+    driver.get(f"https://www.casadellibro.com/?query={isbn}")
+    
+    root = driver.find_element(By.CSS_SELECTOR, ".x-root-container")
+    html = driver.execute_script("return arguments[0].shadowRoot.innerHTML", root)
+    full_soup = BeautifulSoup(html, 'html.parser')
+
+    resultado = full_soup.find("a", attrs={"data-test": "result-link"})
+    return resultado.get("href")
+
 # ===============================================================================================================
 
 def extract_precio_data(url: str):

@@ -1,5 +1,5 @@
 import streamlit as st
-from ui.ui_selections import select_libro, select_estado, select_formato, select_valoracion, select_date, add_comentario
+from ui.ui_selections import select_libro, select_estado, select_formato, select_valoracion, select_date, add_texto
 from services import lectura_service
 
 st.set_page_config(
@@ -27,7 +27,7 @@ with col21:
 with col22:
     fecha_fin = select_date("Finalización", lectura.fecha_fin)
 
-comentario = add_comentario(lectura.comentario)
+comentario = add_texto("Comentario", lectura.comentario)
 
 if st.button("Guardar", icon="💾"):
     lectura = lectura_service.update(

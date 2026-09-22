@@ -40,7 +40,6 @@ IDIOMA: list[str] = [
 
 PRIORIDAD_WISHLIST_MIN = 1
 PRIORIDAD_WISHLIST_MAX = 5
-PRIORIDAD_WISHLIST = list(range(PRIORIDAD_WISHLIST_MIN, PRIORIDAD_WISHLIST_MAX+1))
 
 
 # Atributos Lectura
@@ -63,8 +62,7 @@ FORMATO: list[str] = [
 # Atributos sort-eables libros
 SORT_BIBLIOTECA: list[str] = [
     "Título",
-    "Saga",
-    "Autor"
+    "Saga"
 ]
 
 # Atributos filtrables

@@ -105,7 +105,7 @@ with st.container(horizontal=True, horizontal_alignment="right"):
         sort_by = constants.SORT_BIBLIOTECA[0]
 
     if st.button("", icon=":material/add:"):
-        # st.switch_page("./pages/add_lectura.py")
+        st.switch_page("./pages/add_libro.py")
         st.write("add libro")
 
 # GET LIBROS A MOSTRAR
@@ -126,10 +126,17 @@ else:
 
         # IMPRESIONES
         with cols[i%4]:
-            with st.container(width=150, height=275, border=True):
-                with st.container(width=150, height=50, border=False):
-                    st.write(libro.titulo)
-                if libro.url_portada:
-                    st.image(libro.url_portada, width=150)
-                else:
-                    st.caption("[Sin portada]")
+            with st.container(border=True):
+                with st.container(height=70, horizontal=True, horizontal_alignment="right", border=False):
+                    col01, col02 = st.columns([5, 1])
+                    with col01:
+                        st.write(libro.titulo)
+                    with col02:
+                        if st.button("", icon=":material/info:", key=f"info_{libro.id_libro}", type="tertiary"):
+                            # st.switch_page("./pages/add_lectura.py")
+                            st.write("info")
+                with st.container(height=220, horizontal_alignment="center", border=False):
+                    if libro.url_portada:
+                        st.image(libro.url_portada, width=150)
+                    else:
+                        st.caption("[Sin portada]")
