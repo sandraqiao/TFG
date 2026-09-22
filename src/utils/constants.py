@@ -60,6 +60,12 @@ FORMATO: list[str] = [
     "AudioLibro"
 ]
 
+# Atributos sort-eables libros
+SORT_BIBLIOTECA: list[str] = [
+    "Título",
+    "Saga",
+    "Autor"
+]
 
 # Atributos filtrables
 

@@ -88,9 +88,10 @@ def delete(id_libro: int):
     libro_repository.delete(id_libro)
 
 def get_libro(id_libro: int):
-    if libro_repository.get_by_id(id_libro) is None:
+    libro = libro_repository.get_by_id(id_libro)
+    if libro is None:
         raise ValueError("Libro inexistente.")
-    return libro_repository.get_by_id(id_libro)
+    return libro
 
 def get_all_libros():
     return libro_repository.get_all()

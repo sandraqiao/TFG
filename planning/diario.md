@@ -281,3 +281,6 @@
 ### Trabajo hecho
 - Organizado de las lecturas
 - Inicio de la página Biblioteca
+
+## 22/09/2026
+### Trabajo hecho

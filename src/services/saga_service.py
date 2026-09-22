@@ -22,11 +22,16 @@ def update(id_saga: int, nom_saga: str):
 def delete(id_saga: int):
     if saga_repository.get_by_id(id_saga) is None:
         raise ValueError("Saga inexistente.")
-    
     saga_repository.delete(id_saga)
 
 def get_all_sagas():
     return saga_repository.get_all()
+
+def get_saga(id_saga: int):
+    saga = saga_repository.get_by_id(id_saga)
+    if saga is None:
+        raise ValueError("Saga inexistente.")
+    return saga
 
 def search_by_name(nom_saga: str):
     return saga_repository.get_by_name(nom_saga)

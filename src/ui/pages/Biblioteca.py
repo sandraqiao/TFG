@@ -1,5 +1,5 @@
 import streamlit as st
-from services import libro_service, autor_libro_service
+from services import libro_service, autor_libro_service, saga_service
 from utils.prints import *
 
 # @st.dialog("Seguro que quieres borrar el libro?", dismissible=False, icon="⚠️")
@@ -63,6 +63,15 @@ from utils.prints import *
 #             result.append(f"{options[i]}")
 #     return result
 
+def sort_biblioteca(sort_by, libros):
+    if sort_by == constants.SORT_BIBLIOTECA[0]:
+        # por titulo
+        libros.sort(key=lambda libro: libro.titulo)
+    elif sort_by == constants.SORT_BIBLIOTECA[1]:
+        # por saga
+        libros.sort(key=lambda libro: saga_service.get_saga(libro.id_saga).nom_saga)
+    return libros
+
 # ==========================================================================================================
 
 st.set_page_config(
@@ -85,11 +94,16 @@ st.write("# 📚 Biblioteca")
 #     del st.session_state["libro_eliminado"]
 
 
-# FILTER Y ADD LIBROS
+# FILTER, SORT Y ADD LIBROS
 with st.container(horizontal=True, horizontal_alignment="right"):
     with st.popover("", icon=":material/filter_alt:"):
         # filtro_popover()
         st.write("filtro")
+
+    sort_by = st.menu_button("", icon=":material/sort:", options=constants.SORT_BIBLIOTECA)
+    if sort_by is None:
+        sort_by = constants.SORT_BIBLIOTECA[0]
+
     if st.button("", icon=":material/add:"):
         # st.switch_page("./pages/add_lectura.py")
         st.write("add libro")
@@ -97,9 +111,9 @@ with st.container(horizontal=True, horizontal_alignment="right"):
 # GET LIBROS A MOSTRAR
 filtros = st.session_state.get("filtros_libros", None)
 if filtros:
-    libros = libro_service.filter_libro(generos=filtros["generos"], idiomas=filtros["idiomas"], editoriales=filtros["editoriales"], en_wishlist=filtros["en_wishlist"])
+    libros = sort_biblioteca(sort_by, libro_service.filter_libro(generos=filtros["generos"], idiomas=filtros["idiomas"], editoriales=filtros["editoriales"], en_wishlist=filtros["en_wishlist"]))
 else:
-    libros = libro_service.get_all_libros()
+    libros = sort_biblioteca(sort_by, libro_service.get_all_libros())
 
 # LISTADO DE LIBROS
 if libros is None:
