@@ -9,10 +9,11 @@ st.set_page_config(
 
 st.write("# ➕ Nuevo libro")
 
+st.session_state["editando_libro"] = True
+
 titulo = st.text_input("Título")
-# st.write(titulo)
-saga = select_saga()
-# st.write(saga)
+
+id_saga = select_saga()
 
 col01, col02, col03 = st.columns([0.5, 0.15, 0.35])
 col11, col12, col13 = st.columns([0.5, 0.15, 0.35])
@@ -23,7 +24,7 @@ with col02:
 with col03:
     editorial = st.text_input("Editorial")
 with col11:
-    num_pags = st.text_input("Número de páginas")
+    num_pag = st.text_input("Número de páginas")
 with col12:
     st.write("Wishlistear")
     with st.container(horizontal=True, horizontal_alignment="center"):
@@ -31,14 +32,32 @@ with col12:
 with col13:
     prioridad_wishlist = select_prioridad_wishlist()
 
-generos = select_genero()
-# st.write(generos)
+generos = ",".join(select_genero())
 
 url_portada = st.text_input("Portada", placeholder="URL")
 
 fecha_public = select_date("Fecha de publicación")
 
 sinopsis = add_texto("Sinopsis")
+
+if st.button("Guardar", icon="💾"):
+    libro_service.create(
+        id_saga=id_saga,
+        titulo=titulo,
+        isbn=isbn,
+        num_pag=int(num_pag),
+        genero=generos,
+        idioma=idioma,
+        sinopsis=sinopsis,
+        fecha_public=fecha_public,
+        url_portada=url_portada,
+        editorial=editorial,
+        en_wishlist=en_wishlist,
+        prioridad_wishlist=prioridad_wishlist,
+    )
+    st.session_state["editando_libro"] = False
+    st.session_state["libro_creado"] = True
+    st.switch_page("./pages/biblioteca.py")
 
 
 # if isbn:

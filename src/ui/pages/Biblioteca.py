@@ -81,17 +81,20 @@ st.set_page_config(
 st.write("# 📚 Biblioteca")
 
 # # STATES EDICIONES
-# if st.session_state.get("libro_creado", False):
-#     st.toast("✔️ Libro creado correctamente")
-#     del st.session_state["libro_creado"]
+if st.session_state.get("libro_creado", False):
+    st.toast("✔️ Libro creado correctamente")
+    del st.session_state["libro_creado"]
 
-# if st.session_state.get("libro_editado", False):
-#     st.toast("✔️ Libro editado correctamente")
-#     del st.session_state["libro_editado"]
+if st.session_state.get("libro_editado", False):
+    st.toast("✔️ Libro editado correctamente")
+    del st.session_state["libro_editado"]
 
-# if st.session_state.get("libro_eliminado", False):
-#     st.toast("❌ Libro eliminado correctamente")
-#     del st.session_state["libro_eliminado"]
+if st.session_state.get("libro_eliminado", False):
+    st.toast("❌ Libro eliminado correctamente")
+    del st.session_state["libro_eliminado"]
+
+if "editando_libro" not in st.session_state:
+    st.session_state["editando_libro"] = False
 
 
 # FILTER, SORT Y ADD LIBROS
@@ -133,7 +136,8 @@ else:
                         st.write(libro.titulo)
                     with col02:
                         if st.button("", icon=":material/info:", key=f"info_{libro.id_libro}", type="tertiary"):
-                            # st.switch_page("./pages/add_lectura.py")
+                            st.session_state["info_libro_id"] = libro.id_libro
+                            st.switch_page("./pages/edit_libro.py")
                             st.write("info")
                 with st.container(height=220, horizontal_alignment="center", border=False):
                     if libro.url_portada:

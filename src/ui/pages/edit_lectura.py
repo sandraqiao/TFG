@@ -8,8 +8,7 @@ st.set_page_config(
 
 st.write("# ✏️ Editar lectura")
 
-edit_lectura_id = st.session_state["edit_lectura_id"]
-lectura = lectura_service.get_by_id(edit_lectura_id)
+lectura = lectura_service.get_lectura(st.session_state["edit_lectura_id"])
 
 id_libro = select_libro(lectura.id_libro)
 
@@ -31,7 +30,7 @@ comentario = add_texto("Comentario", lectura.comentario)
 
 if st.button("Guardar", icon="💾"):
     lectura = lectura_service.update(
-        id_lectura=edit_lectura_id,
+        id_lectura=lectura.id_lectura,
         id_libro=id_libro,
         estado=estado,
         formato=formato,

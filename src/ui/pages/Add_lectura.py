@@ -27,7 +27,7 @@ with col22:
 comentario = add_texto("Comentario")
 
 if st.button("Guardar", icon="💾"):
-    lectura = lectura_service.create(
+    lectura_service.create(
         id_libro=id_libro,
         estado=estado,
         formato=formato,

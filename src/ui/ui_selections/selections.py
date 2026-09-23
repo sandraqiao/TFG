@@ -4,14 +4,13 @@ from utils.prints import *
 from datetime import date
 from services import libro_service, autor_libro_service, saga_service
 
+# ==========================================================================================================
+# LIBRO
+# ==========================================================================================================
+
 def retrieve_libro_index(libros: list, edit_libro_id: int):
     for i, libro in enumerate(libros):
         if libro.id_libro == edit_libro_id:
-            return i
-
-def retrieve_saga_index(sagas: list, edit_saga_id: int):
-    for i, saga in enumerate(sagas):
-        if saga.id_saga == edit_saga_id:
             return i
 
 def select_libro(edit_libro_id: int | None = None) -> int:
@@ -24,15 +23,78 @@ def select_libro(edit_libro_id: int | None = None) -> int:
     )
     return selection.id_libro
 
+def select_prioridad_wishlist(edit_prioridad: int | None = None) -> int:
+    selection = st.selectbox(
+        "Prioridad",
+        [None] + list(range(constants.PRIORIDAD_WISHLIST_MIN, constants.PRIORIDAD_WISHLIST_MAX+1)),
+        index=edit_prioridad if edit_prioridad else None,
+        disabled=not st.session_state["editando_libro"]
+    )
+    return selection if selection else None
+
+def select_idioma(edit_idioma: str | None = None) -> str:
+    return st.selectbox(
+        "Idioma",
+        constants.IDIOMA,
+        index=constants.ESTADO.index(edit_idioma) if edit_idioma else 0,
+        disabled=not st.session_state["editando_libro"]
+    )
+
+def select_genero(str_generos: str | None = None) -> list:
+    inicial = str_generos.split(", ") if str_generos else None
+    generos = st.pills(
+        "Géneros",
+        constants.GENERO,
+        selection_mode="multi",
+        default=inicial if inicial else None,
+        disabled=not st.session_state["editando_libro"]
+    )
+    return generos
+
+def select_date(tipo: str, edit_fecha: date | None = None) -> date:
+    return st.date_input(
+        tipo,
+        value = edit_fecha or None, 
+        format="DD/MM/YYYY",
+        disabled=not st.session_state["editando_libro"]
+    )
+
+def select_wishlist(en_wishlist: bool) -> bool:
+    yes_no = ["Yes pliz", "Nah"]
+    selection = st.selectbox(
+        "Wishlistear",
+        yes_no,
+        index=0 if en_wishlist else 1,
+        disabled=not st.session_state["editando_libro"]
+    )
+    return selection == yes_no[0]
+
+def add_texto(tipo: str, edit_texto: str | None = None) -> str:
+    return st.text_area(
+        tipo,
+        placeholder=edit_texto or None,
+        disabled=not st.session_state["editando_libro"]
+    )
+
+# ==========================================================================================================
+# LECTURA
+# ==========================================================================================================
+
+def retrieve_saga_index(sagas: list, edit_saga_id: int):
+    for i, saga in enumerate(sagas):
+        if saga.id_saga == edit_saga_id:
+            return i
+        
 def select_saga(edit_saga_id: int | None = None) -> int:
     sagas = sorted(saga_service.get_all_sagas(), key=lambda saga: saga.nom_saga)
     selection = st.selectbox(
         "Saga",
-        sagas,
-        format_func=lambda saga: saga.nom_saga,
-        index=retrieve_saga_index(sagas, edit_saga_id) if edit_saga_id else 0
+        [None] + sagas,
+        format_func=lambda saga: saga.nom_saga if saga else "",
+        index=retrieve_saga_index(sagas, edit_saga_id) + 1 if edit_saga_id else 0,
+        disabled=not st.session_state["editando_libro"]
     )
-    return selection.id_saga
+    return selection.id_saga if selection else None
 
 def select_estado(edit_estado: str | None = None) -> str:
     estado = st.radio(
@@ -55,39 +117,3 @@ def select_valoracion(edit_valoracion: int | None = None) -> int:
         default=edit_valoracion - 1 if edit_valoracion is not None else None
     )
     return valoracion + 1 if valoracion is not None else None
-
-def select_prioridad_wishlist(edit_prioridad: int | None = None) -> int:
-    return st.selectbox(
-        "Prioridad",
-        range(constants.PRIORIDAD_WISHLIST_MIN, constants.PRIORIDAD_WISHLIST_MAX+1),
-        index=edit_prioridad if edit_prioridad else None
-    )
-
-def select_idioma(edit_idioma: str | None = None) -> str:
-    return st.selectbox(
-        "Idioma",
-        constants.IDIOMA,
-        index=constants.ESTADO.index(edit_idioma) if edit_idioma else 0
-    )
-
-# HAY QUE HACER PARA LA PÁGINA DE EDICIÓN
-def select_genero() -> list:
-    generos = st.pills(
-        "Géneros",
-        constants.GENERO,
-        selection_mode="multi"
-    )
-    return generos
-
-def select_date(tipo: str, edit_fecha: date | None = None) -> date:
-    return st.date_input(
-        tipo,
-        value = edit_fecha or None, 
-        format="DD/MM/YYYY"
-    )
-
-def add_texto(tipo: str, edit_texto: str | None = None) -> str:
-    return st.text_area(
-        tipo,
-        placeholder=edit_texto or None
-    )

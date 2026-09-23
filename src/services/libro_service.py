@@ -1,6 +1,6 @@
 from models.libro import Libro
 from repositories import libro_repository, saga_repository
-from utils.constants import PRIORIDAD_WISHLIST
+from utils.constants import PRIORIDAD_WISHLIST_MIN, PRIORIDAD_WISHLIST_MAX
 
 import datetime as dt
 
@@ -155,5 +155,5 @@ def _general_checks(id_saga: int | None, num_pag: int | None, en_wishlist: bool,
     if en_wishlist is False and prioridad_wishlist is not None:
         raise ValueError("Un libro que no esté en Wishlist no se puede priorizar.")
     if en_wishlist is True and prioridad_wishlist is not None:
-        if prioridad_wishlist not in PRIORIDAD_WISHLIST:
+        if prioridad_wishlist not in range(PRIORIDAD_WISHLIST_MIN, PRIORIDAD_WISHLIST_MAX+1):
             raise ValueError("Prioridad fuera de rango")

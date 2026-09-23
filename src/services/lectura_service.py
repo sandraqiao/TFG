@@ -62,7 +62,7 @@ def delete(id_lectura: int):
 def get_all_lecturas():
     return lectura_repository.get_all()
 
-def get_by_id(id_lectura: int):
+def get_lectura(id_lectura: int):
     if lectura_repository.get_by_id(id_lectura) is None:
         raise ValueError("Lectura inexistente.")
     return lectura_repository.get_by_id(id_lectura)
