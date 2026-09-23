@@ -119,7 +119,7 @@ else:
     libros = sort_biblioteca(sort_by, libro_service.get_all_libros())
 
 # LISTADO DE LIBROS
-if libros is None:
+if not libros:
     st.write("## 🕸️ No hay libros registrados 🕸️")
 else:
 

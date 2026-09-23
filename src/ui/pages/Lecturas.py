@@ -106,7 +106,7 @@ else:
 
 
 # LISTADO DE LECTURAS
-if lecturas is None:
+if not lecturas:
     st.write("## 🕸️ No hay lecturas registradas 🕸️")
 else:
 

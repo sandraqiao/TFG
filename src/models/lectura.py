@@ -10,9 +10,8 @@ import datetime as dt
 if TYPE_CHECKING:
     from models.libro import Libro
 
-ESTADOS = ", ".join(f"'{e}'" for e in constants.ESTADO)
-FORMATOS = ", ".join(f"'{f}'" for f in constants.FORMATO)
-
+ESTADOS = ",".join(f"'{e}'" for e in constants.ESTADO)
+FORMATOS = ",".join(f"'{f}'" for f in constants.FORMATO)
 
 class Lectura(Base):
     __tablename__ = "lectura"
@@ -21,7 +20,7 @@ class Lectura(Base):
         CheckConstraint("fecha_fin >= fecha_ini", name="check_fechas_ini_fin"),
         CheckConstraint(f"estado IN ({ESTADOS})", name="check_estados"),
         CheckConstraint(f"formato IN ({FORMATOS})", name="check_formatos"),
-        CheckConstraint(f"valoracion IS NULL OR (estado IN('{constants.ESTADO[1]}', '{constants.ESTADO[2]}') AND valoracion IN() {constants.VALORACION_MIN} AND {constants.VALORACION_MAX})", name="check_valoracion")
+        CheckConstraint(f"valoracion IS NULL OR (estado IN('{constants.ESTADO[1]}', '{constants.ESTADO[2]}') AND valoracion BETWEEN {constants.VALORACION_MIN} AND {constants.VALORACION_MAX})", name="check_valoracion")
     )
 
     id_lectura: Mapped[int] = mapped_column(Integer, primary_key=True)

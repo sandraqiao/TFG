@@ -1,7 +1,10 @@
 import streamlit as st
-from ui.ui_selections import select_saga, select_idioma, select_genero, add_texto, select_date, select_prioridad_wishlist
+from ui.ui_selections import select_saga, select_idioma, select_genero, add_texto, select_date, select_prioridad_wishlist, add_saga_popover
 from services import libro_service
 from scraper import casa_del_libro
+  
+
+# ==========================================================================================================
 
 st.set_page_config(
     page_title="Nuevo Libro"
@@ -15,21 +18,21 @@ titulo = st.text_input("Título")
 
 id_saga = select_saga()
 
-col01, col02, col03 = st.columns([0.5, 0.15, 0.35])
 col11, col12, col13 = st.columns([0.5, 0.15, 0.35])
-with col01:
-    isbn = st.text_input("ISBN")
-with col02:
-    idioma = select_idioma()
-with col03:
-    editorial = st.text_input("Editorial")
+col21, col22, col23 = st.columns([0.5, 0.15, 0.35])
 with col11:
-    num_pag = st.text_input("Número de páginas")
+    isbn = st.text_input("ISBN")
 with col12:
+    idioma = select_idioma()
+with col13:
+    editorial = st.text_input("Editorial")
+with col21:
+    num_pag = st.text_input("Número de páginas")
+with col22:
     st.write("Wishlistear")
     with st.container(horizontal=True, horizontal_alignment="center"):
         en_wishlist = st.toggle("")
-with col13:
+with col23:
     prioridad_wishlist = select_prioridad_wishlist()
 
 generos = ",".join(select_genero())

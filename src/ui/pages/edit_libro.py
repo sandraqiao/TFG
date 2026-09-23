@@ -1,6 +1,6 @@
 import streamlit as st
 from ui.ui_selections import select_saga, select_idioma, select_genero, add_texto, select_date, select_prioridad_wishlist, select_wishlist
-from services import libro_service
+from services import libro_service, saga_service
 
 @st.dialog("Seguro que quieres eliminar el libro?", dismissible=False, icon="⚠️")
 def confirm_delete(id_libro: int) -> bool:
@@ -16,6 +16,11 @@ def confirm_delete(id_libro: int) -> bool:
     with col2:
         if st.button("Ufff, mejor no..."):
             st.rerun()
+
+def add_saga_popover():
+    nom_saga = st.text_input("Nombre de la saga")
+    if st.button("Guardar", icon="💾"):
+        saga_service.create(nom_saga)
 
 # ==========================================================================================================
 

@@ -288,3 +288,4 @@
 
 ## 23/09/2026
 ### Trabajo hecho
+- Más o menos terminada la página de edit libro

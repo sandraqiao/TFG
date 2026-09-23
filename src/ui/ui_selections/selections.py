@@ -23,6 +23,22 @@ def select_libro(edit_libro_id: int | None = None) -> int:
     )
     return selection.id_libro
 
+def retrieve_saga_index(sagas: list, edit_saga_id: int):
+    for i, saga in enumerate(sagas):
+        if saga.id_saga == edit_saga_id:
+            return i
+        
+def select_saga(edit_saga_id: int | None = None) -> int:
+    sagas = sorted(saga_service.get_all_sagas(), key=lambda saga: saga.nom_saga)
+    selection = st.selectbox(
+        "Saga",
+        [None] + sagas,
+        format_func=lambda saga: saga.nom_saga if saga else "",
+        index=retrieve_saga_index(sagas, edit_saga_id) + 1 if edit_saga_id else 0,
+        disabled=not st.session_state["editando_libro"]
+    )
+    return selection.id_saga if selection else None
+
 def select_prioridad_wishlist(edit_prioridad: int | None = None) -> int:
     selection = st.selectbox(
         "Prioridad",
@@ -79,22 +95,6 @@ def add_texto(tipo: str, edit_texto: str | None = None) -> str:
 # ==========================================================================================================
 # LECTURA
 # ==========================================================================================================
-
-def retrieve_saga_index(sagas: list, edit_saga_id: int):
-    for i, saga in enumerate(sagas):
-        if saga.id_saga == edit_saga_id:
-            return i
-        
-def select_saga(edit_saga_id: int | None = None) -> int:
-    sagas = sorted(saga_service.get_all_sagas(), key=lambda saga: saga.nom_saga)
-    selection = st.selectbox(
-        "Saga",
-        [None] + sagas,
-        format_func=lambda saga: saga.nom_saga if saga else "",
-        index=retrieve_saga_index(sagas, edit_saga_id) + 1 if edit_saga_id else 0,
-        disabled=not st.session_state["editando_libro"]
-    )
-    return selection.id_saga if selection else None
 
 def select_estado(edit_estado: str | None = None) -> str:
     estado = st.radio(
