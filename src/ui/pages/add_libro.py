@@ -1,5 +1,5 @@
 import streamlit as st
-from ui.ui_selections import select_saga, select_idioma, select_genero, add_texto, select_date, select_prioridad_wishlist, add_saga_popover
+from ui.ui_selections import select_saga, select_idioma, select_genero, add_texto, select_date, select_prioridad_wishlist
 from services import libro_service
 from scraper import casa_del_libro
   
@@ -28,6 +28,10 @@ with col13:
     editorial = st.text_input("Editorial")
 with col21:
     num_pag = st.text_input("Número de páginas")
+    if num_pag:
+        num_pag = int(num_pag)
+    else:
+        num_pag = None
 with col22:
     st.write("Wishlistear")
     with st.container(horizontal=True, horizontal_alignment="center"):
@@ -48,7 +52,7 @@ if st.button("Guardar", icon="💾"):
         id_saga=id_saga,
         titulo=titulo,
         isbn=isbn,
-        num_pag=int(num_pag),
+        num_pag=num_pag,
         genero=generos,
         idioma=idioma,
         sinopsis=sinopsis,

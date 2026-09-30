@@ -57,7 +57,7 @@ def select_idioma(edit_idioma: str | None = None) -> str:
     )
 
 def select_genero(str_generos: str | None = None) -> list:
-    inicial = str_generos.split(", ") if str_generos else None
+    inicial = str_generos.split(",") if str_generos else None
     generos = st.pills(
         "Géneros",
         constants.GENERO,

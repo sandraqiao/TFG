@@ -12,6 +12,7 @@ def create(id_libro: int,
            valoracion: int | None = None, 
            comentario: str | None = None):
 
+    _obligatory(id_libro=id_libro, estado=estado, formato=formato, fecha_ini=fecha_ini)
     _general_checks(id_libro=id_libro, estado=estado, valoracion=valoracion, fecha_ini=fecha_ini, 
                     fecha_fin=fecha_fin, formato=formato)
 
@@ -35,11 +36,14 @@ def update(id_lectura: int,
            valoracion: int | None = None, 
            comentario: str | None = None):
 
-    if lectura_repository.get_by_id(id_lectura) is None:
+    lectura = lectura_repository.get_by_id(id_lectura)
+
+    if lectura is None:
         raise ValueError("Lectura inexistente.")
 
+    _obligatory(id_libro=id_libro, estado=estado, formato=formato, fecha_ini=fecha_ini)
     _general_checks(id_libro=id_libro, estado=estado, valoracion=valoracion, fecha_ini=fecha_ini, 
-                fecha_fin=fecha_fin, formato=formato)
+                    fecha_fin=fecha_fin, formato=formato)
 
     lectura = _build_lectura(
         id_lectura=id_lectura,
@@ -104,7 +108,7 @@ def _build_lectura(id_libro: int, estado: str, valoracion: int | None, comentari
     )
 
 def _general_checks(id_libro: int, estado: str, valoracion: int | None, fecha_ini: dt.date, 
-                fecha_fin: dt.date | None, formato: str):
+                    fecha_fin: dt.date | None, formato: str):
      
     if libro_repository.get_by_id(id_libro) is None:
         raise ValueError("Libro inexistente.")
@@ -112,6 +116,9 @@ def _general_checks(id_libro: int, estado: str, valoracion: int | None, fecha_in
     if estado not in constants.ESTADO:
         raise ValueError("Estado inválido.")
     
+    if formato not in constants.FORMATO:
+        raise ValueError("Formato inválido.")
+
     if valoracion is not None:
         if estado == constants.ESTADO[0]:
             raise ValueError("Una lectura solo puede tener valoración si está finalizada o abandonada.")
@@ -122,5 +129,16 @@ def _general_checks(id_libro: int, estado: str, valoracion: int | None, fecha_in
     if fecha_fin is not None and fecha_fin < fecha_ini:
         raise ValueError("Fechas inválidas.")
 
-    if formato not in constants.FORMATO:
-        raise ValueError("Formato inválido.")
+def _obligatory(id_libro: int, estado: str, formato: str, fecha_ini: dt.date):
+
+    if id_libro is None:
+        raise ValueError("Libro obligatorio.")
+
+    if not estado.strip():
+        raise ValueError("Estado obligatorio.")
+
+    if not formato.strip():
+        raise ValueError("Formato obligatorio.")
+
+    if fecha_ini is None:
+        raise ValueError("Fecha de inicio obligatoria.")

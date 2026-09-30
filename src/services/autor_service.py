@@ -2,6 +2,8 @@ from models.autor import Autor
 from repositories import autor_repository
 
 def create(nom_autor: str):
+    _obligatory(nom_autor=nom_autor)
+
     if autor_repository.get_by_exact_name(nom_autor):
         raise ValueError("Ya existe un autor con ese nombre.")
 
@@ -12,6 +14,8 @@ def update(id_autor: int, nom_autor: str):
 
     if autor is None:
         raise ValueError("Autor inexistente.")
+
+    _obligatory(nom_autor=nom_autor)
 
     autor_existe = autor_repository.get_by_exact_name(nom_autor)
     if autor_existe is not None and autor.id_autor != autor_existe.id_autor:
@@ -36,3 +40,7 @@ def get_all_autores():
 
 def _build_autor(nom_autor: str, id_autor: int | None = None) -> Autor:
     return Autor(id_autor=id_autor, nom_autor=nom_autor)
+
+def _obligatory(nom_autor: str):
+    if not nom_autor.strip():
+        raise ValueError("Nombre obligatorio.")

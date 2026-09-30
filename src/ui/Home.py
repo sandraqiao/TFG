@@ -10,9 +10,11 @@ edit_libro = st.Page("./pages/edit_libro.py", title="Editar libro", visibility="
 lecturas = st.Page("./pages/lecturas.py", title="Lecturas", icon="🔖")
 add_lectura = st.Page("./pages/add_lectura.py", title="Nueva lectura", visibility="hidden")
 edit_lectura = st.Page("./pages/edit_lectura.py", title="Editar lectura", visibility="hidden")
+sagas = st.Page("./pages/sagas.py", title="Sagas", icon="📚")
+autores = st.Page("./pages/autores.py", title="Autores", icon="👤")
 
 pg = st.navigation(
-    [biblioteca, add_libro, edit_libro, lecturas, add_lectura, edit_lectura]
+    [biblioteca, add_libro, edit_libro, lecturas, add_lectura, edit_lectura, sagas, autores]
 )
 
 pg.run()

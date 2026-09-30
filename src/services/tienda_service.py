@@ -2,6 +2,8 @@ from models.tienda import Tienda
 from repositories import tienda_repository
 
 def create(nom_tienda: str, url_tienda: str):
+    _obligatory(nom_tienda=nom_tienda, url_tienda=url_tienda)
+
     if tienda_repository.get_by_exact_name(nom_tienda):
         raise ValueError("Ya existe una tienda con ese nombre.")
 
@@ -12,6 +14,8 @@ def update(id_tienda: int, nom_tienda: str, url_tienda: str):
 
     if tienda is None:
         raise ValueError("Tienda inexistente.")
+
+    _obligatory(nom_tienda=nom_tienda, url_tienda=url_tienda)
 
     tienda_existente = tienda_repository.get_by_exact_name(nom_tienda)
     if tienda_existente is not None and tienda.id_tienda != tienda_existente.id_tienda:
@@ -33,5 +37,13 @@ def search_by_name(nom_tienda: str):
 
 # ===============================================================================================================
 
-def _build_tienda(nom_tienda: str, url_tienda: str | None, id_tienda: int | None = None) -> Tienda:
+def _build_tienda(nom_tienda: str, url_tienda: str, id_tienda: int | None = None) -> Tienda:
     return Tienda(id_tienda=id_tienda, nom_tienda=nom_tienda, url_tienda=url_tienda)
+
+def _obligatory(nom_tienda: str, url_tienda: str):
+
+    if not nom_tienda.strip():
+        raise ValueError("Nombre obligatorio.")
+
+    if not url_tienda.strip():
+        raise ValueError("URL obligatoria.")

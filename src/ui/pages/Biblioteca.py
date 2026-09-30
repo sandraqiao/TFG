@@ -78,7 +78,7 @@ st.set_page_config(
     page_title="Biblioteca"
 )
 
-st.write("# 📚 Biblioteca")
+st.write("# 📖 Biblioteca")
 
 # # STATES EDICIONES
 if st.session_state.get("libro_creado", False):
@@ -90,7 +90,7 @@ if st.session_state.get("libro_editado", False):
     del st.session_state["libro_editado"]
 
 if st.session_state.get("libro_eliminado", False):
-    st.toast("❌ Libro eliminado correctamente")
+    st.toast("✔️ Libro eliminado correctamente")
     del st.session_state["libro_eliminado"]
 
 if "editando_libro" not in st.session_state:
@@ -121,8 +121,8 @@ else:
 # LISTADO DE LIBROS
 if not libros:
     st.write("## 🕸️ No hay libros registrados 🕸️")
-else:
 
+else:
     cols = st.columns(4)
     for i, libro in enumerate(libros):
         autores = autor_libro_service.get_autores_by_libro(libro.id_libro)

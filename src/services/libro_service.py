@@ -17,9 +17,14 @@ def create(titulo: str,
            editorial: str | None = None,
            prioridad_wishlist: int | None = None):
 
+    isbn=_clean_optional(isbn)
+    url_portada=_clean_optional(url_portada)
+    editorial=_clean_optional(editorial)
+
     if isbn is not None and libro_repository.get_by_isbn(isbn):
         raise ValueError("ISBN ya existente.")
 
+    _obligatory(titulo=titulo, genero=genero, idioma=idioma)
     _general_checks(id_saga=id_saga, num_pag=num_pag, en_wishlist=en_wishlist, prioridad_wishlist=prioridad_wishlist)
     
     libro = _build_libro(
@@ -52,6 +57,10 @@ def update(id_libro: int,
            editorial: str | None = None,
            prioridad_wishlist: int | None = None):
 
+    isbn=_clean_optional(isbn)
+    url_portada=_clean_optional(url_portada)
+    editorial=_clean_optional(editorial)
+
     libro = libro_repository.get_by_id(id_libro)
 
     if libro is None:
@@ -62,7 +71,9 @@ def update(id_libro: int,
         if libro_isbn is not None and libro.id_libro != libro_isbn.id_libro:
             raise ValueError("Ya existe un libro con ese ISBN.")
 
+    _obligatory(titulo=titulo, genero=genero, idioma=idioma)
     _general_checks(id_saga=id_saga, num_pag=num_pag, en_wishlist=en_wishlist, prioridad_wishlist=prioridad_wishlist)
+
 
     libro = _build_libro(
         id_libro=id_libro,
@@ -157,3 +168,20 @@ def _general_checks(id_saga: int | None, num_pag: int | None, en_wishlist: bool,
     if en_wishlist is True and prioridad_wishlist is not None:
         if prioridad_wishlist not in range(PRIORIDAD_WISHLIST_MIN, PRIORIDAD_WISHLIST_MAX+1):
             raise ValueError("Prioridad fuera de rango")
+
+def _obligatory(titulo: str, genero: str, idioma: str):
+
+    if not titulo.strip():
+        raise ValueError("Título obligatorio")
+
+    if not genero.strip():
+        raise ValueError("Género obligatorio")
+
+    if not idioma.strip(): 
+        raise ValueError("Idioma obligatorio")
+
+def _clean_optional(value: str | None) -> str | None:
+    if value is not None:
+        return value.strip() or None
+    else:
+        return None

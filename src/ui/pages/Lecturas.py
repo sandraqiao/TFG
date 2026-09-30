@@ -74,7 +74,7 @@ st.set_page_config(
     page_title="Lecturas"
 )
 
-st.write("# 📓 Lecturas")
+st.write("# 🔖 Lecturas")
 
 # STATES EDICIONES
 if st.session_state.get("lectura_creada", False):
@@ -108,8 +108,8 @@ else:
 # LISTADO DE LECTURAS
 if not lecturas:
     st.write("## 🕸️ No hay lecturas registradas 🕸️")
-else:
 
+else:
     for lectura in lecturas:
 
         # VARIABLES

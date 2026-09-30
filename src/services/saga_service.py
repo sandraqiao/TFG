@@ -2,6 +2,8 @@ from models.saga import Saga
 from repositories import saga_repository
 
 def create(nom_saga: str):
+    _obligatory(nom_saga=nom_saga)
+
     if saga_repository.get_by_exact_name(nom_saga):
         raise ValueError("Ya existe una saga con ese nombre.")
     
@@ -12,6 +14,8 @@ def update(id_saga: int, nom_saga: str):
 
     if saga is None:
         raise ValueError("Saga inexistente.")
+
+    _obligatory(nom_saga=nom_saga)
 
     saga_existe = saga_repository.get_by_exact_name(nom_saga)
     if saga_existe is not None and saga.id_saga != saga_existe.id_saga:
@@ -40,3 +44,7 @@ def search_by_name(nom_saga: str):
 
 def _build_saga(nom_saga: str, id_saga: int | None = None) -> Saga:
     return Saga(id_saga=id_saga, nom_saga=nom_saga)
+
+def _obligatory(nom_saga: str):
+    if not nom_saga.strip():
+        raise ValueError("Nombre obligatorio.")

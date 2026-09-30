@@ -289,3 +289,9 @@
 ## 23/09/2026
 ### Trabajo hecho
 - Más o menos terminada la página de edit libro
+
+## 29/09/2026
+### Trabajo hecho
+- Página de sagas hecha. Pensar si queremos poner un editar o no
+- Al crear un nuevo libro me pedía obligatorio num_pag desde otro sitio. Ha habido
+que arreglar eso. Also he arreglado muchas cosas de la logica en services sos
