@@ -12,7 +12,7 @@ def confirm_delete(id_libro: int) -> bool:
         if st.button("Lo entiendo, bórralo aún así"):
             libro_service.delete(id_libro)
             st.session_state["libro_eliminado"] = True
-            st.rerun()
+            st.switch_page("./pages/biblioteca.py")
     with col2:
         if st.button("Ufff, mejor no..."):
             st.rerun()
@@ -32,19 +32,25 @@ st.write("# ✏️ Editar libro")
 
 libro = libro_service.get_libro(st.session_state["info_libro_id"])
 
-col01, col02 = st.columns([2.5, 7.5])
-col11, col12, col13 = st.columns(3)
-col21, col22, col23 = st.columns(3)
-with col01:
-    st.image(libro.url_portada)
-with col02:
+if libro.url_portada:
+    col01, col02 = st.columns([2.5, 7.5])
+    with col01:
+        st.image(libro.url_portada)
+    with col02:
+        titulo = st.text_input("Título", libro.titulo, disabled=not st.session_state["editando_libro"])
+        id_saga = select_saga(libro.id_saga)
+        isbn = st.text_input("ISBN", libro.isbn, disabled=not st.session_state["editando_libro"])
+else: 
     titulo = st.text_input("Título", libro.titulo, disabled=not st.session_state["editando_libro"])
     id_saga = select_saga(libro.id_saga)
     isbn = st.text_input("ISBN", libro.isbn, disabled=not st.session_state["editando_libro"])
+
+col11, col12, col13 = st.columns(3)
+col21, col22, col23 = st.columns(3)
 with col11:
     editorial = st.text_input("Editorial", libro.editorial, disabled=not st.session_state["editando_libro"])
 with col12:
-    num_pag = int(st.text_input("Número de páginas", libro.num_pag, disabled=not st.session_state["editando_libro"]))
+    num_pag = st.text_input("Número de páginas", libro.num_pag if libro.num_pag else None, disabled=not st.session_state["editando_libro"])
 with col13:
     idioma = select_idioma()
 with col21:
@@ -69,7 +75,7 @@ with st.container(horizontal=True, horizontal_alignment="right"):
                 id_saga=id_saga,
                 titulo=titulo,
                 isbn=isbn,
-                num_pag=num_pag,
+                num_pag=int(num_pag) if num_pag else None,
                 genero=generos,
                 idioma=idioma,
                 sinopsis=sinopsis,
