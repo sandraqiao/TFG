@@ -33,6 +33,15 @@ def get_autores_by_libro(id_libro: int):
         autores.append(autor_repository.get_by_id(autor.id_autor))
     return autores
 
+def get_id_autores_by_libro(id_libro: int):
+    if libro_repository.get_by_id(id_libro) is None:
+        raise ValueError("Libro inexistente.")
+    autoreslibro = autor_libro_repository.get_autor_from_libro(id_libro)
+    id_autores = []
+    for autor in autoreslibro:
+        id_autores.append(autor.id_autor)
+    return id_autores
+
 # ===============================================================================================================
 
 def _build_autor_libro(id_libro: int, id_autor: int) -> AutorLibro:

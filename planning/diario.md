@@ -295,3 +295,4 @@
 - Página de sagas hecha. Pensar si queremos poner un editar o no
 - Al crear un nuevo libro me pedía obligatorio num_pag desde otro sitio. Ha habido
 que arreglar eso. Also he arreglado muchas cosas de la logica en services sos
+- Parece que Autores funciona y tmb está bien linkado con biblioteca

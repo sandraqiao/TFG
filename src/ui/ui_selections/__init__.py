@@ -1,6 +1,7 @@
 from ui.ui_selections.selections import (
     select_libro,
     select_saga,
+    select_autor,
     select_estado,
     select_formato,
     select_valoracion,

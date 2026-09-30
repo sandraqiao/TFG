@@ -25,14 +25,25 @@ st.set_page_config(
 st.write("# 👤 Autores")
 
 # STATES EDICIONES
+if st.session_state.get("autor_creado", False):
+    st.toast("✔️ Autor creado correctamente")
+    del st.session_state["autor_creado"]
 if st.session_state.get("autor_eliminado", False):
     st.toast("✔️ Autor eliminado correctamente")
     del st.session_state["autor_eliminado"]
 
+# NEW AUTOR
+new_autor = st.text_input("Añadir nuevo autor", placeholder="Nombre")
+with st.container(horizontal=True, horizontal_alignment="right"):
+    if st.button("Guardar", icon="💾") and new_autor:
+        autor_service.create(new_autor)
+        st.session_state["autor_creado"] = True
+        st.rerun()
 
-# GET SAGAS A MOSTRAR
+# GET AUTORES A MOSTRAR
 autores = sorted(autor_service.get_all_autores(), key=lambda autor: autor.nom_autor)
 
+st.divider()
 if not autores:
     st.write("## 🕸️ No hay autores registrados 🕸️")
 
@@ -47,17 +58,18 @@ else:
 
             col01, col02 = st.columns([0.9, 0.1])
             with col01:
-                st.write(saga.nom_saga)
+                st.write(autor.nom_autor)
             with col02:
-                if st.button("", icon=":material/delete:", key=f"delete_{saga.id_saga}"):
-                    confirm_delete(saga.id_saga)
+                if st.button("", icon=":material/delete:", key=f"delete_{autor.id_autor}"):
+                    confirm_delete(autor.id_autor)
 
-        if libros:
-            portadas = st.columns(len(libros), gap="xsmall")
-            for column, libro in zip(portadas, libros):
-                with column:
-                    if libro.url_portada:
-                        st.image(libro.url_portada, width=150)
-                    else: 
-                        st.write(libro.titulo)
-                        st.caption("[Sin portada]")
+            if autor_libros:
+                portadas = st.columns(len(autor_libros), gap="xsmall")
+                for column, autor_libro in zip(portadas, autor_libros):
+                    libro = libro_service.get_libro(autor_libro.id_libro)
+                    with column:
+                        if libro.url_portada:
+                            st.image(libro.url_portada, width=150)
+                        else:
+                            st.write(libro.titulo)
+                            st.caption("[Sin portada]")

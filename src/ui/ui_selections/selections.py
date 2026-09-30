@@ -2,7 +2,7 @@ import streamlit as st
 from utils import constants
 from utils.prints import *
 from datetime import date
-from services import libro_service, autor_libro_service, saga_service
+from services import libro_service, autor_libro_service, saga_service, autor_service
 
 # ==========================================================================================================
 # LIBRO
@@ -38,6 +38,18 @@ def select_saga(edit_saga_id: int | None = None) -> int:
         disabled=not st.session_state["editando_libro"]
     )
     return selection.id_saga if selection else None
+
+
+def select_autor(edit_autores_id: list | None = None) -> list[int]:
+    autores = sorted(autor_service.get_all_autores(), key=lambda autor: autor.nom_autor)
+    selection = st.multiselect(
+        "Autor",
+        autores,
+        format_func=lambda autor: autor.nom_autor,
+        default=[autor for autor in autores if edit_autores_id and autor.id_autor in edit_autores_id],
+        disabled=not st.session_state["editando_libro"]
+    )
+    return [autor.id_autor for autor in selection]
 
 def select_prioridad_wishlist(edit_prioridad: int | None = None) -> int:
     selection = st.selectbox(

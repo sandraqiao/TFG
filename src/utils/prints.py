@@ -5,10 +5,13 @@ def titulo_autor(titulo: str,  autores: list) -> str:
 
     titulo_autor = titulo + " - "
 
-    for i, autor in enumerate(autores):
-        if i > 0:
-            titulo_autor += ", "
-        titulo_autor += autor.nom_autor
+    if autores:
+        for i, autor in enumerate(autores):
+            if i > 0:
+                titulo_autor += ", "
+            titulo_autor += autor.nom_autor
+    else:
+        titulo_autor += "[sin autor informado]"
 
     return titulo_autor
 
