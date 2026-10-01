@@ -5,11 +5,13 @@ import json
 import datetime as dt
 from decimal import Decimal
 from selenium.webdriver.common.by import By
+from utils import constants
 
 def extract_url_libro(busca: str):
 
-    service = Service("drivers/chromedriver-win64/chromedriver.exe")
-    driver = webdriver.Chrome(service=service)
+    # service = Service("drivers/chromedriver-win64/chromedriver.exe")
+    # driver = webdriver.Chrome(service=service)
+    driver = webdriver.Chrome()
 
     driver.get(f"https://www.casadellibro.com/?query={busca.replace(" ", "%20")}")
     input("Enter para continuar")
@@ -27,8 +29,9 @@ def extract_url_libro(busca: str):
 
 def extract_url_por_isbn(isbn: str):
 
-    service = Service("drivers/chromedriver-win64/chromedriver.exe")
-    driver = webdriver.Chrome(service=service)
+    # service = Service("drivers/chromedriver-win64/chromedriver.exe")
+    # driver = webdriver.Chrome(service=service)
+    driver = webdriver.Chrome()
 
     driver.get(f"https://www.casadellibro.com/?query={isbn}")
     
@@ -43,8 +46,9 @@ def extract_url_por_isbn(isbn: str):
 
 def extract_precio_data(url: str):
 
-    service = Service("drivers/chromedriver-win64/chromedriver.exe")
-    driver = webdriver.Chrome(service=service)
+    # service = Service("drivers/chromedriver-win64/chromedriver.exe")
+    # driver = webdriver.Chrome(service=service)
+    driver = webdriver.Chrome()
 
     driver.get(url)
     html = driver.page_source
@@ -55,10 +59,12 @@ def extract_precio_data(url: str):
     libro_json = json.loads(libro_soup[0].string)
 
     datos = {
-        "precio": get_precio(libro_json),
+        # "precio": get_precio(libro_json),
+        "precio": get_precio(full_soup),
         "pct_descuento": get_pct_descuento(full_soup),
         "fecha_consulta": dt.date.today(),
-        "disponible": get_disponible(libro_json)
+        "disponible": get_disponible(libro_json),
+        "tienda": constants.TIENDA_SCRAPER[0]
     }
 
     return datos
@@ -72,13 +78,24 @@ def get_pct_descuento(soup):
 
     return None
 
-def get_precio(libro_json):
-    precio = libro_json[1]["workExample"][0]["offers"][0]["Price"]
+def get_precio(soup):
+    precio = soup.find("span", id="p-pf-f")
 
     if precio is None:
         raise ValueError("Precio no encontrado.")
 
+    precio = precio.get_text(strip=True)
+    precio = precio.replace("€", "").replace(",", ".")
+
     return Decimal(precio)
+
+# def get_precio(libro_json):
+#     precio = libro_json[1]["workExample"][0]["offers"][0]["Price"]
+
+#     if precio is None:
+#         raise ValueError("Precio no encontrado.")
+
+#     return Decimal(precio)
 
 def get_disponible(libro_json):
     disponible = libro_json[1]["workExample"][0]["offers"][0]["availability"]

@@ -60,6 +60,7 @@ FORMATO: list[str] = [
 ]
 
 # Atributos sort-eables libros
+
 SORT_BIBLIOTECA: list[str] = [
     "Título",
     "Saga"
@@ -78,4 +79,10 @@ FILTROS_LIBROS: list[str] = [
     "Idiomas",
     "Editoriales",
     "Wishlisteado"
+]
+
+# Tiendas con scraper implementado
+
+TIENDA_SCRAPER: list[str] = [
+    "Casa del Libro"
 ]

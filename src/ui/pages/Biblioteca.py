@@ -2,67 +2,6 @@ import streamlit as st
 from services import libro_service, autor_libro_service, saga_service
 from utils.prints import *
 
-# @st.dialog("Seguro que quieres borrar el libro?", dismissible=False, icon="⚠️")
-# def confirm_delete(id_libro: int) -> bool:
-#     st.write("Esta acción no se puede deshacer")
-
-#     col1, col2 = st.columns(2)
-#     with col1:
-#         if st.button("Si, bórralo"):
-#             libro_service.delete(id_libro)
-#             st.session_state["libro_eliminado"] = True
-#             st.rerun()
-#     with col2:
-#         if st.button("No, me arrepiento"):
-#             st.rerun()
-
-# def filtro_popover():
-#     generos = filtrado(constants.FILTROS_LIBROS[0])
-#     st.divider()
-#     idiomas = filtrado(constants.FILTROS_LIBROS[1])
-#     st.divider()
-#     editoriales = filtrado(constants.FILTROS_LIBROS[2])
-#     st.divider()
-#     en_wishlist = filtrado(constants.FILTROS_LIBROS[3])
-
-#     with st.container(horizontal=True, horizontal_alignment="right"):
-#         if st.button("Aplicar"):
-#             st.session_state["filtros_libros"] = {
-#                 "generos": generos,
-#                 "idiomas": idiomas,
-#                 "editoriales": editoriales,
-#                 "en_wishlist": en_wishlist
-#             }
-#             st.rerun()
-
-# def retrieve_editoriales(): 
-#     libros = libro_service.get_all_libros()
-#     editoriales = []
-#     for libro in libros:
-#         if editoriales:
-#             editoriales.append(libro.editorial)
-#     return sorted(set(editoriales))
-
-
-# def filtrado(to_filter: str):
-#     if to_filter == constants.FILTROS_LIBROS[0]:
-#         options = constants.GENERO
-#     elif to_filter == constants.FILTROS_LIBROS[1]:
-#         options = constants.IDIOMA
-#     elif to_filter == constants.FILTROS_LIBROS[2]:
-#         options = retrieve_editoriales()
-#     elif to_filter == constants.FILTROS_LIBROS[3]:
-#         options = ["Sí", "No"]
-
-#     st.write(to_filter)
-
-#     result = []
-#     for i, option in enumerate(options):
-#         actual = st.checkbox(f"{option}")
-#         if actual:
-#             result.append(f"{options[i]}")
-#     return result
-
 def sort_biblioteca(sort_by, libros):
     if sort_by == constants.SORT_BIBLIOTECA[0]:
         # por titulo
