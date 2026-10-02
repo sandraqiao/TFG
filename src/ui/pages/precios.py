@@ -43,10 +43,25 @@ historico = sorted(historico_precio_service.get_all_historico_precio(), key=lamb
 if st.button("Scrapear", icon="🔍"):
     with st.spinner("Scrapeando precios..."):
         scrap(libros, historico)
+        st.rerun()
 
 for libro in libros:
     autores = autor_libro_service.get_autores_by_libro(libro.id_libro)
+
     with st.container(border=True):
         st.write(titulo_autor(libro.titulo, autores))
+
         with st.expander("Casa del Libro"):
-            st.write("")
+
+            historicos_libro = [h for h in historico if h.id_libro == libro.id_libro]
+            tabla_datos = []
+
+            for h in historicos_libro:
+                tabla_datos.append({
+                    "Fecha": h.fecha_consulta.strftime("%d/%m/%Y"),
+                    "Precio": f"{h.precio:.2f}",
+                    "Descuento": f"{h.pct_descuento:.0f} %" if h.pct_descuento is not None else "-",
+                    "Disponible": "🟢" if h.disponible else "🔴"
+                })
+
+            st.dataframe(tabla_datos, hide_index=True, use_container_width=True)
