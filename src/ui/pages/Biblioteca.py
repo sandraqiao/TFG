@@ -2,6 +2,54 @@ import streamlit as st
 from services import libro_service, autor_libro_service, saga_service
 from utils.prints import *
 
+def filtro_popover():
+    generos = filtrado(constants.FILTROS_LIBROS[0])
+    st.divider()
+    idiomas = filtrado(constants.FILTROS_LIBROS[1])
+    st.divider()
+    editoriales = filtrado(constants.FILTROS_LIBROS[2])
+    st.divider()
+    en_wishlist = filtrado_wishlist()
+
+    with st.container(horizontal=True, horizontal_alignment="right"):
+        if st.button("Aplicar"):
+            st.session_state["filtros_libros"] = {
+                "generos": generos,
+                "idiomas": idiomas,
+                "editoriales": editoriales,
+                "en_wishlist": en_wishlist
+            }
+            st.rerun()
+
+def filtrado(to_filter: str):
+    libros = libro_service.get_all_libros()
+    if to_filter == constants.FILTROS_LIBROS[0]:
+        options = constants.GENERO
+    elif to_filter == constants.FILTROS_LIBROS[1]:
+        options = constants.IDIOMA
+    elif to_filter == constants.FILTROS_LIBROS[2]:
+        # editoriales
+        options = sorted(set(libro.editorial for libro in libros if libro.editorial is not None))
+
+    st.write(to_filter)
+
+    result = []
+    for option in options:
+        if st.checkbox(option):
+            result.append(option)
+    return result
+
+def filtrado_wishlist():
+    st.write(constants.FILTROS_LIBROS[3])
+
+    option = st.radio("", ["Ambos", "Sí", "No"], horizontal=True)
+    if option == "Sí":
+        return True
+    elif option == "No":
+        return False
+    else:
+        return None
+
 def sort_biblioteca(sort_by, libros):
     if sort_by == constants.SORT_BIBLIOTECA[0]:
         # por titulo
@@ -39,8 +87,7 @@ if "editando_libro" not in st.session_state:
 # FILTER, SORT Y ADD LIBROS
 with st.container(horizontal=True, horizontal_alignment="right"):
     with st.popover("", icon=":material/filter_alt:"):
-        # filtro_popover()
-        st.write("filtro")
+        filtro_popover()
 
     sort_by = st.menu_button("", icon=":material/sort:", options=constants.SORT_BIBLIOTECA)
     if sort_by is None:

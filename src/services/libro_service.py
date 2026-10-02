@@ -1,6 +1,7 @@
 from models.libro import Libro
 from repositories import libro_repository, saga_repository
 from utils.constants import PRIORIDAD_WISHLIST_MIN, PRIORIDAD_WISHLIST_MAX
+from sqlalchemy import or_
 
 import datetime as dt
 
@@ -123,7 +124,7 @@ def filter_libro(generos: list[str] | None = None, idiomas: list[str] | None = N
     filtros = []
 
     if generos: 
-        filtros.append(Libro.genero.in_(generos))
+        filtros.append(or_(*[Libro.genero.contains(genero) for genero in generos]))
     if idiomas: 
         filtros.append(Libro.idioma.in_(idiomas))
     if editoriales: 

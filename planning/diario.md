@@ -297,5 +297,8 @@
 que arreglar eso. Also he arreglado muchas cosas de la logica en services sos
 - Parece que Autores funciona y tmb está bien linkado con biblioteca
 
-## 01/10/2026
+## 01/10/2026 y 2/10/2026
 ### Trabajo hecho
+- Precio hecho
+- Filtro de libros hecho
+- Corregido algunas cosas de lecturas etc etc

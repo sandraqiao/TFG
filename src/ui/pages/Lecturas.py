@@ -43,10 +43,9 @@ def filtrado(to_filter: str):
     st.write(to_filter)
 
     result = []
-    for i, option in enumerate(options):
-        actual = st.checkbox(f"{option}")
-        if actual:
-            result.append(f"{options[i]}")
+    for option in options:
+        if st.checkbox(str(option)):
+            result.append(option)
     return result
 
 def sort_lecturas(lecturas):
