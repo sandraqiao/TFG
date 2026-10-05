@@ -302,3 +302,8 @@ que arreglar eso. Also he arreglado muchas cosas de la logica en services sos
 - Precio hecho
 - Filtro de libros hecho
 - Corregido algunas cosas de lecturas etc etc
+
+## 5/10/2026
+### Trabajo hecho
+- Página de stats
+- En proceso de hacer el intento de autofill en add_libro

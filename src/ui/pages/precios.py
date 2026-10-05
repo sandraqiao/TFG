@@ -1,7 +1,8 @@
 import streamlit as st
 from services import historico_precio_service, libro_service, autor_libro_service
 from utils.prints import titulo_autor
-from scraper.casa_del_libro import extract_url_por_isbn, extract_precio_data
+from scraper.casa_del_libro import get_soup, extract_url_por_isbn, extract_precio_data
+
 
 def scrap(libros: list, historico: list):
 
@@ -13,8 +14,13 @@ def scrap(libros: list, historico: list):
         for h in historicos_libro:
             if libro.isbn in h.url_libro and not url_libro:
                 url_libro = h.url_libro
+
         if not url_libro:
-            url_libro = extract_url_por_isbn(libro.isbn)
+            soup = get_soup(libro.isbn)
+            url_libro = extract_url_por_isbn(soup)
+
+        if not url_libro:
+            continue
         
         scraped_data = extract_precio_data(url_libro)
 

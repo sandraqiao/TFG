@@ -4,6 +4,7 @@ st.set_page_config(
     page_title="Mi biblioteca"
 )
 
+stats = st.Page("./pages/stats.py", title="Estadísticas", icon="📊")
 biblioteca = st.Page("./pages/biblioteca.py", title="Biblioteca", icon="📖")
 add_libro = st.Page("./pages/add_libro.py", title="Nuevo libro", visibility="hidden")
 edit_libro = st.Page("./pages/edit_libro.py", title="Editar libro", visibility="hidden")
@@ -15,7 +16,7 @@ autores = st.Page("./pages/autores.py", title="Autores", icon="👤")
 precios = st.Page("./pages/precios.py", title="Precios", icon="💰")
 
 pg = st.navigation(
-    [biblioteca, add_libro, edit_libro, lecturas, add_lectura, edit_lectura, sagas, autores, precios]
+    [stats, biblioteca, add_libro, edit_libro, lecturas, add_lectura, edit_lectura, sagas, autores, precios]
 )
 
 pg.run()

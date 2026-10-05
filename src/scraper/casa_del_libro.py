@@ -7,40 +7,59 @@ from decimal import Decimal
 from selenium.webdriver.common.by import By
 from utils import constants
 
-def extract_url_libro(busca: str):
+# def extract_url_libro(busca: str):
 
+#     # service = Service("drivers/chromedriver-win64/chromedriver.exe")
+#     # driver = webdriver.Chrome(service=service)
+#     driver = webdriver.Chrome()
+
+#     driver.get(f"https://www.casadellibro.com/?query={busca.replace(" ", "%20")}")
+#     input("Enter para continuar")
+
+#     root = driver.find_element(By.CSS_SELECTOR, ".x-root-container")
+#     html = driver.execute_script("return arguments[0].shadowRoot.innerHTML", root)
+#     full_soup = BeautifulSoup(html, 'html.parser')
+
+#     resultados = full_soup.find_all("a", attrs={"data-test": "result-link"})
+#     urls = set()
+#     for resultado in resultados:
+#         urls.add(resultado.get("href"))
+
+#     return urls
+
+def get_soup(isbn: str):
     # service = Service("drivers/chromedriver-win64/chromedriver.exe")
     # driver = webdriver.Chrome(service=service)
     driver = webdriver.Chrome()
 
-    driver.get(f"https://www.casadellibro.com/?query={busca.replace(" ", "%20")}")
-    input("Enter para continuar")
-
-    root = driver.find_element(By.CSS_SELECTOR, ".x-root-container")
-    html = driver.execute_script("return arguments[0].shadowRoot.innerHTML", root)
-    full_soup = BeautifulSoup(html, 'html.parser')
-
-    resultados = full_soup.find_all("a", attrs={"data-test": "result-link"})
-    urls = set()
-    for resultado in resultados:
-        urls.add(resultado.get("href"))
-
-    return urls
-
-def extract_url_por_isbn(isbn: str):
-
-    # service = Service("drivers/chromedriver-win64/chromedriver.exe")
-    # driver = webdriver.Chrome(service=service)
-    driver = webdriver.Chrome()
-
-    driver.get(f"https://www.casadellibro.com/?query={isbn}")
+    try:
+        driver.get(f"https://www.casadellibro.com/?query={isbn}")
     
-    root = driver.find_element(By.CSS_SELECTOR, ".x-root-container")
-    html = driver.execute_script("return arguments[0].shadowRoot.innerHTML", root)
-    full_soup = BeautifulSoup(html, 'html.parser')
+        root = driver.find_element(By.CSS_SELECTOR, ".x-root-container")
+        html = driver.execute_script("return arguments[0].shadowRoot.innerHTML", root)
+        return BeautifulSoup(html, 'html.parser')
+    finally:
+        driver.quit()
 
-    resultado = full_soup.find("a", attrs={"data-test": "result-link"})
+def extract_url_por_isbn(soup: str):
+    resultado = soup.find("a", attrs={"data-test": "result-link"})
+    if resultado is None:
+        return None
     return resultado.get("href")
+
+def extract_ficha_tecnica(soup: str) -> dict[str, str]:
+    ficha = soup.select_one(".ficha-tecnica")
+
+    if not ficha:
+        return {}
+    data = {}
+    for campo in ficha.select(".campo[data-campo]"):
+        nombre = campo.get("data-campo")
+        texto = campo.get_text(" ", strip=True)
+        if nombre:
+            data[nombre] = texto
+
+    return data
 
 # ===============================================================================================================
 
