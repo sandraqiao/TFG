@@ -62,9 +62,24 @@ def extract_ficha_tecnica(soup: str) -> dict[str, str]:
 
 # ===============================================================================================================
 
-def extract_url(soup: str):
+def extract_url(soup):
     resultado = soup.find("a", attrs={"data-test": "result-link"})
     return resultado.get("href") if resultado else None
+
+def get_titulo(soup):
+    titulo = soup.find("h1", id="t-p-f")
+    return titulo.get_text(strip=True) if titulo else None
+
+def get_autores(soup):
+    autores = []
+
+    escritores = soup.find_all("h3", class_="text-l f-w-7 mb-2 brand-text")
+    for escritor in escritores:
+        texto = escritor.get_text(strip=True)
+        if texto.startswith("Escrito por "):
+            autores.append(texto.replace("Escrito por", "", 1).strip())
+
+    return autores
 
 def get_precio(soup):
     precio = soup.find("span", id="p-pf-f")
