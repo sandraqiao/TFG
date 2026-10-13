@@ -14,5 +14,5 @@ class AutorLibro(Base):
     id_libro: Mapped[int] = mapped_column(ForeignKey("libro.id_libro", ondelete="CASCADE"), primary_key=True)
     id_autor: Mapped[int] = mapped_column(ForeignKey("autor.id_autor", ondelete="CASCADE"), primary_key=True)
 
-    libro: Mapped[Libro] = relationship(back_populates="autoreslibros")
-    autor: Mapped[Autor] = relationship(back_populates="autoreslibros")
+    libro: Mapped["Libro"] = relationship(back_populates="autoreslibros")
+    autor: Mapped["Autor"] = relationship(back_populates="autoreslibros")

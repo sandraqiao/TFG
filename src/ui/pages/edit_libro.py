@@ -1,6 +1,6 @@
 import streamlit as st
 from ui.ui_selections import select_saga, select_idioma, select_genero, add_texto, select_date, select_prioridad_wishlist, select_wishlist, select_autor
-from services import libro_service, saga_service, autor_libro_service
+from services import libro_service, saga_service, autor_libro_service, autor_service
 
 @st.dialog("Seguro que quieres eliminar el libro?", dismissible=False, icon="⚠️")
 def confirm_delete(id_libro: int) -> bool:
@@ -32,28 +32,32 @@ st.write("# ✏️ Editar libro")
 
 libro = libro_service.get_libro(st.session_state["info_libro_id"])
 id_autores_originales = autor_libro_service.get_id_autores_by_libro(libro.id_libro)
+if st.session_state.get("autores_libro_editando") != libro.id_libro:
+    autores = autor_service.get_all_autores()
+    st.session_state["autores"] = [autor for autor in autores if autor.id_autor in id_autores_originales]
+    st.session_state["autores_libro_editando"] = libro.id_libro
 
 if libro.url_portada:
     col01, col02 = st.columns([2.5, 7.5])
     with col01:
         st.image(libro.url_portada)
     with col02:
-        titulo = st.text_input("Título", libro.titulo, disabled=not st.session_state["editando_libro"])
+        titulo = st.text_input("Título", libro.titulo)
         id_autores = select_autor(autor_libro_service.get_id_autores_by_libro(libro.id_libro))
         id_saga = select_saga(libro.id_saga)
 else: 
-    titulo = st.text_input("Título", libro.titulo, disabled=not st.session_state["editando_libro"])
-    id_autores = select_autor(autor_libro_service.get_autores_by_libro(libro.id_libro))
+    titulo = st.text_input("Título", libro.titulo)
+    id_autores = select_autor(autor_libro_service.get_id_autores_by_libro(libro.id_libro))
     id_saga = select_saga(libro.id_saga)
 
-isbn = st.text_input("ISBN", libro.isbn, disabled=not st.session_state["editando_libro"])
+isbn = st.text_input("ISBN", libro.isbn)
 
 col11, col12, col13 = st.columns(3)
 col21, col22, col23 = st.columns(3)
 with col11:
-    editorial = st.text_input("Editorial", libro.editorial, disabled=not st.session_state["editando_libro"])
+    editorial = st.text_input("Editorial", libro.editorial)
 with col12:
-    num_pag = st.text_input("Número de páginas", libro.num_pag if libro.num_pag else None, disabled=not st.session_state["editando_libro"])
+    num_pag = st.text_input("Número de páginas", libro.num_pag if libro.num_pag else None)
 with col13:
     idioma = select_idioma(libro.idioma)
 with col21:
@@ -65,42 +69,37 @@ with col23:
 
 generos = ",".join(select_genero(libro.genero))
 
-url_portada = st.text_input("Portada", libro.url_portada, disabled=not st.session_state["editando_libro"])
+url_portada = st.text_input("Portada", libro.url_portada)
 
 sinopsis = add_texto("Sinopsis", libro.sinopsis)
 
 
 with st.container(horizontal=True, horizontal_alignment="right"):
-    if st.session_state["editando_libro"]:
-        if st.button("Guardar", icon="💾"):
-            libro_service.update(
-                id_libro=libro.id_libro,
-                id_saga=id_saga,
-                titulo=titulo,
-                isbn=isbn,
-                num_pag=int(num_pag) if num_pag else None,
-                genero=generos,
-                idioma=idioma,
-                sinopsis=sinopsis,
-                fecha_public=fecha_public,
-                url_portada=url_portada,
-                editorial=editorial,
-                en_wishlist=en_wishlist,
-                prioridad_wishlist=prioridad_wishlist
-            )
+    if st.button("Guardar", icon="💾"):
+        libro_service.update(
+            id_libro=libro.id_libro,
+            id_saga=id_saga,
+            titulo=titulo,
+            isbn=isbn,
+            num_pag=int(num_pag) if num_pag else None,
+            genero=generos,
+            idioma=idioma,
+            sinopsis=sinopsis,
+            fecha_public=fecha_public,
+            url_portada=url_portada,
+            editorial=editorial,
+            en_wishlist=en_wishlist,
+            prioridad_wishlist=prioridad_wishlist
+        )
 
-            for id in (set(id_autores_originales)-set(id_autores)): 
-                autor_libro_service.delete(libro.id_libro, id)
-            for id in (set(id_autores)-set(id_autores_originales)):
-                autor_libro_service.create(libro.id_libro, id)
+        for id in (set(id_autores_originales)-set(id_autores)): 
+            autor_libro_service.delete(libro.id_libro, id)
+        for id in (set(id_autores)-set(id_autores_originales)):
+            autor_libro_service.create(libro.id_libro, id)
 
-            st.session_state["editando_libro"] = False
-            st.session_state["libro_editado"] = True
-            st.switch_page("./pages/biblioteca.py")
-    else:
-        if st.button("", icon=":material/edit:"):
-                st.session_state["editando_libro"] = True
-                st.rerun()
+        st.session_state["editando_libro"] = False
+        st.session_state["libro_editado"] = True
+        st.switch_page("./pages/biblioteca.py")
 
-        if st.button("", icon=":material/delete:"):
-            confirm_delete(libro.id_libro)
+    if st.button("Eliminar", icon=":material/delete:"):
+        confirm_delete(libro.id_libro)

@@ -55,8 +55,14 @@ def sort_biblioteca(sort_by, libros):
         # por titulo
         libros.sort(key=lambda libro: libro.titulo)
     elif sort_by == constants.SORT_BIBLIOTECA[1]:
-        # por saga
-        libros.sort(key=lambda libro: saga_service.get_saga(libro.id_saga).nom_saga)
+        # por saga, dejando al final los libros sin saga
+        libros.sort(
+            key=lambda libro: (
+                libro.id_saga is None,
+                saga_service.get_saga(libro.id_saga).nom_saga
+                if libro.id_saga is not None else ""
+            )
+        )
     return libros
 
 # ==========================================================================================================
@@ -79,9 +85,6 @@ if st.session_state.get("libro_editado", False):
 if st.session_state.get("libro_eliminado", False):
     st.toast("✔️ Libro eliminado correctamente")
     del st.session_state["libro_eliminado"]
-
-if "editando_libro" not in st.session_state:
-    st.session_state["editando_libro"] = False
 
 
 # FILTER, SORT Y ADD LIBROS

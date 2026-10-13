@@ -48,9 +48,6 @@ st.set_page_config(
 
 st.write("# ➕ Nuevo libro")
 
-st.session_state["editando_libro"] = True
-
-
 titulo = st.text_input("Título", key="titulo")
 
 isbn = st.text_input("ISBN", key="isbn")
@@ -87,7 +84,7 @@ generos = ",".join(select_genero())
 
 url_portada = st.text_input("Portada", key="url_portada", placeholder="URL")
 
-fecha_public = select_date("Fecha de publicación")
+fecha_public = select_date("Fecha de publicación", key="fecha_public")
 
 sinopsis = add_texto("Sinopsis")
 
@@ -111,6 +108,5 @@ if st.button("Guardar", icon="💾"):
         autor_libro_service.create(libro_created.id_libro, id)
 
     st.session_state["autores_detectados"] = []
-    st.session_state["editando_libro"] = False
     st.session_state["libro_creado"] = True
     st.switch_page("./pages/biblioteca.py")

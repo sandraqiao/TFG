@@ -34,12 +34,9 @@ def select_saga(edit_saga_id: int | None = None) -> int:
         "Saga",
         [None] + sagas,
         format_func=lambda saga: saga.nom_saga if saga else "",
-        index=retrieve_saga_index(sagas, edit_saga_id) + 1 if edit_saga_id else 0,
-        disabled=not st.session_state["editando_libro"]
+        index=retrieve_saga_index(sagas, edit_saga_id) + 1 if edit_saga_id else 0
     )
     return selection.id_saga if selection else None
-
-
 
 def select_autor(edit_autores_id: list | None = None) -> list[int]:
     autores = sorted(autor_service.get_all_autores(), key=lambda autor: autor.nom_autor)
@@ -49,8 +46,7 @@ def select_autor(edit_autores_id: list | None = None) -> list[int]:
         "Autor",
         autores,
         format_func=lambda autor: autor.nom_autor,
-        key="autores",
-        disabled=not st.session_state["editando_libro"]
+        key="autores"
     )
     return [autor.id_autor for autor in selection]
 
@@ -58,8 +54,7 @@ def select_prioridad_wishlist(edit_prioridad: int | None = None) -> int:
     selection = st.selectbox(
         "Prioridad",
         [None] + list(range(constants.PRIORIDAD_WISHLIST_MIN, constants.PRIORIDAD_WISHLIST_MAX+1)),
-        index=edit_prioridad if edit_prioridad else None,
-        disabled=not st.session_state["editando_libro"]
+        index=edit_prioridad if edit_prioridad else None
     )
     return selection if selection else None
 
@@ -68,8 +63,7 @@ def select_idioma(edit_idioma: str | None = None) -> str:
         "Idioma",
         constants.IDIOMA,
         index=constants.IDIOMA.index(edit_idioma) if edit_idioma in constants.IDIOMA else 0,
-        key="idioma",
-        disabled=not st.session_state["editando_libro"]
+        key="idioma"
     )
 
 def refractor_idioma(idioma: str):
@@ -86,18 +80,16 @@ def select_genero(str_generos: str | None = None) -> list:
         "Géneros",
         constants.GENERO,
         selection_mode="multi",
-        default=inicial if inicial else None,
-        disabled=not st.session_state["editando_libro"]
+        default=inicial if inicial else None
     )
     return generos
 
-def select_date(tipo: str, edit_fecha: date | None = None) -> date:
+def select_date(tipo: str, edit_fecha: date | None = None, key: str | None = None) -> date:
     return st.date_input(
         tipo,
-        value = edit_fecha or None, 
+        value=edit_fecha,
         format="DD/MM/YYYY",
-        key="fecha_public",
-        disabled=not st.session_state["editando_libro"]
+        key=key or tipo
     )
 
 def select_wishlist(en_wishlist: bool) -> bool:
@@ -105,16 +97,14 @@ def select_wishlist(en_wishlist: bool) -> bool:
     selection = st.selectbox(
         "Wishlistear",
         yes_no,
-        index=0 if en_wishlist else 1,
-        disabled=not st.session_state["editando_libro"]
+        index=0 if en_wishlist else 1
     )
     return selection == yes_no[0]
 
 def add_texto(tipo: str, edit_texto: str | None = None) -> str:
     return st.text_area(
         tipo,
-        placeholder=edit_texto or None,
-        disabled=not st.session_state["editando_libro"]
+        value=edit_texto or None
     )
 
 # ==========================================================================================================

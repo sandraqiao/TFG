@@ -1,6 +1,3 @@
-# imports de todos los modelos para que Base.metadata vea los hijos que tiene
-# este file se lee cuando se hace "import models"
-
 from models.libro import Libro
 from models.saga import Saga
 from models.autor import Autor
