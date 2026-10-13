@@ -114,6 +114,10 @@ def get_disponible(json):
 
     raise ValueError("Disponibilidad con datos inesperados.")
 
+def get_url_portada(soup):
+    imagen = soup.find("img", alt=lambda alt: alt and alt.startswith("Imagen Principal de"))
+    return imagen.get("src") if imagen else None
+
 
 
 

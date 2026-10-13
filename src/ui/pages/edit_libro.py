@@ -55,7 +55,7 @@ with col11:
 with col12:
     num_pag = st.text_input("Número de páginas", libro.num_pag if libro.num_pag else None, disabled=not st.session_state["editando_libro"])
 with col13:
-    idioma = select_idioma()
+    idioma = select_idioma(libro.idioma)
 with col21:
     fecha_public = select_date("Fecha de publicación", libro.fecha_public)
 with col22:

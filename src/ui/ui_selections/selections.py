@@ -40,13 +40,16 @@ def select_saga(edit_saga_id: int | None = None) -> int:
     return selection.id_saga if selection else None
 
 
+
 def select_autor(edit_autores_id: list | None = None) -> list[int]:
     autores = sorted(autor_service.get_all_autores(), key=lambda autor: autor.nom_autor)
+    if "autores" not in st.session_state:
+        st.session_state["autores"] = [autor for autor in autores if edit_autores_id and autor.id_autor in edit_autores_id]
     selection = st.multiselect(
         "Autor",
         autores,
         format_func=lambda autor: autor.nom_autor,
-        default=[autor for autor in autores if edit_autores_id and autor.id_autor in edit_autores_id],
+        key="autores",
         disabled=not st.session_state["editando_libro"]
     )
     return [autor.id_autor for autor in selection]
@@ -64,14 +67,15 @@ def select_idioma(edit_idioma: str | None = None) -> str:
     return st.selectbox(
         "Idioma",
         constants.IDIOMA,
-        index=constants.ESTADO.index(edit_idioma) if edit_idioma else 0,
+        index=constants.IDIOMA.index(edit_idioma) if edit_idioma in constants.IDIOMA else 0,
+        key="idioma",
         disabled=not st.session_state["editando_libro"]
     )
 
 def refractor_idioma(idioma: str):
     if idioma == "Castellano":
         return constants.IDIOMA[0]
-    elif idioma == "":
+    elif idioma == "Inglés":
         return constants.IDIOMA[1]
     else:
         return None
@@ -92,6 +96,7 @@ def select_date(tipo: str, edit_fecha: date | None = None) -> date:
         tipo,
         value = edit_fecha or None, 
         format="DD/MM/YYYY",
+        key="fecha_public",
         disabled=not st.session_state["editando_libro"]
     )
 
