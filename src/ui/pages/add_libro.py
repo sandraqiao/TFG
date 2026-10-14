@@ -7,8 +7,10 @@ import datetime as dt
 def autorellenado():
 
     # Reseteo de states
-    for campo in ["titulo", "editorial", "idioma", "num_pag", "fecha_public", "url_portada", "autores"]:
+    for campo in ["titulo", "editorial", "idioma", "num_pag", "fecha_public", "url_portada"]:
         st.session_state[campo] = None
+    st.session_state["autores"] = []
+    st.session_state["autores_detectados"] = []
 
     # Extracción de datos
     soup, url = casa_del_libro.get_soup(isbn=st.session_state["isbn"])
@@ -92,7 +94,7 @@ autores_detectados = st.session_state.get("autores_detectados") or []
 if autores_detectados:
     st.caption(f"Autores detectados: {', '.join(autores_detectados)}. Si alguno no está añadido en 'Autores', hay que añadirlo antes.")
 else:
-    st.caption("Si alguno no está añadido en 'Autores', hay que añadirlo antes.")
+    st.caption("Si algún autor no está añadido en 'Autores', hay que añadirlo antes.")
 
 id_saga = select_saga()
 
@@ -112,13 +114,13 @@ with col4:
     with st.container(horizontal=True, horizontal_alignment="center"):
         en_wishlist = st.toggle("")
 with col5:
-    prioridad_wishlist = select_prioridad_wishlist(en_wishlist)
-
-generos = ",".join(select_genero())
+    prioridad_wishlist = select_prioridad_wishlist(en_wishlist=en_wishlist)
 
 url_portada = st.text_input("Portada", key="url_portada", placeholder="URL")
 
 fecha_public = select_date("Fecha de publicación", key="fecha_public")
+
+generos = ",".join(select_genero())
 
 sinopsis = add_texto("Sinopsis")
 

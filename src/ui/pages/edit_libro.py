@@ -52,24 +52,25 @@ else:
 
 isbn = st.text_input("ISBN", libro.isbn)
 
-col11, col12, col13 = st.columns(3)
-col21, col22, col23 = st.columns(3)
-with col11:
-    editorial = st.text_input("Editorial", libro.editorial)
-with col12:
-    num_pag = st.text_input("Número de páginas", libro.num_pag if libro.num_pag else None)
-with col13:
+col1, col2, col3, col4, col5 = st.columns([0.15, 0.15, 0.4, 0.15, 0.15])
+with col1:
+    num_pag = st.text_input("Nº páginas", libro.num_pag if libro.num_pag else None)
+with col2:
     idioma = select_idioma(libro.idioma)
-with col21:
-    fecha_public = select_date("Fecha de publicación", libro.fecha_public)
-with col22:
-    en_wishlist = select_wishlist(libro.en_wishlist)
-with col23:
-    prioridad_wishlist = select_prioridad_wishlist(libro.prioridad_wishlist, en_wishlist)
-
-generos = ",".join(select_genero(libro.genero))
+with col3:
+    editorial = st.text_input("Editorial", libro.editorial)
+with col4:
+    st.write("Wishlistear")
+    with st.container(horizontal=True, horizontal_alignment="center"):
+        en_wishlist = st.toggle("", value=libro.en_wishlist)
+with col5:
+    prioridad_wishlist = select_prioridad_wishlist(en_wishlist=en_wishlist, edit_prioridad=libro.prioridad_wishlist)
 
 url_portada = st.text_input("Portada", libro.url_portada)
+
+fecha_public = select_date("Fecha de publicación", libro.fecha_public)
+
+generos = ",".join(select_genero(libro.genero))
 
 sinopsis = add_texto("Sinopsis", libro.sinopsis)
 

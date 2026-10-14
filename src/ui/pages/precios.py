@@ -2,17 +2,23 @@ import streamlit as st
 from services import historico_precio_service, libro_service, autor_libro_service
 from utils.prints import titulo_autor
 from scraper.casa_del_libro import get_soup, extract_data_precios
+import datetime as dt
 
 
 def scrap(libros: list, historico: list):
+    hoy = dt.date.today()
 
     for libro in libros:
 
+        historicos_libro = [h for h in historico if h.id_libro == libro.id_libro]
+
+        if any(h.fecha_consulta.date() == hoy for h in historicos_libro):
+                    continue
+
         url_libro = None
 
-        historicos_libro = [h for h in historico if h.id_libro == libro.id_libro]
         for h in historicos_libro:
-            if libro.isbn in h.url_libro and not url_libro:
+            if libro.isbn and h.url_libro and libro.isbn in h.url_libro and not url_libro:
                 url_libro = h.url_libro
 
         if url_libro:
@@ -43,9 +49,16 @@ st.set_page_config(
 
 st.write("# 💰 Histórico de precios")
 
-libros = sorted([libro for libro in libro_service.get_all_libros() if libro.en_wishlist], 
-                key=lambda libro: libro.titulo)
+libros = sorted([libro for libro in libro_service.get_all_libros() if libro.en_wishlist], key=lambda libro: libro.titulo)
 historico = sorted(historico_precio_service.get_all_historico_precio(), key=lambda historico: historico.id_libro)
+libros_sin_busqueda = [libro for libro in libros if not libro.isbn and not any(h.id_libro == libro.id_libro for h in historico)]
+
+if libros_sin_busqueda:
+    aux = len(libros_sin_busqueda)
+    if aux == 1: 
+        st.info(f"Hay {aux} libro de tu wishlist sin ISBN ni URL de una consulta anterior, luego no se podrá realizar una búsqueda automática en La Casa del Libro.")
+    if aux > 1:
+        st.info(f"Hay {aux} libros de tu wishlist sin ISBN ni URL de una consulta anterior, luego no se podrá realizar una búsqueda automática en La Casa del Libro.")
 
 if st.button("Scrapear", icon="🔍"):
     with st.spinner("Scrapeando precios..."):

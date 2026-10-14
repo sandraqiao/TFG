@@ -97,6 +97,7 @@ with st.container(horizontal=True, horizontal_alignment="right"):
         sort_by = constants.SORT_BIBLIOTECA[0]
 
     if st.button("", icon=":material/add:"):
+        st.session_state["autores_detectados"] = []
         st.switch_page("./pages/add_libro.py")
         st.write("add libro")
 

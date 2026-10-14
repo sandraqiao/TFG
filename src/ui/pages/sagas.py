@@ -65,7 +65,10 @@ else:
                     confirm_delete(saga.id_saga)
 
             if libros:
-                portadas = st.columns(len(libros), gap="xsmall")
+                if len(libros) < 5:
+                    portadas = st.columns(4)
+                else:
+                    portadas = st.columns(len(libros), gap="xsmall")
                 for column, libro in zip(portadas, libros):
                     with column:
                         if libro.url_portada:

@@ -6,6 +6,7 @@ import datetime as dt
 from decimal import Decimal
 from selenium.webdriver.common.by import By
 from utils import constants
+import re
 
 def get_soup(isbn: str | None = None, url: str | None = None):
     # service = Service("drivers/chromedriver-win64/chromedriver.exe")
@@ -19,6 +20,9 @@ def get_soup(isbn: str | None = None, url: str | None = None):
             root = driver.find_element(By.CSS_SELECTOR, ".x-root-container")
             html = driver.execute_script("return arguments[0].shadowRoot.innerHTML", root)
             soup = BeautifulSoup(html, 'html.parser')
+
+            if soup and soup.find("p", attrs={"data-test": "no-results-message"}):
+                return None, None
 
             url = extract_url(soup)
 
@@ -68,7 +72,10 @@ def extract_url(soup):
 
 def get_titulo(soup):
     titulo = soup.find("h1", id="t-p-f")
-    return titulo.get_text(strip=True) if titulo else None
+    if not titulo:
+        return None
+    titulo = re.sub(r"\([^)]*\)", "", titulo.get_text(strip=True))
+    return titulo.strip().lower().title()
 
 def get_autores(soup):
     autores = []

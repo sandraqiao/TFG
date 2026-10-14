@@ -50,7 +50,7 @@ def select_autor(edit_autores_id: list | None = None) -> list[int]:
     )
     return [autor.id_autor for autor in selection]
 
-def select_prioridad_wishlist(edit_prioridad: int | None = None, en_wishlist: bool = True) -> int | None:
+def select_prioridad_wishlist(en_wishlist: bool, edit_prioridad: int | None = None) -> int | None:
     opciones = [None] + list(range(constants.PRIORIDAD_WISHLIST_MIN, constants.PRIORIDAD_WISHLIST_MAX+1)) 
     selection = st.selectbox(
         "Prioridad",
