@@ -7,6 +7,7 @@ def create(precio: HistoricoPrecio):
         try:
             session.add(precio)
             session.commit()
+            session.refresh(precio)
             return precio
         except Exception:
             session.rollback()

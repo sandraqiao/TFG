@@ -7,6 +7,7 @@ def create(autor_libro: AutorLibro):
         try:
             session.add(autor_libro)
             session.commit()
+            session.refresh(autor_libro)
             return autor_libro
         except Exception:
             session.rollback()

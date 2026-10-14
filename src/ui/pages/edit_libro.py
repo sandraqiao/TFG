@@ -65,7 +65,7 @@ with col21:
 with col22:
     en_wishlist = select_wishlist(libro.en_wishlist)
 with col23:
-    prioridad_wishlist = select_prioridad_wishlist(libro.prioridad_wishlist)
+    prioridad_wishlist = select_prioridad_wishlist(libro.prioridad_wishlist, en_wishlist)
 
 generos = ",".join(select_genero(libro.genero))
 

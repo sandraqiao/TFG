@@ -7,6 +7,7 @@ def create(saga: Saga):
         try:
             session.add(saga)
             session.commit()
+            session.refresh(saga)
             return saga
         except Exception:
             session.rollback()

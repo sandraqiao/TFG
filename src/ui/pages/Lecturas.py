@@ -94,7 +94,10 @@ with st.container(horizontal=True, horizontal_alignment="right"):
     with st.popover("", icon=":material/filter_alt:"):
         filtro_popover()
     if st.button("", icon=":material/add:"):
-        st.switch_page("./pages/add_lectura.py")
+        if libro_service.get_all_libros():
+            st.switch_page("./pages/add_lectura.py")
+        else:
+            st.warning("Se necesita tener al menos un libro antes de poder añadir una lectura.")
 
 # GET LECTURAS A MOSTRAR
 filtros = st.session_state.get("filtros_lecturas", None)

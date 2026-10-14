@@ -76,10 +76,14 @@ def filter_historico(libros: list[int] | None = None, tiendas: list[int] | None 
         filtros.append(HistoricoPrecio.id_libro.in_(libros))
     if tiendas: 
         filtros.append(HistoricoPrecio.id_tienda.in_(tiendas))
-    if fecha_min is not None and fecha_max is not None: 
-        filtros.append(HistoricoPrecio.fecha_consulta.between(fecha_min, fecha_max))
-    if precio_min is not None and precio_max is not None: 
-        filtros.append(HistoricoPrecio.precio.between(precio_min, precio_max))
+    if fecha_min is not None:
+        filtros.append(HistoricoPrecio.fecha_consulta >= fecha_min)
+    if fecha_max is not None:
+        filtros.append(HistoricoPrecio.fecha_consulta <= fecha_max)
+    if precio_min is not None:
+        filtros.append(HistoricoPrecio.precio >= precio_min)
+    if precio_max is not None:
+        filtros.append(HistoricoPrecio.precio <= precio_max)
 
     return historico_precio_repository.filter_historico_precio(filtros)
 

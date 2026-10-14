@@ -7,6 +7,7 @@ def create(lectura: Lectura):
         try:
             session.add(lectura)
             session.commit()
+            session.refresh(lectura)
             return lectura
         except Exception:
             session.rollback()

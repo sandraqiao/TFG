@@ -7,6 +7,7 @@ def create(tienda: Tienda):
         try:
             session.add(tienda)
             session.commit()
+            session.refresh(tienda)
             return tienda
         except Exception:
             session.rollback()

@@ -6,39 +6,73 @@ import datetime as dt
 
 def autorellenado():
 
-    # reset de states
+    # Reseteo de states
     for campo in ["titulo", "editorial", "idioma", "num_pag", "fecha_public", "url_portada", "autores"]:
         st.session_state[campo] = None
 
-    # extracción de datos
+    # Extracción de datos
     soup, url = casa_del_libro.get_soup(isbn=st.session_state["isbn"])
+
     if soup:
         titulo = casa_del_libro.get_titulo(soup)
         autores = casa_del_libro.get_autores(soup)
         ficha = casa_del_libro.extract_ficha_tecnica(soup)
+
         if titulo and ficha:
+            editorial = extraer_datos_ficha(ficha, "Editorial")
+            idioma = extraer_datos_ficha(ficha, "Idioma")
+            num_pag = extraer_datos_ficha(ficha, "Número de páginas")
+            fecha_public = extraer_datos_ficha(ficha, "Fecha de lanzamiento")
+
+            try:
+                num_pag = int(num_pag) if num_pag else None
+            except ValueError:
+                num_pag = None
+
             datos = {
                 "titulo": titulo,
                 "autores": autores,
-                "editorial": ficha.get("Editorial", "").split(":", 1)[1].strip(),
-                "idioma": refractor_idioma(ficha.get("Idioma", "").split(":", 1)[1].strip()),
-                "num_pag": int(ficha.get("Número de páginas", "0").split(":", 1)[1].strip()),
-                "fecha_public": dt.datetime.strptime(ficha.get("Fecha de lanzamiento", "").split(":", 1)[1].strip(), "%d/%m/%Y").date(),
+                "editorial": editorial,
+                "idioma": refractor_idioma(idioma) if idioma else None,
+                "num_pag": num_pag,
+                "fecha_public": extraer_fecha(fecha_public),
                 "url_portada": casa_del_libro.get_url_portada(soup)
             }
-            st.write(datos)
 
-            # seteo de states
+            # Seteo de states
             st.session_state["autores_detectados"] = autores
             autores_bbdd = autor_service.get_all_autores()
             nombres_scraper = [nombre.casefold() for nombre in autores]
-            st.session_state["autores"] = [autor for autor in autores_bbdd if autor.nom_autor.casefold() in nombres_scraper]
-
+            st.session_state["autores"] = [
+                autor for autor in autores_bbdd
+                if autor.nom_autor.casefold() in nombres_scraper
+            ]
             for campo in ["titulo", "editorial", "idioma", "num_pag", "fecha_public", "url_portada"]:
-                st.session_state[campo] = str(datos[campo]) if campo == "num_pag" and datos[campo] is not None else datos[campo]
-    
+                valor = datos[campo]
+                st.session_state[campo] = (
+                    str(valor) if campo == "num_pag" and valor is not None else valor
+                )
+
+        else:
+            st.warning("No se han podido extraer los datos del libro.")
+
     else:
         st.warning("No se ha encontrado el libro.")
+
+def extraer_datos_ficha(ficha, campo: str) -> str | None:
+    valor = ficha.get(campo, "")
+    if not valor or ":" not in valor:
+        return None
+    return valor.split(":", 1)[1].strip() or None
+
+def extraer_fecha(valor: str | None) -> dt.date | None:
+    if not valor:
+        return None
+    try:
+        return dt.datetime.strptime(valor, "%d/%m/%Y").date()
+    except ValueError:
+        return None
+        
 
 # ==========================================================================================================
 
@@ -78,7 +112,7 @@ with col4:
     with st.container(horizontal=True, horizontal_alignment="center"):
         en_wishlist = st.toggle("")
 with col5:
-    prioridad_wishlist = select_prioridad_wishlist()
+    prioridad_wishlist = select_prioridad_wishlist(en_wishlist)
 
 generos = ",".join(select_genero())
 

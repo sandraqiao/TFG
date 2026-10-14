@@ -74,9 +74,10 @@ def get_lectura(id_lectura: int):
 def search_by_libro(id_libro: int):
     if libro_repository.get_by_id(id_libro) is None:
         raise ValueError("Libro inexistente.")
-    if lectura_repository.get_by_libro(id_libro) is None:
+    lecturas = lectura_repository.get_by_libro(id_libro)
+    if not lecturas:
         raise ValueError("Este libro no tiene lecturas.")
-    return lectura_repository.get_by_libro(id_libro)
+    return lecturas
 
 def filter_lectura(estados: list[str] | None = None, valoraciones: list[int] | None = None, formatos: list[str] | None = None):
 

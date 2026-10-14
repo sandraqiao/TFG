@@ -50,13 +50,15 @@ def select_autor(edit_autores_id: list | None = None) -> list[int]:
     )
     return [autor.id_autor for autor in selection]
 
-def select_prioridad_wishlist(edit_prioridad: int | None = None) -> int:
+def select_prioridad_wishlist(edit_prioridad: int | None = None, en_wishlist: bool = True) -> int | None:
+    opciones = [None] + list(range(constants.PRIORIDAD_WISHLIST_MIN, constants.PRIORIDAD_WISHLIST_MAX+1)) 
     selection = st.selectbox(
         "Prioridad",
-        [None] + list(range(constants.PRIORIDAD_WISHLIST_MIN, constants.PRIORIDAD_WISHLIST_MAX+1)),
-        index=edit_prioridad if edit_prioridad else None
+        opciones,
+        index=opciones.index(edit_prioridad) if edit_prioridad in opciones else 0,
+        disabled=not en_wishlist
     )
-    return selection if selection else None
+    return selection if en_wishlist else None
 
 def select_idioma(edit_idioma: str | None = None) -> str:
     return st.selectbox(
