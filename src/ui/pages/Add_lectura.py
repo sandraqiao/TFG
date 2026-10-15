@@ -27,13 +27,19 @@ with col22:
 comentario = add_texto("Comentario")
 
 if st.button("Guardar", icon="💾"):
-    lectura_service.create(
-        id_libro=id_libro,
-        estado=estado,
-        formato=formato,
-        fecha_ini=fecha_ini,
-        fecha_fin=fecha_fin,
-        valoracion=valoracion,
-        comentario=comentario)
-    st.session_state["lectura_creada"] = True
-    st.switch_page("./pages/lecturas.py")
+    try:
+        lectura_service.create(
+            id_libro=id_libro,
+            estado=estado,
+            formato=formato,
+            fecha_ini=fecha_ini,
+            fecha_fin=fecha_fin,
+            valoracion=valoracion,
+            comentario=comentario
+        )
+
+        st.session_state["lectura_creada"] = True
+        st.switch_page("./pages/lecturas.py")
+
+    except ValueError as e:
+        st.error(str(e))

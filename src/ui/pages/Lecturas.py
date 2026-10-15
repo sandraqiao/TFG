@@ -119,28 +119,32 @@ else:
         autores = autor_libro_service.get_autores_by_libro(libro.id_libro)
 
         # IMPRESIONES
-        with st.expander(f"{codigo_color_estado(lectura.estado)} {titulo_autor(libro.titulo, autores)}"):
+        with st.container(border=True):
 
-            col11, col12 = st.columns(2)
-            col21, col22 = st.columns(2)
-
-            with col11:
-                st.write(f"Estado: {lectura.estado}")
-            with col12:
-                st.write(f"Formato: {lectura.formato}")
-            with col21:
-                st.write(f"Valoración: {estrellas(lectura.valoracion)}")
-            with col22:
-                st.write(f"{fechas(lectura.fecha_ini, lectura.fecha_fin)}")
-
-            if lectura.comentario:
-                st.write(f"{lectura.comentario}")
-
-            with st.container(horizontal=True, horizontal_alignment="right"):
-
+            col1, col2, col3 = st.columns([0.8, 0.1, 0.1])
+            with col1:
+                st.write(f"{codigo_color_estado(lectura.estado)} {titulo_autor(libro.titulo, autores)}")
+            with col2:
                 if st.button("", icon=":material/edit:", key=f"edit_{lectura.id_lectura}"):
                     st.session_state["edit_lectura_id"] = lectura.id_lectura
                     st.switch_page("./pages/edit_lectura.py")
-
+            with col3:
                 if st.button("", icon=":material/delete:", key=f"delete_{lectura.id_lectura}"):
                     confirm_delete(lectura.id_lectura)
+
+            col01, col02 = st.columns([0.3, 0.7])
+            with col01:
+                st.image(libro.url_portada, width=150)
+            with col02:
+                col11, col12 = st.columns(2)
+                col13, col14 = st.columns(2)
+                with col11:
+                    st.write(f"Estado: {lectura.estado}")
+                with col12:
+                    st.write(f"Formato: {lectura.formato}")
+                with col13:
+                    st.write(f"Valoración: {estrellas(lectura.valoracion)}")
+                with col14:
+                    st.write(f"{fechas(lectura.fecha_ini, lectura.fecha_fin)}")
+                if lectura.comentario:
+                    st.write(f"{lectura.comentario}")

@@ -99,6 +99,13 @@ with st.container(border=True):
         st.metric(f"{constants.ESTADO[2]}", abandonadas)
 
 with st.container(border=True):
+    st.write("### Formatos")
+    col1, col2, col3 = st.columns(3)
+    for i, formato in enumerate(constants.FORMATO):
+        with [col1, col2, col3][i]:
+            st.metric(formato, formatos.get(formato, 0))
+
+with st.container(border=True):
     st.write("### Valoraciones")
     valoraciones = {
         f"{valoracion} ⭐": valoraciones.get(valoracion, 0)
@@ -114,10 +121,14 @@ st.divider()
 
 # EVOLUCIÓN
 st.write("## 📈 Evolución de lectura")
+
 if lecturas_por_año:
     años = range(min(lecturas_por_año), max(lecturas_por_año) + 1)
-    lecturas_por_año = {año: lecturas_por_año.get(año, 0) for año in años}
-    st.line_chart(lecturas_por_año)
+    lecturas_por_año = {
+        str(año): lecturas_por_año.get(año, 0)
+        for año in años
+    }
+    st.line_chart(lecturas_por_año, x_label="Año", y_label="Lecturas")
 else:
     st.write("Todavía no hay lecturas finalizadas.")
 
@@ -125,13 +136,6 @@ st.divider()
 
 # BIBLIOTECA
 st.write("## 📚 Biblioteca")
-
-with st.container(border=True):
-    st.write("### Formatos")
-    col1, col2, col3 = st.columns(3)
-    for i, formato in enumerate(constants.FORMATO):
-        with [col1, col2, col3][i]:
-            st.metric(formato, formatos.get(formato, 0))
 
 with st.container(border=True):
     st.write("### Géneros")
