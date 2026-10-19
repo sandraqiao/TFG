@@ -4,34 +4,39 @@
 - **RF-01**: El sistema permitirá registrar nuevos libros.
 - **RF-02**: El sistema permitirá editar la información de un libro.
 - **RF-03**: El sistema permitirá eliminar libros.
-- **RF-04**: El sistema permitirá consultarla información de un libro.
+- **RF-04**: El sistema permitirá consultar la información bibliográfica de los libros registrados.
 
 ### Organización
-- **RF-05**: El sistema permitirá clasificar los libros según su estado de lectura (pendiente, leyendo, leído).
-- **RF-06**: El sistema permitirá indicar el formato en el que el usuario posee un libro (físico, ebook, ambos).
-- **RF-07**: El sistema permitirá añadir notas y una valoración personal a un libro.
+- **RF-05**: El sistema permitirá registrar y consultar lecturas asociadas a los libros, indicando su estado (Leyendo, Leído o Abandonado).
+- **RF-06**: El sistema permitirá indicar el formato de una lectura (Físico, Ebook o AudioLibro).
+- **RF-07**: El sistema permitirá registrar y consultar las fechas de inicio y finalización, la valoración personal y los comentarios de cada lectura.
+- **RF-08**: El sistema permitirá gestionar autores y sagas, así como consultar los libros relacionados con ellos.
 
-### Búsqueda
-- **RF-08**: El sistema permitirá buscar libros por isbn, saga, título o autor.
-- **RF-09**: El sistema permitirá filtrar los libros según distintos criterios (estado de lectura, género, saga, formato, etc.).
+### Búsqueda y filtrado
+- **RF-09**: El sistema permitirá ordenar los libros de la biblioteca por título o saga.
+- **RF-10**: El sistema permitirá filtrar los libros por género, idioma, editorial y pertenencia a la lista de deseos.
+- **RF-11**: El sistema permitirá filtrar las lecturas por estado, valoración y formato.
 
 ### Wishlist
-- **RF-10**: El sistema permitirá añadir y eliminar libros de la lista de deseos.
-- **RF-11**: El sistema permitirá establecer un orden de prioridad a los libros dentro de la lista de deseos.
+- **RF-12**: El sistema permitirá incluir y excluir libros de la lista de deseos.
+- **RF-13**: El sistema permitirá establecer una prioridad del 1 al 5 para los libros incluidos en la lista de deseos.
+
+### Información bibliográfica
+- **RF-14**: El sistema permitirá obtener automáticamente parte de la información bibliográfica de un libro a partir de su ISBN mediante web scraping de Casa del Libro.
 
 ### Precios
-- **RF-12**: El sistema permitirá obtener automáticamente el precio de un libro de distintas tiendas mediante web scraping.
-- **RF-13**: El sistema almacenará un histórico de los precios obtenidos de los libros con sus fechas.
-- **RF-14**: El sistema permitirá consultar la evolución del precio de un libro.
+- **RF-15**: El sistema permitirá iniciar manualmente la consulta del precio y la disponibilidad de los libros de la lista de deseos mediante web scraping de Casa del Libro.
+- **RF-16**: El sistema almacenará un histórico de los precios y la disponibilidad obtenidos, junto con la fecha de consulta y la URL del libro.
+- **RF-17**: El sistema permitirá consultar el histórico de precios de los libros incluidos en la lista de deseos.
 
 ### Estadísticas
-- **RF-15**: El sistema mostrará estadísticas sobre la biblioteca del usuario (libros leídos, páginas leídas, géneros, reto de lectura, media de días de lectura por libro, etc.).
+- **RF-18**: El sistema mostrará estadísticas sobre la biblioteca y las lecturas, incluyendo el número de libros, lecturas, libros en la lista de deseos, sagas, estados de lectura, formatos, valoraciones, valoración media, evolución anual de las lecturas y géneros registrados.
 
 # Requisitos no funcionales
 
 - **RNF-01**: La aplicación deberá disponer de una interfaz intuitiva y fácil de usar.
 - **RNF-02**: La información almacenada deberá persistir entre sesiones.
-- **RNF-03**: La aplicación deberá acceder a una base de datos relacional.
-- **RNF-04**: Las consultas habituales deberán responder en un tiempo razonable (menos de 2s con una biblioteca de tamaño normal).
-- **RNF-05**: La aplicación deberá registrar correctamente los errores producidos durante el scraping.
-- **RNF-06**: La aplicación deberá permitir añadir nuevas tiendas para el scraping sin modificar el resto de la aplicación (escalabilidad).
+- **RNF-03**: La aplicación deberá acceder a una base de datos relacional para almacenar la información.
+- **RNF-04**: La aplicación deberá separar la interfaz de usuario, la lógica de negocio y el acceso a datos para facilitar el mantenimiento y la reutilización del código.
+- **RNF-05**: La aplicación deberá validar los datos introducidos y mantener la integridad de la información almacenada.
+- **RNF-06**: El sistema de web scraping deberá contemplar la posibilidad de que la tienda no proporcione los datos esperados o deniegue el acceso.

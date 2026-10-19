@@ -12,7 +12,7 @@ def scrap(libros: list, historico: list):
 
         historicos_libro = [h for h in historico if h.id_libro == libro.id_libro]
 
-        if any(h.fecha_consulta.date() == hoy for h in historicos_libro):
+        if any(h.fecha_consulta == hoy for h in historicos_libro):
                     continue
 
         url_libro = None

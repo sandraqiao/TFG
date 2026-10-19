@@ -7,11 +7,30 @@ from decimal import Decimal
 from selenium.webdriver.common.by import By
 from utils import constants
 import re
+import os
 
 def get_soup(isbn: str | None = None, url: str | None = None):
+    # local y windows no te deja por seguridad:
     # service = Service("drivers/chromedriver-win64/chromedriver.exe")
     # driver = webdriver.Chrome(service=service)
-    driver = webdriver.Chrome()
+
+    # local y tienes chrome
+    # driver = webdriver.Chrome()
+
+    # para docker
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+
+    if os.path.exists("/usr/bin/chromium"):
+        options.binary_location = "/usr/bin/chromium"
+        service = Service("/usr/bin/chromedriver")
+        driver = webdriver.Chrome(service=service, options=options)
+    else:
+        driver = webdriver.Chrome(options=options)
+
+    # ====
 
     try:
         if not url and isbn:
@@ -39,6 +58,18 @@ def get_soup(isbn: str | None = None, url: str | None = None):
 
 def extract_data_precios(soup: str) -> dict:
     libro_soup = soup.find_all("script", type="application/ld+json")
+
+    if not libro_soup:
+        titulo = soup.title.get_text(strip=True) if soup.title else "Sin título"
+
+        if "access denied" in titulo.lower():
+            raise RuntimeError(
+                "Casa del Libro ha denegado el acceso al scraper."
+            )
+        raise ValueError(
+            "No se ha encontrado el JSON-LD de la ficha del libro."
+        )
+
     libro_json = json.loads(libro_soup[0].string)
 
     datos = {
@@ -49,6 +80,19 @@ def extract_data_precios(soup: str) -> dict:
         "tienda": constants.TIENDA_SCRAPER[0]
     }
     return datos
+
+# def extract_data_precios(soup: str) -> dict:
+#     libro_soup = soup.find_all("script", type="application/ld+json")
+#     libro_json = json.loads(libro_soup[0].string)
+
+#     datos = {
+#         "precio": get_precio(soup),
+#         "pct_descuento": get_pct_descuento(soup),
+#         "fecha_consulta": dt.date.today(),
+#         "disponible": get_disponible(libro_json),
+#         "tienda": constants.TIENDA_SCRAPER[0]
+#     }
+#     return datos
 
 def extract_ficha_tecnica(soup: str) -> dict[str, str]:
     ficha = soup.select_one(".ficha-tecnica")

@@ -11,7 +11,6 @@
 ## Tecnologías
 - Usar streamlit porque requiere menos esfuerzo para tener un front decente, y así poder centrarme en el back.
 - Usar PostgreSQL porque es un SGBD más completo y utilizado en empresas que escala mejor en caso de necesitarlo en un futuro.
-- Usar una API que recoga los datos de los libros y scraping solo para los precios de estos: una API es más rápida y requiere menos código que si scrapeamos por esos datos.
 - Usar SQLAlchemy para poder trabajar con los libros más cómodamente (como si fueran objetos).
 - Usar Playwright y BeautifulSoup para el scraping de los datos de precios.
 
@@ -36,10 +35,6 @@
 - Añadir a lectura idioma porque hoy te lees libro x en español y mañana te lo leer en inglés.
 
 ## Ideas pausadas para estudiar más adelante
-- La idea de autorellenado de datos de libros se va a pausar. En un principio había pensado que, cuando el usuario cree un nuevo libro, que le sugiera la mayoría de los campos de dicho libro a partir del título o isbn de la obra. Para que el usuario solo tuviese que revisar que quería eso y poco más. 
-- Se había planteado usar una API de libros para esto. Las dos opciones principales siendo Google Books y OpenLibrary. La primera requiere de una sesión y proyecto declarado además de tokens por uso. Y la segunda, tras haber estudiado los datos que potencialmente podríamos obtener, apenas conseguíamos sacar el título, autor. No merecía la pena.
-- Por ahora se pausa esta idea para considerar más adelante si merece tanto la pena.
-
 
 
 # Diario de objetivos y trabajo realizado a partir del inicio del desarrollo
