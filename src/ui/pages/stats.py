@@ -2,6 +2,8 @@ import streamlit as st
 from services import libro_service, lectura_service
 from utils import constants
 from collections import Counter
+import pandas as pd
+import altair as alt
 
 
 def get_stats_libros(libros):
@@ -105,33 +107,22 @@ with st.container(border=True):
         with [col1, col2, col3][i]:
             st.metric(formato, formatos.get(formato, 0))
 
-with st.container(border=True):
-    st.write("### Valoraciones")
-    valoraciones = {
-        f"{valoracion} ⭐": valoraciones.get(valoracion, 0)
-        for valoracion in range(constants.VALORACION_MIN, constants.VALORACION_MAX + 1)
-    }
-    st.bar_chart(valoraciones)
-    if valoracion_media is not None:
+if valoracion_media is not None:
+    with st.container(border=True):
         st.write(
-            f"**Valoración media: {valoracion_media:.2f} ⭐**"
+            f"### Valoración media: {valoracion_media:.2f}"
         )
 
 st.divider()
 
 # EVOLUCIÓN
-st.write("## 📈 Evolución de lectura")
+st.write("## 📈 Evolución de lecturas anuales")
 
-if lecturas_por_año:
-    años = range(min(lecturas_por_año), max(lecturas_por_año) + 1)
-    lecturas_por_año = {
-        str(año): lecturas_por_año.get(año, 0)
-        for año in años
-    }
-    st.line_chart(lecturas_por_año, x_label="Año", y_label="Lecturas")
-else:
-    st.write("Todavía no hay lecturas finalizadas.")
-
+with st.container(border=True):
+    cols = st.columns(len(lecturas_por_año))
+    for col, año in zip(cols, sorted(lecturas_por_año)):
+        col.metric(str(año), lecturas_por_año[año])
+        
 st.divider()
 
 # BIBLIOTECA

@@ -11,24 +11,24 @@ import os
 
 def get_soup(isbn: str | None = None, url: str | None = None):
     # local y windows no te deja por seguridad:
-    # service = Service("drivers/chromedriver-win64/chromedriver.exe")
-    # driver = webdriver.Chrome(service=service)
+    service = Service("drivers/chromedriver-win64/chromedriver.exe")
+    driver = webdriver.Chrome(service=service)
 
     # local y tienes chrome
     # driver = webdriver.Chrome()
 
     # para docker
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless=new")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
+    # options = webdriver.ChromeOptions()
+    # options.add_argument("--headless=new")
+    # options.add_argument("--no-sandbox")
+    # options.add_argument("--disable-dev-shm-usage")
 
-    if os.path.exists("/usr/bin/chromium"):
-        options.binary_location = "/usr/bin/chromium"
-        service = Service("/usr/bin/chromedriver")
-        driver = webdriver.Chrome(service=service, options=options)
-    else:
-        driver = webdriver.Chrome(options=options)
+    # if os.path.exists("/usr/bin/chromium"):
+    #     options.binary_location = "/usr/bin/chromium"
+    #     service = Service("/usr/bin/chromedriver")
+    #     driver = webdriver.Chrome(service=service, options=options)
+    # else:
+    #     driver = webdriver.Chrome(options=options)
 
     # ====
 
