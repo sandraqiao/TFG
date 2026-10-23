@@ -69,6 +69,7 @@ else:
                     portadas = st.columns(4)
                 else:
                     portadas = st.columns(len(libros), gap="xsmall")
+                    
                 for column, libro in zip(portadas, libros):
                     with column:
                         if libro.url_portada:

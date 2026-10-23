@@ -48,6 +48,7 @@ if not autores:
     st.write("## 🕸️ No hay autores registrados 🕸️")
 
 else:
+    st.write("")
     for autor in autores:
 
         # VARIABLES
@@ -64,7 +65,11 @@ else:
                     confirm_delete(autor.id_autor)
 
             if autor_libros:
-                portadas = st.columns(len(autor_libros), gap="xsmall")
+                if len(autor_libros) < 5:
+                    portadas = st.columns(4)
+                else:
+                    portadas = st.columns(len(autor_libros), gap="xsmall")
+                    
                 for column, autor_libro in zip(portadas, autor_libros):
                     libro = libro_service.get_libro(autor_libro.id_libro)
                     with column:

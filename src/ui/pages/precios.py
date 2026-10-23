@@ -70,7 +70,10 @@ for libro in libros:
     autores = autor_libro_service.get_autores_by_libro(libro.id_libro)
 
     with st.container(border=True):
-        st.write(titulo_autor(libro.titulo, autores))
+        if libro in libros_sin_busqueda:
+            st.write(":material/warning: " + titulo_autor(libro.titulo, autores))
+        else:
+            st.write(titulo_autor(libro.titulo, autores))
 
         with st.expander(TIENDA_SCRAPER[0]):
 
