@@ -7,7 +7,6 @@ from decimal import Decimal
 from selenium.webdriver.common.by import By
 from utils import constants
 import re
-import os
 
 def get_soup(isbn: str | None = None, url: str | None = None):
     # local y windows no te deja por seguridad:
@@ -19,7 +18,7 @@ def get_soup(isbn: str | None = None, url: str | None = None):
 
     # para docker
     # options = webdriver.ChromeOptions()
-    # options.add_argument("--headless=new")
+    #     options.add_argument("--headless=new")
     # options.add_argument("--no-sandbox")
     # options.add_argument("--disable-dev-shm-usage")
 
@@ -80,19 +79,6 @@ def extract_data_precios(soup: str) -> dict:
         "tienda": constants.TIENDA_SCRAPER[0]
     }
     return datos
-
-# def extract_data_precios(soup: str) -> dict:
-#     libro_soup = soup.find_all("script", type="application/ld+json")
-#     libro_json = json.loads(libro_soup[0].string)
-
-#     datos = {
-#         "precio": get_precio(soup),
-#         "pct_descuento": get_pct_descuento(soup),
-#         "fecha_consulta": dt.date.today(),
-#         "disponible": get_disponible(libro_json),
-#         "tienda": constants.TIENDA_SCRAPER[0]
-#     }
-#     return datos
 
 def extract_ficha_tecnica(soup: str) -> dict[str, str]:
     ficha = soup.select_one(".ficha-tecnica")
