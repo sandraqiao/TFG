@@ -3,6 +3,7 @@ from services import historico_precio_service, libro_service, autor_libro_servic
 from utils.prints import titulo_autor
 from scraper.casa_del_libro import get_soup, extract_data_precios
 import datetime as dt
+from utils.constants import TIENDA_SCRAPER
 
 
 def scrap(libros: list, historico: list):
@@ -33,7 +34,7 @@ def scrap(libros: list, historico: list):
 
         historico_precio_service.create(
             id_libro=libro.id_libro,
-            id_tienda=1,
+            nom_tienda=TIENDA_SCRAPER[0],
             precio=scraped_data["precio"],
             fecha_consulta=scraped_data["fecha_consulta"],
             disponible=scraped_data["disponible"],
@@ -71,7 +72,7 @@ for libro in libros:
     with st.container(border=True):
         st.write(titulo_autor(libro.titulo, autores))
 
-        with st.expander("Casa del Libro"):
+        with st.expander(TIENDA_SCRAPER[0]):
 
             historicos_libro = [h for h in historico if h.id_libro == libro.id_libro]
             tabla_datos = []

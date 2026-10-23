@@ -1,23 +1,23 @@
 from models.historico_precio import HistoricoPrecio
-from repositories import historico_precio_repository, libro_repository, tienda_repository
+from repositories import historico_precio_repository, libro_repository
 from decimal import Decimal
 import datetime as dt
 
 def create(id_libro: int, 
-           id_tienda: int, 
+           nom_tienda: str,
            precio: Decimal, 
            fecha_consulta: dt.date, 
            disponible: bool, 
            url_libro: str,
            pct_descuento: Decimal | None = None):
 
-    _obligatory(id_libro=id_libro, id_tienda=id_tienda, precio=precio, fecha_consulta=fecha_consulta, 
+    _obligatory(id_libro=id_libro, nom_tienda=nom_tienda, precio=precio, fecha_consulta=fecha_consulta, 
                 disponible=disponible, url_libro=url_libro)
-    _general_checks(id_libro=id_libro, id_tienda=id_tienda, precio=precio, pct_descuento=pct_descuento)
+    _general_checks(id_libro=id_libro, precio=precio, pct_descuento=pct_descuento)
 
     historico_precio = _build_historico_precio(
         id_libro=id_libro,
-        id_tienda=id_tienda,
+        nom_tienda=nom_tienda,
         precio=precio,
         pct_descuento=pct_descuento,
         fecha_consulta=fecha_consulta,
@@ -28,7 +28,7 @@ def create(id_libro: int,
 
 def update(id_precio: int,
            id_libro: int, 
-           id_tienda: int, 
+           nom_tienda: str, 
            precio: Decimal, 
            fecha_consulta: dt.date, 
            disponible: bool, 
@@ -40,14 +40,14 @@ def update(id_precio: int,
     if historico_precio is None:
         raise ValueError("Histórico inexistente.")
 
-    _obligatory(id_libro=id_libro, id_tienda=id_tienda, precio=precio, fecha_consulta=fecha_consulta, 
+    _obligatory(id_libro=id_libro, nom_tienda=nom_tienda, precio=precio, fecha_consulta=fecha_consulta, 
                 disponible=disponible, url_libro=url_libro)
-    _general_checks(id_libro=id_libro, id_tienda=id_tienda, precio=precio, pct_descuento=pct_descuento)
+    _general_checks(id_libro=id_libro, precio=precio, pct_descuento=pct_descuento)
 
     historico_precio = _build_historico_precio(
         id_precio=id_precio,
         id_libro=id_libro,
-        id_tienda=id_tienda,
+        nom_tienda=nom_tienda,
         precio=precio,
         pct_descuento=pct_descuento,
         fecha_consulta=fecha_consulta,
@@ -66,7 +66,7 @@ def delete(id_precio:int):
 def get_all_historico_precio():
     return historico_precio_repository.get_all()
 
-def filter_historico(libros: list[int] | None = None, tiendas: list[int] | None = None, 
+def filter_historico(libros: list[int] | None = None, 
                      fecha_min: dt.date | None = None, fecha_max: dt.date | None = None,
                      precio_min: Decimal | None = None, precio_max: Decimal | None = None):
 
@@ -74,8 +74,6 @@ def filter_historico(libros: list[int] | None = None, tiendas: list[int] | None 
 
     if libros: 
         filtros.append(HistoricoPrecio.id_libro.in_(libros))
-    if tiendas: 
-        filtros.append(HistoricoPrecio.id_tienda.in_(tiendas))
     if fecha_min is not None:
         filtros.append(HistoricoPrecio.fecha_consulta >= fecha_min)
     if fecha_max is not None:
@@ -89,13 +87,13 @@ def filter_historico(libros: list[int] | None = None, tiendas: list[int] | None 
 
 # ===============================================================================================================
 
-def _build_historico_precio(id_libro: int, id_tienda: int, precio: Decimal, pct_descuento: Decimal | None, 
+def _build_historico_precio(id_libro: int, nom_tienda: str, precio: Decimal, pct_descuento: Decimal | None, 
                             fecha_consulta: dt.date, disponible: bool, url_libro: str, 
                             id_precio: int | None = None) -> HistoricoPrecio:
     return HistoricoPrecio(
         id_precio=id_precio,
         id_libro=id_libro,
-        id_tienda=id_tienda,
+        nom_tienda=nom_tienda,
         precio=precio,
         pct_descuento=pct_descuento,
         fecha_consulta=fecha_consulta,
@@ -103,13 +101,10 @@ def _build_historico_precio(id_libro: int, id_tienda: int, precio: Decimal, pct_
         url_libro=url_libro
     )
 
-def _general_checks(id_libro: int, id_tienda: int, precio: Decimal, pct_descuento: Decimal | None):
+def _general_checks(id_libro: int, precio: Decimal, pct_descuento: Decimal | None):
 
     if libro_repository.get_by_id(id_libro) is None:
         raise ValueError("Libro inexistente.")
-
-    if tienda_repository.get_by_id(id_tienda) is None:
-        raise ValueError("Tienda inexistente.")
 
     if precio <= 0:
         raise ValueError("Precio fuera de rango.")
@@ -117,13 +112,13 @@ def _general_checks(id_libro: int, id_tienda: int, precio: Decimal, pct_descuent
     if pct_descuento is not None and (pct_descuento < 0 or pct_descuento > 100):
         raise ValueError("Porcentaje de descuento fuera de rango.")
 
-def _obligatory(id_libro: int, id_tienda: int, precio: Decimal, fecha_consulta: dt.date, 
+def _obligatory(id_libro: int, nom_tienda: str, precio: Decimal, fecha_consulta: dt.date, 
                 disponible: bool, url_libro: str):
 
     if id_libro is None:
         raise ValueError("Libro obligatorio.")
 
-    if id_tienda is None:
+    if nom_tienda is None:
         raise ValueError("Tienda obligatoria.")
 
     if precio is None:
