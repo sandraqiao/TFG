@@ -3,13 +3,14 @@ from services import libro_service, autor_libro_service, saga_service
 from utils.prints import *
 
 def filtro_popover():
-    generos = filtrado(constants.FILTROS_LIBROS[0])
-    st.divider()
-    idiomas = filtrado(constants.FILTROS_LIBROS[1])
-    st.divider()
-    editoriales = filtrado(constants.FILTROS_LIBROS[2])
-    st.divider()
-    en_wishlist = filtrado_wishlist()
+    with st.container(height=550, border=False):
+        generos = filtrado(constants.FILTROS_LIBROS[0])
+        st.divider()
+        idiomas = filtrado(constants.FILTROS_LIBROS[1])
+        st.divider()
+        editoriales = filtrado(constants.FILTROS_LIBROS[2])
+        st.divider()
+        en_wishlist = filtrado_wishlist()
 
     with st.container(horizontal=True, horizontal_alignment="right"):
         if st.button("Aplicar"):
@@ -120,8 +121,8 @@ else:
         # IMPRESIONES
         with cols[i%4]:
             with st.container(border=True):
-                with st.container(height=70, horizontal=True, horizontal_alignment="right", border=False):
-                    col01, col02 = st.columns([5, 1])
+                with st.container(height=70, horizontal=True, horizontal_alignment="right", border=False, autoscroll=False):
+                    col01, col02 = st.columns([0.8, 0.2])
                     with col01:
                         st.write(libro.titulo)
                     with col02:

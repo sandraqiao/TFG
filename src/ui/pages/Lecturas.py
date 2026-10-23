@@ -17,11 +17,12 @@ def confirm_delete(id_lectura: int) -> bool:
             st.rerun()
 
 def filtro_popover():
-    estados = filtrado(constants.FILTROS_LECTURAS[0])
-    st.divider()
-    valoraciones = filtrado(constants.FILTROS_LECTURAS[1])
-    st.divider()
-    formatos = filtrado(constants.FILTROS_LECTURAS[2])
+    with st.container(height=550, border=False):
+        estados = filtrado(constants.FILTROS_LECTURAS[0])
+        st.divider()
+        valoraciones = filtrado(constants.FILTROS_LECTURAS[1])
+        st.divider()
+        formatos = filtrado(constants.FILTROS_LECTURAS[2])
 
     with st.container(horizontal=True, horizontal_alignment="right"):
         if st.button("Aplicar"):

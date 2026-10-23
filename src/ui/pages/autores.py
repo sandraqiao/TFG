@@ -4,7 +4,7 @@ from services import autor_service, libro_service, autor_libro_service
 @st.dialog("Seguro que quieres borrar al autor?", dismissible=False, icon="⚠️")
 def confirm_delete(id_autor: int) -> bool:
     st.write("Esta acción no se puede deshacer")
-    st.write("Los libros escritos por este autor pasarán a no tener informado el campo autor")
+    st.caption("Los libros escritos por este autor pasarán a no tener autor")
     
     col1, col2 = st.columns(2)
     with col1:

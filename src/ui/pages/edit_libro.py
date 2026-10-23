@@ -4,17 +4,17 @@ from services import libro_service, saga_service, autor_libro_service, autor_ser
 
 @st.dialog("Seguro que quieres eliminar el libro?", dismissible=False, icon="⚠️")
 def confirm_delete(id_libro: int) -> bool:
-    st.write("Toda la información relacionada con este libro se eliminará junto a él.")
-    st.caption("Lecturas, históricos de precios y relaciones entre autor y libro donde participe este libro")
+    st.write("Esta acción no se puede deshacer")
+    st.caption("Toda la información relacionada con este libro se eliminará junto a él")
 
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("Lo entiendo, bórralo aún así"):
+        if st.button("Si, bórralo"):
             libro_service.delete(id_libro)
             st.session_state["libro_eliminado"] = True
             st.switch_page("./pages/biblioteca.py")
     with col2:
-        if st.button("Ufff, mejor no..."):
+        if st.button("No, me arrepiento"):
             st.rerun()
 
 def add_saga_popover():

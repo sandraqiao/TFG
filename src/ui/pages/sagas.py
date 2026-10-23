@@ -4,7 +4,7 @@ from services import saga_service, libro_service
 @st.dialog("Seguro que quieres borrar la saga?", dismissible=False, icon="⚠️")
 def confirm_delete(id_saga: int) -> bool:
     st.write("Esta acción no se puede deshacer")
-    st.write("Los libros pertenecientes a esta saga pasarán a no tener informado el campo saga")
+    st.caption("Los libros pertenecientes a esta saga pasarán a no tener saga")
     
     col1, col2 = st.columns(2)
     with col1:
