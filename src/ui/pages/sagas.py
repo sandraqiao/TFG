@@ -52,7 +52,7 @@ else:
     for saga in sagas:
 
         # VARIABLES
-        libros = libro_service.search_by_saga(saga.id_saga)
+        libros = sorted(libro_service.search_by_saga(saga.id_saga), key=lambda libro: (libro.orden_saga is None, libro.orden_saga))
 
         # IMPRESIONES
         with st.container(border=True):

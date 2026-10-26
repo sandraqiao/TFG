@@ -1,5 +1,5 @@
 import streamlit as st
-from ui.ui_selections import select_saga, select_idioma, select_genero, add_texto, select_date, select_prioridad_wishlist, select_wishlist, select_autor
+from ui.ui_selections import select_saga, select_idioma, select_genero, add_texto, select_date, select_prioridad_wishlist, select_orden_saga, select_autor
 from services import libro_service, saga_service, autor_libro_service, autor_service
 
 @st.dialog("Seguro que quieres eliminar el libro?", dismissible=False, icon="⚠️")
@@ -44,7 +44,12 @@ if libro.url_portada:
     with col02:
         titulo = st.text_input("Título", libro.titulo)
         id_autores = select_autor(autor_libro_service.get_id_autores_by_libro(libro.id_libro))
-        id_saga = select_saga(libro.id_saga)
+
+        col1, col2 = st.columns([0.8, 0.2])
+        with col1:
+            id_saga = select_saga(libro.id_saga)
+        with col2:
+            orden_saga = select_orden_saga(id_saga, libro.orden_saga)
 else: 
     titulo = st.text_input("Título", libro.titulo)
     id_autores = select_autor(autor_libro_service.get_id_autores_by_libro(libro.id_libro))
@@ -82,6 +87,7 @@ with st.container(horizontal=True, horizontal_alignment="right"):
             id_saga=id_saga,
             titulo=titulo,
             isbn=isbn,
+            orden_saga=orden_saga,
             num_pag=int(num_pag) if num_pag else None,
             genero=generos,
             idioma=idioma,

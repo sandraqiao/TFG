@@ -2,9 +2,10 @@ from database.base import Base
 from typing import TYPE_CHECKING
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import CheckConstraint, ForeignKey, Integer, String, Boolean, Date, Text, SmallInteger
+from sqlalchemy import CheckConstraint, ForeignKey, Integer, String, Boolean, Date, Text, SmallInteger, Numeric
 
 import datetime as dt
+from decimal import Decimal
 
 if TYPE_CHECKING:
     from models.autor_libro import AutorLibro
@@ -27,6 +28,7 @@ class Libro(Base):
     id_saga: Mapped[int|None] = mapped_column(ForeignKey("saga.id_saga", ondelete="SET NULL"), nullable=True)
     titulo: Mapped[str] = mapped_column(String(255), nullable=False)
     isbn: Mapped[str|None] = mapped_column(String(20), nullable=True, unique=True)
+    orden_saga: Mapped[Decimal|None] = mapped_column(Numeric(3,1), nullable=True)
     num_pag: Mapped[int|None] = mapped_column(Integer, nullable=True)
     genero: Mapped[str] = mapped_column(Text, nullable=False)
     idioma: Mapped[str] = mapped_column(String(50), nullable=False)

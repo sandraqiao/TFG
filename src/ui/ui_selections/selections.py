@@ -3,6 +3,7 @@ from utils import constants
 from utils.prints import *
 from datetime import date
 from services import libro_service, autor_libro_service, saga_service, autor_service
+from decimal import Decimal
 
 # ==========================================================================================================
 # LIBRO
@@ -37,6 +38,12 @@ def select_saga(edit_saga_id: int | None = None) -> int:
         index=retrieve_saga_index(sagas, edit_saga_id) + 1 if edit_saga_id else 0
     )
     return selection.id_saga if selection else None
+
+def select_orden_saga(id_saga: int | None, edit_orden_saga: Decimal | None = None) -> Decimal | None:
+    if id_saga is None:
+        edit_orden_saga = ""
+    orden_saga = st.text_input("Orden", value=edit_orden_saga, placeholder="ej: 0.5", disabled=id_saga is None)
+    return Decimal(orden_saga) if id_saga is not None and orden_saga else None
 
 def select_autor(edit_autores_id: list | None = None) -> list[int]:
     autores = sorted(autor_service.get_all_autores(), key=lambda autor: autor.nom_autor)

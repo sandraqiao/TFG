@@ -20,7 +20,7 @@ class HistoricoPrecio(Base):
 
     id_precio: Mapped[int] = mapped_column(Integer, primary_key=True)
     id_libro: Mapped[int] = mapped_column(ForeignKey("libro.id_libro", ondelete="CASCADE"), nullable=False)
-    nom_tienda: Mapped[str] = mapped_column(String(255), nullable=False),
+    nom_tienda: Mapped[str] = mapped_column(String(255), nullable=False)
     precio: Mapped[Decimal] = mapped_column(Numeric(10,2), nullable=False)
     pct_descuento: Mapped[Decimal|None] = mapped_column(Numeric(5,2), nullable=True)
     fecha_consulta: Mapped[dt.date] = mapped_column(Date, nullable=False)

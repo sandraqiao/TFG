@@ -4,6 +4,7 @@ from utils.constants import PRIORIDAD_WISHLIST_MIN, PRIORIDAD_WISHLIST_MAX
 from sqlalchemy import or_
 
 import datetime as dt
+from decimal import Decimal
 
 def create(titulo: str, 
            genero: str, 
@@ -11,6 +12,7 @@ def create(titulo: str,
            en_wishlist: bool, 
            id_saga: int | None = None,  
            isbn: str | None = None, 
+           orden_saga: Decimal | None = None,
            num_pag: int | None = None,  
            sinopsis: str | None = None, 
            fecha_public: dt.date | None = None, 
@@ -26,12 +28,13 @@ def create(titulo: str,
         raise ValueError("ISBN ya existente.")
 
     _obligatory(titulo=titulo, genero=genero, idioma=idioma)
-    _general_checks(id_saga=id_saga, num_pag=num_pag, en_wishlist=en_wishlist, prioridad_wishlist=prioridad_wishlist)
+    _general_checks(id_saga=id_saga, orden_saga=orden_saga, num_pag=num_pag, en_wishlist=en_wishlist, prioridad_wishlist=prioridad_wishlist)
     
     libro = _build_libro(
                 id_saga=id_saga,
                 titulo=titulo,
                 isbn=isbn,
+                orden_saga=orden_saga,
                 num_pag=num_pag,
                 genero=genero,
                 idioma=idioma,
@@ -51,6 +54,7 @@ def update(id_libro: int,
            en_wishlist: bool, 
            id_saga: int | None = None,  
            isbn: str | None = None, 
+           orden_saga: Decimal | None = None,
            num_pag: int | None = None,  
            sinopsis: str | None = None, 
            fecha_public: dt.date | None = None, 
@@ -73,7 +77,7 @@ def update(id_libro: int,
             raise ValueError("Ya existe un libro con ese ISBN.")
 
     _obligatory(titulo=titulo, genero=genero, idioma=idioma)
-    _general_checks(id_saga=id_saga, num_pag=num_pag, en_wishlist=en_wishlist, prioridad_wishlist=prioridad_wishlist)
+    _general_checks(id_saga=id_saga, orden_saga=orden_saga, num_pag=num_pag, en_wishlist=en_wishlist, prioridad_wishlist=prioridad_wishlist)
 
 
     libro = _build_libro(
@@ -81,6 +85,7 @@ def update(id_libro: int,
         id_saga=id_saga,
         titulo=titulo,
         isbn=isbn,
+        orden_saga=orden_saga,
         num_pag=num_pag,
         genero=genero,
         idioma=idioma,
@@ -136,8 +141,8 @@ def filter_libro(generos: list[str] | None = None, idiomas: list[str] | None = N
 
 # ===============================================================================================================
 
-def _build_libro(id_saga: int | None, titulo: str, isbn: str | None, num_pag: int | None, genero: str, 
-                 idioma: str, sinopsis: str | None, fecha_public: dt.date | None, url_portada: str | None, 
+def _build_libro(id_saga: int | None, titulo: str, isbn: str | None, orden_saga: Decimal | None, num_pag: int | None,
+                 genero: str, idioma: str, sinopsis: str | None, fecha_public: dt.date | None, url_portada: str | None, 
                  editorial: str | None, en_wishlist: bool, prioridad_wishlist: int | None, id_libro: int | None = None
                  ) -> Libro:
     return Libro(
@@ -145,6 +150,7 @@ def _build_libro(id_saga: int | None, titulo: str, isbn: str | None, num_pag: in
         id_saga=id_saga,
         titulo=titulo,
         isbn=isbn,
+        orden_saga=orden_saga,
         num_pag=num_pag,
         genero=genero,
         idioma=idioma,
@@ -156,10 +162,13 @@ def _build_libro(id_saga: int | None, titulo: str, isbn: str | None, num_pag: in
         prioridad_wishlist=prioridad_wishlist
         )
 
-def _general_checks(id_saga: int | None, num_pag: int | None, en_wishlist: bool, prioridad_wishlist: int | None):
+def _general_checks(id_saga: int | None, orden_saga: Decimal | None, num_pag: int | None, en_wishlist: bool, prioridad_wishlist: int | None):
 
     if id_saga is not None and saga_repository.get_by_id(id_saga) is None:
             raise ValueError("Saga inexistente.")
+
+    if id_saga is None and orden_saga is not None:
+        raise ValueError("No se puede organizar un libro sin saga.")
 
     if num_pag is not None and num_pag <= 0:
         raise ValueError("El libro tiene que tener un mínimo de 1 páginas.")
@@ -167,7 +176,7 @@ def _general_checks(id_saga: int | None, num_pag: int | None, en_wishlist: bool,
     if en_wishlist is False and prioridad_wishlist is not None:
         raise ValueError("Un libro que no esté en Wishlist no se puede priorizar.")
     if en_wishlist is True and prioridad_wishlist is not None:
-        if prioridad_wishlist not in range(PRIORIDAD_WISHLIST_MIN, PRIORIDAD_WISHLIST_MAX+1):
+        if prioridad_wishlist not in range(PRIORIDAD_WISHLIST_MIN, PRIORIDAD_WISHLIST_MAX+1): 
             raise ValueError("Prioridad fuera de rango")
 
 def _obligatory(titulo: str, genero: str, idioma: str):

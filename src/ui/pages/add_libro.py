@@ -1,5 +1,5 @@
 import streamlit as st
-from ui.ui_selections import select_saga, select_idioma, select_genero, add_texto, select_date, select_prioridad_wishlist, select_autor, refractor_idioma
+from ui.ui_selections import select_saga, select_idioma, select_genero, add_texto, select_date, select_prioridad_wishlist, select_autor, refractor_idioma, select_orden_saga
 from services import libro_service, autor_libro_service, autor_service
 from scraper import casa_del_libro
 import datetime as dt
@@ -92,11 +92,15 @@ st.button("Autorellenar a partir del isbn", icon=":material/search:", on_click=a
 id_autores = select_autor()
 autores_detectados = st.session_state.get("autores_detectados") or []
 if autores_detectados:
-    st.caption(f"Autores detectados: {', '.join(autores_detectados)}. Si alguno no está añadido en 'Autores', hay que añadirlo antes.")
+    st.caption(f"Autores detectados: {', '.join(autores_detectados)}. Si alguno no está añadido en 'Autores', hay que añadirlo antes")
 else:
-    st.caption("Si algún autor no está añadido en 'Autores', hay que añadirlo antes.")
+    st.caption("Si algún autor no está añadido en 'Autores', hay que añadirlo antes")
 
-id_saga = select_saga()
+col1, col2 = st.columns([0.8, 0.2])
+with col1:
+    id_saga = select_saga()
+with col2:
+    orden_saga = select_orden_saga(id_saga)
 
 col1, col2, col3, col4, col5 = st.columns([0.15, 0.15, 0.4, 0.15, 0.15])
 with col1:
@@ -129,6 +133,7 @@ if st.button("Guardar", icon="💾"):
         id_saga=id_saga,
         titulo=titulo,
         isbn=isbn,
+        orden_saga=orden_saga,
         num_pag=num_pag,
         genero=generos,
         idioma=idioma,

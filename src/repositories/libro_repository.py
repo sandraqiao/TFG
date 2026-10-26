@@ -59,6 +59,7 @@ def update(libro: Libro):
             libro_antiguo.id_saga = libro.id_saga
             libro_antiguo.titulo = libro.titulo
             libro_antiguo.isbn = libro.isbn
+            libro_antiguo.orden_saga = libro.orden_saga
             libro_antiguo.num_pag = libro.num_pag
             libro_antiguo.genero = libro.genero
             libro_antiguo.idioma = libro.idioma

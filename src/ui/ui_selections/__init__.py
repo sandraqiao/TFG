@@ -5,6 +5,7 @@ from ui.ui_selections.selections import (
     select_estado,
     select_formato,
     select_valoracion,
+    select_orden_saga,
     select_prioridad_wishlist,
     select_idioma,
     select_genero,

@@ -7,6 +7,7 @@ from decimal import Decimal
 from selenium.webdriver.common.by import By
 from utils import constants
 import re
+from selenium.common.exceptions import NoSuchElementException
 
 def get_soup(isbn: str | None = None, url: str | None = None):
     # local y windows no te deja por seguridad:
@@ -35,7 +36,10 @@ def get_soup(isbn: str | None = None, url: str | None = None):
         if not url and isbn:
             driver.get(f"https://www.casadellibro.com/?query={isbn}")
 
-            root = driver.find_element(By.CSS_SELECTOR, ".x-root-container")
+            try:
+                root = driver.find_element(By.CSS_SELECTOR, ".x-root-container")
+            except NoSuchElementException:
+                return None, url
             html = driver.execute_script("return arguments[0].shadowRoot.innerHTML", root)
             soup = BeautifulSoup(html, 'html.parser')
 
