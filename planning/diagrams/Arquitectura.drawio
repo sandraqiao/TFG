@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="q330kGsrjJDpjyJoPzdJ">
+    <mxGraphModel dx="1331" dy="679" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="MyjAhjIb2ZogR9PqXWmT-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" value="Interfaz de usuario&lt;div&gt;src/ui/&lt;/div&gt;&lt;div&gt;Páginas, formularios y visualización&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="560" x="120" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="MyjAhjIb2ZogR9PqXWmT-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" value="Servicios&lt;div&gt;src/services/&lt;/div&gt;&lt;div&gt;Lógicade negocio y validaciones&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="560" x="120" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="MyjAhjIb2ZogR9PqXWmT-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" value="Repositorios&lt;div&gt;src/repositories/&lt;/div&gt;&lt;div&gt;Consultas y operaciones de acceso a datos&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="560" x="120" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="MyjAhjIb2ZogR9PqXWmT-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;" value="Persistencia&lt;div&gt;src/database/&lt;/div&gt;&lt;div&gt;Conexión, configuración y almacenamiento&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="560" x="120" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="MyjAhjIb2ZogR9PqXWmT-6" edge="1" parent="1" source="MyjAhjIb2ZogR9PqXWmT-3" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="MyjAhjIb2ZogR9PqXWmT-2" value="">
+          <mxGeometry height="100" relative="1" width="100" as="geometry">
+            <mxPoint x="430" y="260" as="sourcePoint" />
+            <mxPoint x="530" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MyjAhjIb2ZogR9PqXWmT-7" edge="1" parent="1" source="MyjAhjIb2ZogR9PqXWmT-2" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="MyjAhjIb2ZogR9PqXWmT-1" value="">
+          <mxGeometry height="100" relative="1" width="100" as="geometry">
+            <mxPoint x="460" y="410" as="sourcePoint" />
+            <mxPoint x="560" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MyjAhjIb2ZogR9PqXWmT-8" edge="1" parent="1" source="MyjAhjIb2ZogR9PqXWmT-4" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" target="MyjAhjIb2ZogR9PqXWmT-3" value="">
+          <mxGeometry height="100" relative="1" width="100" as="geometry">
+            <mxPoint x="460" y="410" as="sourcePoint" />
+            <mxPoint x="560" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
